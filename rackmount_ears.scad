@@ -3,20 +3,23 @@ include <BOSL2/std.scad>
 
 $fn=100;
 
+/* [Base] */
 // automatically chooses the tightest fit for the rackmount ears based on the device width. If true, rack_size will be ignored.
 autosize=true;
 // rack size in inches. If autosize is true, this value will be ignored. Only 10 and 19 inch racks are supported.
-rack_size=19;
+rack_size=10; // [10:10 inch,19:19 inch]
 
 // Width of the device in mm. Will determine the width of the rackmount ears depending on rack_size. 
 device_width=201;
-// Height of the device in mm. Will determine the height of the rackmount ear in standard 44.5 mm units. The program will always choose the minimum number of units to fit the device height. Minimum is 1 unit.
+// Height of the device in mm. Will determine the height of the rackmount ear in standard HeightUnits (1HU=44.5 mm). The program will always choose the minimum number of units to fit the device height. Minimum is 1 unit.
 device_height=40;
+// Thickness of the rackmount ear.
+strength=3; 
 
-
-// Distance of the upper front bore to the front of the device
+/* [Device Bores] */
+// Distance (in mm) of the device's front bores(s) to the front of the device
 device_bore_distance_front=9.5;
-// Distance of the upper front bore to the bottom of the device
+// Distance (in mm) of the device's bottom bore(s) to the bottom of the device
 device_bore_distance_bottom=9.5;
 // distance between the bores in the horizontal direction
 device_bore_margin_horizontal=25;
@@ -32,14 +35,11 @@ device_bore_hole_head_length=1.2;
 device_bore_columns=2;
 // number of bores in the vertical direction (will be multiplied by device_bore_columns)
 device_bore_rows=2;
-// The vertical alignment of the device. If true, the device will be aligned to the center of the rackmount ear. If false, the device will be aligned to the bottom of the rackmount ear.
+// If true, the device will be aligned to the center of the rackmount ear. Otherwise it will be aligned to the bottom of the rackmount ear.
 center_device_bore_alignment=false;
 
-// Parameters
-strength=3; // max value limited by device_bore_distance_front - device_bore_hole_head_diameter/2
 
-// CONSTANTS
-PRINTING_LAYER_WIDTH=0.4; // mm
+/* [CONSTANTS (shouldn't need to be changed)] */
 CAGE_BOLT_DIAMETER=6.5;
 CHAMFER=min(strength/3,0.5);
 RACK_BORE_DISTANCE_VERTICAL=15.875;
