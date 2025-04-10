@@ -19,6 +19,14 @@
     labels: ["security"],
     enabled: true
   },
+
+  packageRules: [
+    {
+      matchUpdateTypes: ["minor", "patch"],
+      addLabels: ["automerge"],
+      matchPackageNames: [
+        "asdf-vm/asdf"
+  ],
   
   customManagers: [
     // for asdf-vm.org tool versions
