@@ -1,0 +1,42 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  major: {
+    enabled: true,
+    addLabels: ["upgrade:major"],
+  },
+  minor: {
+    enabled: true,
+    addLabels: ["upgrade:minor"],
+  },
+  patch: {
+    enabled: true,
+    addLabels: ["upgrade:patch"],
+  },
+  kubernetes: {
+    fileMatch: ["\\.y.?ml$"],
+  },
+  vulnerabilityAlerts: {
+    labels: ["security"],
+    enabled: true
+  },
+  
+  customManagers: [
+    // for asdf-vm.org tool versions
+    {
+      fileMatch: ["\.tool-versions$"],
+      customType: "regex",
+      matchStrings: [
+        "renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?( extractVersion=(?<extractVersion>.*?))?\\s.* (?<currentValue>.*)\\s"
+      ],
+      versioningTemplate: "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
+    },
+    {
+      fileMatch: ["install-asdf.sh$"],
+      customType: "regex",
+      matchStrings: [
+        "renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.*=(?<currentValue>.*)\\s"
+      ],
+      versioningTemplate: "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
+    },
+  ],
+}
