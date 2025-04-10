@@ -4,11 +4,11 @@
       "dockerfile": "Dockerfile"
     },
     "forwardPorts": [4000],
-    "postCreateCommand": "bundle install || true",
     "customizations": {
       "vscode": {
         "extensions": [
-          "rebornix.Ruby"
+            "Shopify.ruby-lsp",
+            "ms-azuretools.vscode-docker"
         ]
       }
     }
