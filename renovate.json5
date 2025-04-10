@@ -34,7 +34,7 @@
     ],
     }
   ],
-  
+
   customManagers: [
     // for asdf-vm.org tool versions
     {
