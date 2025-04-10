@@ -27,6 +27,7 @@
     {
       matchUpdateTypes: ["minor", "patch"],
       addLabels: ["automerge"],
+      automerge: true,
       matchPackageNames: [
         "asdf-vm/asdf"
     ],
