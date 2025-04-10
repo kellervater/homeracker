@@ -42,8 +42,11 @@ tar -xzf /tmp/asdf.tar.gz -C "$INSTALL_DIR"
 echo "🧹 Cleaning up..."
 rm /tmp/asdf.tar.gz
 
+# shellcheck disable=SC2016
 add_line_to_file_if_not_exists "$HOME/.bashrc" 'export PATH="$HOME/.asdf:$PATH"'
+# shellcheck disable=SC2016
 add_line_to_file_if_not_exists "$HOME/.bash_profile" 'export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"'
+# shellcheck disable=SC2016
 add_line_to_file_if_not_exists "$HOME/.bashrc" '. <(asdf completion bash)'
 
 

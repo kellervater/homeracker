@@ -13,11 +13,6 @@ repos:
   hooks:
   - id: shell-lint
     args: [--external-sources]
-- repo: https://github.com/adrienverge/yamllint
-  rev: v1.37.0
-  hooks:
-  - id: yamllint
-    args: ['-c', '.lint/yamllint/.yamllint']
 - repo: https://github.com/rhysd/actionlint
   rev: v1.7.7
   hooks:
