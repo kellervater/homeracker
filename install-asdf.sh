@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-# renovate: datasource=github-releases depName=asdf-vm/asdf
+# renovate: datasource=github-releases depName=asdf-vm/asdf versioning=semver
 ASDF_VERSION=v0.16.6
 
 add_line_to_file_if_not_exists() {
