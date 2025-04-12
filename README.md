@@ -36,6 +36,15 @@ make asdf-install # due to some bug you might need to run it twice before it wor
 > [!NOTE]
 > Since renovate is activated on this repository, this step might be reocurring due to regular udpates to plugin versions.
 
+### Install Gems
+Now you finally can install Jekyll:
+```shell
+# Install Jekyll globally
+gem install jekyll bundler
+# Install jekyll for the project
+bundle
+```
+
 ## :seedling: Bootstrapping
 I basically followed the Step-by-Step Guide: https://jekyllrb.com/docs/step-by-step/01-setup/
 
