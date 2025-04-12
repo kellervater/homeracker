@@ -21,7 +21,7 @@ The parametric models are available in the [HomeRacker GitHub Repository](https:
 - [📐 Tech Specs](#tech-specs)
   - [🧱 Supports](#supports)
   - [🔗 Connectors](#connectors)
-  - [📏 Spring Pins](#spring-pins)
+  - [📏 lock Pins](#lock-pins)
 - [🌍 Open Specs](#open-specs)
 - [❓ Why the name?](#why-the-name)
 - [📜 Licensing](#-licensing)
@@ -81,7 +81,7 @@ Assembly is straightforward and requires no tools:
 
 1. **Prepare the components**: Download the HomeRacker - Core (Todo: insert link), and print all required parts. Clean off any debris.
 2. **Connect supports and connectors**: Attach connectors to supports based on your desired configuration.
-3. **Secure with spring pins**: Use spring pins to lock parts in place. They can be inserted horizontally or vertically thanks to their square profile.
+3. **Secure with lock pins**: Use lock pins to lock parts in place. They can be inserted horizontally or vertically thanks to their square profile.
 4. **Add features**: Attach panels, shelves, and other accessories as needed.
 
 ### 💡 Assembly Tips
@@ -96,10 +96,10 @@ Assembly is straightforward and requires no tools:
    Make a parts list:
    * How many supports of what lengths (in `base units`)?
    * How many connectors of each type (pull-throughs, feet, regular)?
-   * Print a ton of spring pins. You’ll need more than you might think. The model (Todo: insert link) on Makerworld should include a 100-pin plate and a [Gridfinity](https://gridfinity.xyz/) box for storage.
+   * Print a ton of lock pins. You’ll need more than you might think. The model (Todo: insert link) on Makerworld should include a 100-pin plate and a [Gridfinity](https://gridfinity.xyz/) box for storage.
 
 2. Build layer by layer: Start with the base frame, add vertical supports, then stack intermediate/top frames.
-3. Make sure spring pins are fully inserted—gentle force might be needed.
+3. Make sure lock pins are fully inserted—gentle force might be needed.
 
 ### 🖨️ Printing Tips
 
@@ -117,7 +117,7 @@ Assembly is straightforward and requires no tools:
 The system is based on 4 core measurements:
 
 1. **15mm** – The `base_unit`. Each support has 15mm x/y dimensions, with z being a multiple of 15mm.
-2. **4mm** – Side length of spring pins and matching holes.
+2. **4mm** – Side length of lock pins and matching holes.
 3. **2mm** – Wall thickness of connectors.
 4. **0.2mm** – Tolerance added to connector interiors for print/material variances.
 
@@ -132,9 +132,9 @@ Supports are the structural spine of HomeRacker.
 Height is a multiple of 15mm (base units).  
 E.g.: A 3-unit support = 45mm tall, a 17-unit = 255mm.
 
-Each unit height includes a 4mm hole for a spring pin.
+Each unit height includes a 4mm hole for a lock pin.
 
-* Holes match spring pin dimensions (no tolerance).
+* Holes match lock pin dimensions (no tolerance).
 * Holes are convex on x and z axes for multi-directional insertion.
 
 Schematics:
@@ -172,22 +172,22 @@ Schematics:
 **Top View – Inner**
 ![Connector Inner Measurements](./img/core_connector_inner_measurement.png)
 
-### 📏 Spring Pins
+### 📏 lock Pins
 
-Spring pins hold the system together.
+lock pins hold the system together.
 
-![Spring Pin 3D](./img/core_spring_pin_3d.png)
+![lock Pin 3D](./img/core_lock_pin_3d.png)
 
 They rely on tension from their convex shape to stay in place.
 
 Schematics:
 
 **Top View**
-![Spring Pin Side](./img/core_spring_pin_top.png)
+![lock Pin Side](./img/core_lock_pin_top.png)
 
 **Side View**  
 > Don’t ask why the height is 3.791mm—it works. I left it as-is.
-![Spring Pin Side](./img/core_spring_pin_side.png)
+![lock Pin Side](./img/core_lock_pin_side.png)
 
 > I may tweak the pin grip in future versions for to make it easier to pull-out again. But the base dimensions will remain the same for compatibility.
 
@@ -249,7 +249,7 @@ My setup is as follows:
 * mostly I used the Textured PEI plate. It just works (provided you regularly clean it using Isopropyl alcohol). For the rest of the time I tried out the Cold Plate Super Track (it's nice but very hard to get your prints of the plates when it cools)
 
 All above's filament types can be be combined in any possible way (just make sure you do flow calibration before using new filaments. First ABS print turned out horribly just because I forgot to click the calibration checkbox).
-E.g.: you could print a connector in ABS, a support in PLA Matte and a spring pin in PLA and they will just fit when being assembled.
+E.g.: you could print a connector in ABS, a support in PLA Matte and a lock pin in PLA and they will just fit when being assembled.
 
 > 🛠️ **Btw:** I am not affiliated with Bambu in any way besides uploading my models to MakerWorld and occasionally making use of their Exclusive Model program. But they don't pay me for naming their products anywhere else (I wish 😉).
 
