@@ -6,10 +6,10 @@ HomeRacker is a fully modular 3D-printable rack building system for virtually an
 
 You can find all parametric and non-parametric models as well as the `f3d` files (like the `HomeRacker - Core`) on [Makerworld](https://makerworld.com/en/@kellervater)).
 
-The parametric models can be found in the [HomeRacker Github Repository](https://github.com/kellervater/homeracker/tree/main/models).
+The parametric models can be found in the [HomeRacker GitHub Repository](https://github.com/kellervater/homeracker/tree/main/models).
 
 > [!NOTE]
-> The basic HomeRacker system is also referred to as `HomeRacker - Core`. Free for everyone to use, remix, reshare.
+> The basic HomeRacker system is also referred to as `HomeRacker - Core`. Free for everyone to use, remix, and reshare.
 
 # 📑 Table of Contents
 - [🔧 Use Cases](#use-cases)
@@ -31,41 +31,41 @@ The parametric models can be found in the [HomeRacker Github Repository](https:/
 - [📋 Todos](#todos)
 
 # 🔧 Use Cases
-Initially I created HomeRacker, because I wasn't happy with any of the creations available on the Internet.
-Some where too specific by only allowing certain devices which the original creator owned. Other's "only" allowed a 10" standard but no deviations and still the need for adapters to fit the 10" standard.
-As I am currently (April 2025) starting my homelab journey I wanted a solution which is so modular that it can grow with the demands of an ongoing homelab journey without having to buy the next bigger rack or to change concepts after a while because the originally intended concept doesn't work out in the long run.
+I created HomeRacker because I was dissatisfied with the existing solutions available online.  
+Many designs were too specific, accommodating only certain devices owned by their creators. Others supported only the 10" standard, with no flexibility for deviations, often requiring additional adapters.  
+As I began my homelab journey in April 2025, I wanted a modular solution that could adapt and grow with my evolving needs. This would eliminate the need to purchase larger racks or completely change concepts when the original design no longer met my requirements.
 
 ![xkcd: The General Problem](https://imgs.xkcd.com/comics/the_general_problem.png)
 
-As it is my nature to overengineer everything, I came up with a more generic solution to serve ANY "racking needs". Be it to build a small rack for a few Raspberry Pi's, a 10" standard rack for HomeLabs or even a 19" standard rack (still working on that though). You can even create book shelfs, shoe racks or combine all of the above in an abomination of a rack.
+As it is my nature to overengineer everything, I came up with a more generic solution to serve ANY "racking needs." Be it to build a small rack for a few Raspberry Pi's, a 10" standard rack for homelabs, or even a 19" standard rack (still working on that though). You can even create bookshelves, shoe racks, or combine all of the above in an abomination of a rack.
 
-To give you an idea of how this may look like (10" rack, half constructed PI mini-rack, book shelf):
+To give you an idea of how this may look (10" rack, half-constructed Pi mini-rack, bookshelf):
 ![Real Life Example](./img/real_life_example.jpg)
 
-Aside from the basic [building blocks](#basic-building-blocks) above's racks also contain following parts:
-* 10" Rack
+Aside from the basic [building blocks](#basic-building-blocks), the rack above also contain the following parts:
+* **10" Rack**
   * HomeRacker - 10" Rackmount Kit (Todo: link to Makerworld Model) for standard height units
   * Raspi 5 Mount Kit
     * Vertical Mount Adapter for HomeRacker
     * Front-Panel for 10" racks
-  * Rackmount Ears for the Switch. These are fully customizable rackmount ears which I created as [openSCAD file](./models/rackmount_ears/rackmount_ears.scad). You can customize it directly [here](https://makerworld.com/en/models/1259227-fully-customizable-rackmount-ears#profileId-1283271).
-  * HomeRacker Airflow Kit (Todo: link to Makerworld Model) which consists of
+  * Rackmount Ears for the Switch. These are fully customizable rackmount ears which I created as an [openSCAD file](./models/rackmount_ears/rackmount_ears.scad). You can customize it directly [here](https://makerworld.com/en/models/1259227-fully-customizable-rackmount-ears#profileId-1283271).
+  * HomeRacker Airflow Kit (Todo: link to Makerworld Model) which consists of:
     * Front/Back panels
     * Side panels
     * Bottom/Top panels with air intake/exhaust grid and bores for standard fans (80/92/120mm)
-* Shelf (You can build any shelf) 
+* **Shelf** (You can build any shelf)
 
 # ✨ Features
 The `HomeRacker - Core` features:
-* Full modularity - Due to the support-connector system you can scale out in any spatial dimension accessible to humans. Only limit may the material strength.
-* 3D-printable - The entire core system is printable and no additional tools are required to assemble it. No need to include batteries here
-* No supports - Not a single part of the core system needs printed supports.
-* OpenSource - Feel free to build your own adapters and/or use it in all your personal or commercial projects (see [Open Standard](#open-standard) and [Licensing](#-licensing) for details).
+* **Full modularity** - Due to the support-connector system, you can scale out in any spatial dimension accessible to humans. The only limit may be the material strength (set aside money, space and time).
+* **3D-printable** - The entire core system is printable, and no additional tools are required to assemble it.
+* **No supports** - Not a single part of the core system needs printed supports.
+* **OpenSource** - Feel free to build your own adapters and/or use it in all your personal or commercial projects (see [Open Standard](#open-standard) and [Licensing](#-licensing) for details).
 
 ## ⚙️ How it works
-> **tl;dr** Think of a rack shape, you want to build, download the model (insert link), print it, assemble it, (add your own mounts/adapters/younameit)
+> **tl;dr** Think of a rack shape you want to build, download the model (insert link), print it, assemble it, and add your own mounts/adapters/you-name-it.
 
-I might post a YouTube Video here to outline how it works.
+I might post a YouTube video here to outline how it works.
 
 ### 🛠️ Assembly Basics
 
@@ -75,30 +75,30 @@ The assembly process for the `HomeRacker - Core` system is straightforward and r
 
 1. **Prepare the Components**: Download the HomeRacker-Core (Todo: insert link) and print all parts required to assemble your specific rack. Ensure the parts are clean and free of debris.
 2. **Connect Supports and Connectors**: Attach the connectors to the supports as per your desired configuration. The modular design allows for flexibility in size and shape.
-3. **Secure with Spring Pins**: Use the spring pins to lock the connectors and supports in place. This ensures stability and prevents accidental disassembly. Due to their quadratic profile they can be inserted horizontally or vertically. 
-4. **Add Additional Features**: (not part of the core system) Depending on your use case, attach shelves, panels, or other accessories to complete your rack.
+3. **Secure with Spring Pins**: Use the spring pins to lock the connectors and supports in place. This ensures stability and prevents accidental disassembly. Due to their quadratic profile, they can be inserted horizontally or vertically. 
+4. **Add Additional Features**: Depending on your use case, attach shelves, panels, or other accessories to complete your rack (not part of the core system though).
 
 ### 💡 Assembly Tips
 
 > [!NOTE]
-> **Pro-Tip** I created a sample 10" Cyberpunk-themed 3D model on Makerlab (todo: insert link), where you can get an idea of which parts are needed for such a model.  
+> **Pro-Tip**: I created a sample 10" Cyberpunk-themed 3D model on Makerlab (todo: insert link), where you can get an idea of which parts are needed for such a model.  
 
-1. Make sure you have a clear idea what you want to build and make a list of materials you need. 
-Otherwhise you'll end up with an army of parts like me:
+1. Make sure you have a clear idea of what you want to build and make a list of materials you need.  
+Otherwise, you'll end up with an army of parts like me:
 ![Army of Parts](./img/homeracker_army.jpg)
 So, best make a list of materials containing:
-  * How many supports of what length (measured in `base_units`)
+  * How many supports of what length (measured in `base units`)
   * How many connectors of what dimensional scope? (Do you need Pull-Throughs, Feet, normal connectors?)
-  * Just print a shitload of spring pins. You'll need more than you think. The model (todo: insert link) on Makerworld should contain a plate with a 100 spring pins and a [Gridfinity](https://gridfinity.xyz/) box to store them. Print one copy and you should be off to a good start.
-2. Assemble layer-by-layer. Start with the bottom frame, then add vertical supports to it. Then build the intermediate/top frame(s) and put them onto the vertical supports. Repeat till satisfied!
+  * Print a large number of spring pins. You'll need more than you think. The model (todo: insert link) on Makerworld should contain a plate with 100 spring pins and a [Gridfinity](https://gridfinity.xyz/) box to store them. Print one copy, and you should be off to a good start.
+2. Assemble layer-by-layer. Start with the bottom frame, then add vertical supports to it. Then build the intermediate/top frame(s) and put them onto the vertical supports. Repeat until satisfied!
 3. Make sure the spring pins are fully inserted! Sometimes you need to use gentle force.
 
 ### 🖨️ Printing Tips
-1. If you're unsure about bed-adhesion while printing: Add a brim to the supports. I already had 1-2 cases, where the small contact surface of the connectors caused them to loose bed-adhesion and resulted in partial failures.
-2. Anti-Warping guidelines: Always make sure to have a dust- and oil-free printing plate. A fingerprint alone already can cause warping and/or bed-ahesion failures.
+1. If you're unsure about bed adhesion while printing: Add a brim to the supports. I already had 1-2 cases where the small contact surface of the connectors caused them to lose bed adhesion and resulted in partial failures.
+2. Anti-Warping guidelines: Always make sure to have a dust- and oil-free printing plate. A fingerprint alone can cause warping and/or bed adhesion failures.
 
 > [!NOTE]
-> **PRO-Tip**: If you need to disassemble your rack for whatever reason and the spring pin fits so tight, that you would rip out your fingernail pulling on it, just press a pin from the other side onto the pin in question. This should help pulling it out.
+> **Pro-Tip**: If you need to disassemble your rack for any reason and the spring pin fits so tightly that you can't pull it out, just press a pin from the other side onto the pin in question. This should help remove it.
 
 ## 📐 Tech Specs
 > [!NOTE]
