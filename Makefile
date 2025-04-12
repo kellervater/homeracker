@@ -21,19 +21,3 @@ asdf-install: asdf-plugins  ## Install tools with asdf
 	#
 	# Install tools via asdf.
 	@asdf install
-
-
-# Jekyll
-JEKYLL_CMD = bundle exec jekyll
-
-.PHONY: serve
-serve:
-	$(JEKYLL_CMD) serve
-
-.PHONY: build
-build:
-	$(JEKYLL_CMD) build -s src -d target
-
-.PHONY: new_post
-new-post:
-	$(JEKYLL_CMD) new post
