@@ -1,4 +1,4 @@
-[What's it for?](#use-cases) | [How does it work?](#how-it-works) | [Free & OpenSource](#open-standard)
+[📚 What's it for?](#use-cases) | [⚙️ How does it work?](#how-it-works) | [🌐 Free & OpenSource](#open-standard)
 
 ![HomeRacker Assembly](./img/assembly_basics_4.png)
 
@@ -11,18 +11,26 @@ The parametric models can be found in the [HomeRacker Github Repository](https:/
 > [!NOTE]
 > The basic HomeRacker system is also referred to as `HomeRacker - Core`. Free for everyone to use, remix, reshare.
 
-# Table of Contents
-- [Use Cases](#use-cases)
-- [Open Standard](#open-standard)
-  - [Basic building blocks](#basic-building-blocks)
-    - [Supports](#supports)
-    - [Connectors](#connectors)
-    - [Spring Pins](#spring-pins)
-- [Why the name?](#why-the-name)
+# 📑 Table of Contents
+- [🔧 Use Cases](#use-cases)
+- [✨ Features](#features)
+  - [⚙️ How it works](#how-it-works)
+    - [🛠️ Assembly Basics](#assembly-basics)
+    - [💡 Assembly Tips](#assembly-tips)
+    - [🖨️ Printing Tips](#printing-tips)
+- [📐 Tech Specs](#tech-specs)
+  - [🧱 Supports](#supports)
+  - [🔗 Connectors](#connectors)
+  - [📏 Spring Pins](#spring-pins)
+- [🌍 Open Specs](#open-specs)
+- [❓ Why the name?](#why-the-name)
 - [📜 Licensing](#-licensing)
-- [Todos](#todos)
+- [🧪 Tests](#tests)
+  - [⚠️ Disclaimer](#disclaimer)
+  - [🔬 How I tested](#how-i-tested)
+- [📋 Todos](#todos)
 
-# Use Cases
+# 🔧 Use Cases
 Initially I created HomeRacker, because I wasn't happy with any of the creations available on the Internet.
 Some where too specific by only allowing certain devices which the original creator owned. Other's "only" allowed a 10" standard but no deviations and still the need for adapters to fit the 10" standard.
 As I am currently (April 2025) starting my homelab journey I wanted a solution which is so modular that it can grow with the demands of an ongoing homelab journey without having to buy the next bigger rack or to change concepts after a while because the originally intended concept doesn't work out in the long run.
@@ -47,19 +55,19 @@ Aside from the basic [building blocks](#basic-building-blocks) above's racks als
     * Bottom/Top panels with air intake/exhaust grid and bores for standard fans (80/92/120mm)
 * Shelf (You can build any shelf) 
 
-# Features
+# ✨ Features
 The `HomeRacker - Core` features:
 * Full modularity - Due to the support-connector system you can scale out in any spatial dimension accessible to humans. Only limit may the material strength.
 * 3D-printable - The entire core system is printable and no additional tools are required to assemble it. No need to include batteries here
 * No supports - Not a single part of the core system needs printed supports.
 * OpenSource - Feel free to build your own adapters and/or use it in all your personal or commercial projects (see [Open Standard](#open-standard) and [Licensing](#-licensing) for details).
 
-## How it works
+## ⚙️ How it works
 > **tl;dr** Think of a rack shape, you want to build, download the model (insert link), print it, assemble it, (add your own mounts/adapters/younameit)
 
 I might post a YouTube Video here to outline how it works.
 
-### Assembly Basics
+### 🛠️ Assembly Basics
 
 ![Assembly Basics 4 White](./img/assembly_basics_4_white.png)
 
@@ -70,7 +78,7 @@ The assembly process for the `HomeRacker - Core` system is straightforward and r
 3. **Secure with Spring Pins**: Use the spring pins to lock the connectors and supports in place. This ensures stability and prevents accidental disassembly. Due to their quadratic profile they can be inserted horizontally or vertically. 
 4. **Add Additional Features**: (not part of the core system) Depending on your use case, attach shelves, panels, or other accessories to complete your rack.
 
-### Assembly Tips
+### 💡 Assembly Tips
 
 > [!NOTE]
 > **Pro-Tip** I created a sample 10" Cyberpunk-themed 3D model on Makerlab (todo: insert link), where you can get an idea of which parts are needed for such a model.  
@@ -85,14 +93,14 @@ So, best make a list of materials containing:
 2. Assemble layer-by-layer. Start with the bottom frame, then add vertical supports to it. Then build the intermediate/top frame(s) and put them onto the vertical supports. Repeat till satisfied!
 3. Make sure the spring pins are fully inserted! Sometimes you need to use gentle force.
 
-### Printing Tips
+### 🖨️ Printing Tips
 1. If you're unsure about bed-adhesion while printing: Add a brim to the supports. I already had 1-2 cases, where the small contact surface of the connectors caused them to loose bed-adhesion and resulted in partial failures.
 2. Anti-Warping guidelines: Always make sure to have a dust- and oil-free printing plate. A fingerprint alone already can cause warping and/or bed-ahesion failures.
 
 > [!NOTE]
 > **PRO-Tip**: If you need to disassemble your rack for whatever reason and the spring pin fits so tight, that you would rip out your fingernail pulling on it, just press a pin from the other side onto the pin in question. This should help pulling it out.
 
-## Tech Specs
+## 📐 Tech Specs
 > [!NOTE]
 > To inspect the actual values I highly recommend checking out the somewhat okISH original fusion (`f3d`) files which are ALWAYS part of my Makerworld uploads. I always parameterize my designs so they can scale without problem.
 
@@ -106,7 +114,7 @@ The entire system revolves around 4 simple numbers:
 
 Now to the detailed schematics:
 
-### Supports
+### 🧱 Supports
 Supports are the spine of the HomeRacker system. They literally support the weight the rack will have to bear.
 
 ![Core Support 3D Transparent](./img/core_support_3d_transparent.png)
@@ -130,7 +138,7 @@ See the following schematics for details (front view, side view, top view):
 **Top View**  
 ![Support Top View](./img/core_support_top_profile.png)
 
-### Connectors
+### 🔗 Connectors
 Connectors are used to connect supports in 1-3 dimensions, from a straight line to extend a support, up to a 6 way connector in 3 dimensions as center piece of a complex rack structure.
 ![3D Shot of All Connectors](./img/3d_shot_all_connectors.png)
 
@@ -150,7 +158,7 @@ Here's the schematics of a basic connector:
 **Top View - Inner Measurements**
 ![Connector Outer Measurements](./img/core_connector_inner_measurement.png)
 
-### Spring Pins
+### 📏 Spring Pins
 Spring pins are used to keep supports and connectors in place, so it doesn't fall apart when moving it.
 ![Spring Pin 3D](./img/core_spring_pin_3d.png)
 
@@ -167,13 +175,13 @@ Here's the schematics of a spring pin:
 
 > I am still not a 100% convinced that the grip of the pin is good enough. Maybe I'll change that in the future to allow better grip AND better stability. We'll see. In any case, the base dimensions will stay the same to be downwards-compatible.
 
-## Open Specs
+## 🌍 Open Specs
 I created the `HomeRacker - Core` system to (maybe) be an open spec which every maker can build upon with (almost) no strings attached (see [Licensing](#-licensing) for details). Maybe it even becomes an Open "Standard" one day.
 
 Therefore I highly encourage all of you to create your own models building upon the HomeRacker system.
 If you let me know about your projects, I will feature them here on this site and cross-link them on MakerWorld (provided they get my "totally objective" stamp of approval). Just [create an issue](https://github.com/kellervater/homeracker/issues/new) here if you want to be featured!
 
-# Why the name?
+# ❓ Why the name?
 Following about four hours of research, I discovered that all my initial naming ideas (such as UniRack, OpenRack, etc.) were already in use by other creators or companies.
 
 So, HomeRacker is a bit of a tongue-in-cheek creation. It combines the practical ability to build racks for homelabs with a more humorous, if slightly concerning, potential to literally become a "homewrecker" when the joy of building racks consumes too much time that could be spent with loved ones.
@@ -191,11 +199,11 @@ These licenses apply ONLY to the `HomeRacker - Core` system and the customizable
 > [!IMPORTANT]
 > All other models and derivates of HomeRacker I created may be released under less permissive licenses. But this will be disclosed at the respective models on MakerWorld.
 
-# Tests
+# 🧪 Tests
 Of course I tested stuff... It took me 4 months from the idea to the first release here.
 Look at the prototypes:
 
-## Disclaimer
+## ⚠️ Disclaimer
 > [!WARNING]
 > This project is provided "as is" without any warranty of any kind. Use it at your own risk. The creators are not responsible for any damage, injury, or loss caused by the use of this project or its components. Always ensure proper safety precautions when assembling or using the HomeRacker system.
 
@@ -205,7 +213,7 @@ What I want to say:
 I feel like the model turned out to be really nice and versatile. That's why I shared it in the first place.
 But since I do not have control over the manufacturing conditions of any consumer of this model, I cannot give any guarantees on how your specific print will turn out in the end. There are just too much variables which not even the best model design can compensate for. (Writing this feels a bit like an upfront apology... seems like I'm a people pleaser)
 
-## How I tested
+## 🔬 How I tested
 My setup is as follows:
 * a room temperature between 17 and 25°C
 * Humidity levels between 29% and 36% (depends on when I'm doing my laundry)
@@ -221,10 +229,7 @@ E.g.: you could print a connector in ABS, a support in PLA Matte and a spring pi
 
 > 🛠️ **Btw:** I am not affiliated with Bambu in any way besides uploading my models to MakerWorld and occasionally making use of their Exclusive Model program. But they don't pay me for naming their products anywhere else (I wish 😉).
 
-## What I tested
-todo
-
-# Todos
+# 📋 Todos
 * [ ] Rename Building blocks in f3d (did bad translations from german to english there)
 * [ ] Release models on MakerLab
   * [ ] HomeRacker - Core (under above's license, non-exclusive)
