@@ -29,11 +29,12 @@
       matchUpdateTypes: ["minor", "patch"],
       addLabels: ["automerge"],
       automerge: true,
+      //  renovate docs: https://docs.renovatebot.com/configuration-options/#matchpackagenames
       matchPackageNames: [
-        ".*asdf.*",
-        ".*pre-commit.*",
-        ".*ruby.*",
-        ".*shellcheck.*"
+        "/asdf/",
+        "/pre-commit/",
+        "/ruby/",
+        "/shellcheck/"
     ],
     }
   ],
