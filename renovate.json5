@@ -31,6 +31,7 @@
       automerge: true,
       //  renovate docs: https://docs.renovatebot.com/configuration-options/#matchpackagenames
       matchPackageNames: [
+        // these are known to work with the regex slashes
         "/asdf/",
         "/pre-commit/",
         "/ruby/",
