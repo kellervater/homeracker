@@ -1,4 +1,4 @@
-[📚 What's it for?](#🔧-use-cases) | [⚙️ How does it work?](#✨-features) | [🌐 Free & OpenSource](#🌍-open-specs)
+[📚 What's it for?](#-use-cases) | [⚙️ How does it work?](#-features) | [🌐 Free & OpenSource](#-open-specs)
 
 ![HomeRacker Assembly](./img/assembly_basics_4.png)
 
@@ -12,23 +12,23 @@ The parametric models are available in the [HomeRacker GitHub Repository](https:
 > The basic HomeRacker system is also referred to as `HomeRacker - Core`. Free for everyone to use, remix, and reshare.
 
 # 📑 Table of Contents
-- [🔧 Use Cases](#🔧-use-cases)
-- [✨ Features](#✨-features)
-  - [⚙️ How it works](#⚙️-how-it-works)
-    - [🛠️ Assembly Basics](#🛠️-assembly-basics)
-    - [💡 Assembly Tips](#💡-assembly-tips)
-    - [🖨️ Printing Tips](#🖨️-printing-tips)
-- [📐 Tech Specs](#📐-tech-specs)
-  - [🧱 Supports](#🧱-supports)
-  - [🔗 Connectors](#🔗-connectors)
-  - [📏 Lock Pins](#📏-lock-pins)
-  - [🌍 Open Specs](#🌍-open-specs)
-- [❓ Why the name?](#❓-why-the-name)
-- [📜 Licensing](#📜-licensing)
-- [🧪 Tests](#🧪-tests)
-  - [⚠️ Disclaimer](#⚠️-disclaimer)
-  - [🔬 How I tested](#🔬-how-i-tested)
-- [📋 Todos](#📋-todos)
+- [🔧 Use Cases](#-use-cases)
+- [✨ Features](#-features)
+  - [⚙️ How it works](#-how-it-works)
+    - [🛠️ Assembly Basics](#-assembly-basics)
+    - [💡 Assembly Tips](#-assembly-tips)
+    - [🖨️ Printing Tips](#-printing-tips)
+- [📐 Tech Specs](#-tech-specs)
+  - [🧱 Supports](#-supports)
+  - [🔗 Connectors](#-connectors)
+  - [📏 Lock Pins](#-lock-pins)
+  - [🌍 Open Specs](#-open-specs)
+- [❓ Why the name?](#-why-the-name)
+- [📜 Licensing](#-licensing)
+- [🧪 Tests](#-tests)
+  - [⚠️ Disclaimer](#-disclaimer)
+  - [🔬 How I tested](#-how-i-tested)
+- [📋 Todos](#-todos)
 
 # 🔧 Use Cases
 I created HomeRacker because I was dissatisfied with the existing solutions available online.  
@@ -66,7 +66,7 @@ The `HomeRacker - Core` features:
 * **Fully modular** – Thanks to the support-connector system, you can scale in any direction. The only limits are material strength—and how much money, space, and time you have.
 * **3D-printable** – The entire core system is printable, and no tools are required for assembly.
 * **No supports needed** – Not a single part of the core system needs printed supports.
-* **OpenSource** – Build your own adapters and use the system in personal or commercial projects (see [🌍 Open Specs](#🌍-open-specs) and [📜 Licensing](#📜-licensing) for details).
+* **OpenSource** – Build your own adapters and use the system in personal or commercial projects (see [🌍 Open Specs](#-open-specs) and [📜 Licensing](#-licensing) for details).
 
 ## ⚙️ How it works
 > **tl;dr** Think of a rack shape you want to build, download the model (insert link), print it, assemble it, and add your own mounts/adapters/whatever-you-like.
@@ -192,7 +192,7 @@ Schematics:
 ## 🌍 Open Specs
 
 I created `HomeRacker - Core` to be an open spec that any maker can build on, with (almost) no strings attached.  
-(See [📜 Licensing](#📜-licensing) for more.)
+(See [📜 Licensing](#-licensing) for more.)
 
 I encourage you to make your own models based on HomeRacker!  
 Let me know, and I’ll feature your work on this page and cross-link it on Makerworld (subject to my "very objective" approval 😄).  
