@@ -30,7 +30,9 @@
       addLabels: ["automerge"],
       automerge: true,
       matchPackageNames: [
-        "asdf-vm/asdf"
+        "asdf-vm/asdf",
+        "pre-commit",
+        "ruby"
     ],
     }
   ],
