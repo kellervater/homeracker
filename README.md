@@ -1,4 +1,4 @@
-[📚 What's it for?](#use-cases) | [⚙️ How does it work?](#how-it-works) | [🌐 Free & OpenSource](#open-standard)
+[📚 What's it for?](#🔧-use-cases) | [⚙️ How does it work?](#✨-features) | [🌐 Free & OpenSource](#🌍-open-specs)
 
 ![HomeRacker Assembly](./img/assembly_basics_4.png)
 
@@ -8,27 +8,27 @@ You can find all parametric and non-parametric models, as well as the `.f3d` fil
 
 The parametric models are available in the [HomeRacker GitHub Repository](https://github.com/kellervater/homeracker/tree/main/models).
 
-> [!NOTE]
+> 💡 **Note**
 > The basic HomeRacker system is also referred to as `HomeRacker - Core`. Free for everyone to use, remix, and reshare.
 
 # 📑 Table of Contents
-- [🔧 Use Cases](#use-cases)
-- [✨ Features](#features)
-  - [⚙️ How it works](#how-it-works)
-    - [🛠️ Assembly Basics](#assembly-basics)
-    - [💡 Assembly Tips](#assembly-tips)
-    - [🖨️ Printing Tips](#printing-tips)
-- [📐 Tech Specs](#tech-specs)
-  - [🧱 Supports](#supports)
-  - [🔗 Connectors](#connectors)
-  - [📏 Lock Pins](#lock-pins)
-- [🌍 Open Specs](#open-specs)
-- [❓ Why the name?](#why-the-name)
-- [📜 Licensing](#-licensing)
-- [🧪 Tests](#tests)
-  - [⚠️ Disclaimer](#disclaimer)
-  - [🔬 How I tested](#how-i-tested)
-- [📋 Todos](#todos)
+- [🔧 Use Cases](#🔧-use-cases)
+- [✨ Features](#✨-features)
+  - [⚙️ How it works](#⚙️-how-it-works)
+    - [🛠️ Assembly Basics](#🛠️-assembly-basics)
+    - [💡 Assembly Tips](#💡-assembly-tips)
+    - [🖨️ Printing Tips](#🖨️-printing-tips)
+- [📐 Tech Specs](#📐-tech-specs)
+  - [🧱 Supports](#🧱-supports)
+  - [🔗 Connectors](#🔗-connectors)
+  - [📏 Lock Pins](#📏-lock-pins)
+  - [🌍 Open Specs](#🌍-open-specs)
+- [❓ Why the name?](#❓-why-the-name)
+- [📜 Licensing](#📜-licensing)
+- [🧪 Tests](#🧪-tests)
+  - [⚠️ Disclaimer](#⚠️-disclaimer)
+  - [🔬 How I tested](#🔬-how-i-tested)
+- [📋 Todos](#📋-todos)
 
 # 🔧 Use Cases
 I created HomeRacker because I was dissatisfied with the existing solutions available online.  
@@ -44,14 +44,14 @@ To give you an idea of how this may look (10" rack, half-constructed Pi mini-rac
 
 ![Real Life Example](./img/real_life_example.jpg)
 
-Aside from the basic [building blocks](#basic-building-blocks), the rack above also contains the following parts:
+Aside from the basic [building blocks](#📐-tech-specs), the rack above also contains the following parts:
 
 * **10" Rack**
   * HomeRacker - 10" Rackmount Kit (Todo: link to Makerworld model) for standard-height units
   * Raspi 5 Mount Kit:
     * Vertical Mount Adapter for HomeRacker
     * Front panel for 10" racks
-  * Rackmount ears for the switch. These are fully customizable rackmount ears I created as an [OpenSCAD file](./models/rackmount_ears/rackmount_ears.scad). You can customize it directly [here](https://makerworld.com/en/models/1259227-fully-customizable-rackmount-ears#profileId-1283271).
+  * Rackmount ears for the switch. These are fully customizable rackmount ears I created as an [OpenSCAD file](https://github.com/kellervater/homeracker/blob/main/models/rackmount_ears/rackmount_ears.scad). You can customize it directly [here](https://makerworld.com/en/models/1259227-fully-customizable-rackmount-ears#profileId-1283271).
   * HomeRacker Airflow Kit (Todo: link to Makerworld model), which consists of:
     * Front/back panels
     * Side panels
@@ -66,7 +66,7 @@ The `HomeRacker - Core` features:
 * **Fully modular** – Thanks to the support-connector system, you can scale in any direction. The only limits are material strength—and how much money, space, and time you have.
 * **3D-printable** – The entire core system is printable, and no tools are required for assembly.
 * **No supports needed** – Not a single part of the core system needs printed supports.
-* **OpenSource** – Build your own adapters and use the system in personal or commercial projects (see [Open Standard](#open-standard) and [Licensing](#-licensing) for details).
+* **OpenSource** – Build your own adapters and use the system in personal or commercial projects (see [🌍 Open Specs](#🌍-open-specs) and [📜 Licensing](#📜-licensing) for details).
 
 ## ⚙️ How it works
 > **tl;dr** Think of a rack shape you want to build, download the model (insert link), print it, assemble it, and add your own mounts/adapters/whatever-you-like.
@@ -86,8 +86,7 @@ Assembly is straightforward and requires no tools:
 
 ### 💡 Assembly Tips
 
-> [!NOTE]
-> **Pro Tip**: I created a sample 10" Cyberpunk-themed 3D model on MakerWorld (❗Todo: insert link) for inspiration.
+> 💡 **Pro Tip**: I created a sample 10" Cyberpunk-themed 3D model on MakerWorld (❗Todo: insert link) for inspiration.
 
 1. Plan ahead! Otherwise, you'll end up with an army of unused parts like me:
 
@@ -106,13 +105,11 @@ Assembly is straightforward and requires no tools:
 1. If bed adhesion is sketchy: Add a brim to the supports. The small contact surface on connectors can cause print failures.
 2. Prevent warping: Keep the print bed clean and oil-free. Even a fingerprint can cause issues.
 3. When printing new filament: Make sure to calibrate the material flow!
-> [!NOTE]
-> **Pro Tip**: If you need to disassemble and the pin is stuck, push it from the other side with another pin to release it.
+> 💡 **Pro Tip**: If you need to disassemble and the pin is stuck, push it from the other side with another pin to release it.
 
 ## 📐 Tech Specs
 
-> [!NOTE]
-> For actual dimensions, check out the original Fusion `.f3d` files on Makerworld. All designs are fully parameterized for easy scaling.
+> 💡 **Note** - For actual dimensions, check out the original Fusion `.f3d` files on Makerworld. All designs are fully parameterized for easy scaling.
 
 The system is based on 4 core measurements:
 
@@ -160,7 +157,7 @@ Types:
 * **Pull-Through** – Open center for complex builds (e.g. 10" rack).
 * **Feet** – Solid end pieces; used as rack feet.
 
-> [!IMPORTANT]
+> ❗ **Important**
 > Connector centers are always 1 `base_unit` in height. No offsets, no fluff.  
 > So: 2 × 3-unit supports + 1 connector = exactly 7 base units (105mm).
 
@@ -187,6 +184,7 @@ Schematics:
 
 **Side View**  
 > Don’t ask why the height is 3.791mm—it works. I left it as-is.
+
 ![lock Pin Side](./img/core_lock_pin_side.png)
 
 > I may tweak the pin grip in future versions for to make it easier to pull-out again. But the base dimensions will remain the same for compatibility.
@@ -194,7 +192,7 @@ Schematics:
 ## 🌍 Open Specs
 
 I created `HomeRacker - Core` to be an open spec that any maker can build on, with (almost) no strings attached.  
-(See [Licensing](#-licensing) for more.)
+(See [📜 Licensing](#📜-licensing) for more.)
 
 I encourage you to make your own models based on HomeRacker!  
 Let me know, and I’ll feature your work on this page and cross-link it on Makerworld (subject to my "very objective" approval 😄).  
@@ -208,15 +206,15 @@ So, "HomeRacker" was born—part practical, part tongue-in-cheek. It fits the ho
 
 # 📜 Licensing
 
-> [!NOTE]
-> tl;dr – Use it for ANY purpose (even commercial), but credit me and share alike!
+> 💡 **tl;dr**
+>  – Use it for ANY purpose (even commercial), but credit me and share alike!
 
-* Source code: `MIT License` ([LICENSE](./LICENSE))
-* 3D models & creative assets (`/models/`): `CC BY 4.0 License` ([/models/LICENSE](./models/LICENSE))
+* Source code: `MIT License` ([LICENSE](https://github.com/kellervater/homeracker/blob/main/LICENSE))
+* 3D models & creative assets (`/models/`): `CC BY 4.0 License` ([/models/LICENSE](https://github.com/kellervater/homeracker/blob/main/models/LICENSE))
 
 These licenses apply to the `HomeRacker - Core` system and customizable rackmount ears.
 
-> [!IMPORTANT]
+> ❗ **Important**
 > Other models I publish may have more restrictive licenses. This will be stated clearly on Makerworld.
 
 HomeRacker is an unregistered trademark of Patrick Pötz (kellervater), first used publicly on 12.04.2025.
@@ -229,7 +227,7 @@ Look at all the prototypes:
 
 ## ⚠️ Disclaimer
 
-> [!WARNING]
+> ⚠️ **Warning**
 > This project is provided “as is,” without any warranty. Use at your own risk. I’m not responsible for damage, injury, or loss caused by using this system or its parts.
 
 
