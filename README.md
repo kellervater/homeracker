@@ -21,7 +21,7 @@ The parametric models are available in the [HomeRacker GitHub Repository](https:
 - [📐 Tech Specs](#tech-specs)
   - [🧱 Supports](#supports)
   - [🔗 Connectors](#connectors)
-  - [📏 lock Pins](#lock-pins)
+  - [📏 Lock Pins](#lock-pins)
 - [🌍 Open Specs](#open-specs)
 - [❓ Why the name?](#why-the-name)
 - [📜 Licensing](#-licensing)
@@ -79,15 +79,15 @@ I might post a YouTube video here to show how it works.
 
 Assembly is straightforward and requires no tools:
 
-1. **Prepare the components**: Download the HomeRacker - Core (Todo: insert link), and print all required parts. Clean off any debris.
+1. **Prepare the components**: Download the HomeRacker - Core (❗Todo: insert link), and print all required parts. Clean off any debris.
 2. **Connect supports and connectors**: Attach connectors to supports based on your desired configuration.
-3. **Secure with lock pins**: Use lock pins to lock parts in place. They can be inserted horizontally or vertically thanks to their square profile.
+3. **Secure with Lock Pins**: Use Lock Pins to lock parts in place. They can be inserted horizontally or vertically thanks to their square profile.
 4. **Add features**: Attach panels, shelves, and other accessories as needed.
 
 ### 💡 Assembly Tips
 
 > [!NOTE]
-> **Pro Tip**: I created a sample 10" Cyberpunk-themed 3D model on MakerWorld (Todo: insert link) for inspiration.
+> **Pro Tip**: I created a sample 10" Cyberpunk-themed 3D model on MakerWorld (❗Todo: insert link) for inspiration.
 
 1. Plan ahead! Otherwise, you'll end up with an army of unused parts like me:
 
@@ -96,10 +96,10 @@ Assembly is straightforward and requires no tools:
    Make a parts list:
    * How many supports of what lengths (in `base units`)?
    * How many connectors of each type (pull-throughs, feet, regular)?
-   * Print a ton of lock pins. You’ll need more than you might think. The model (Todo: insert link) on Makerworld should include a 100-pin plate and a [Gridfinity](https://gridfinity.xyz/) box for storage.
+   * Print a ton of Lock Pins. You’ll need more than you might think. The model (❗Todo: insert link) on Makerworld should include a 100-pin plate and a [Gridfinity](https://gridfinity.xyz/) box for storage.
 
 2. Build layer by layer: Start with the base frame, add vertical supports, then stack intermediate/top frames.
-3. Make sure lock pins are fully inserted—gentle force might be needed.
+3. Make sure Lock Pins are fully inserted—gentle force might be needed.
 
 ### 🖨️ Printing Tips
 
@@ -117,7 +117,7 @@ Assembly is straightforward and requires no tools:
 The system is based on 4 core measurements:
 
 1. **15mm** – The `base_unit`. Each support has 15mm x/y dimensions, with z being a multiple of 15mm.
-2. **4mm** – Side length of lock pins and matching holes.
+2. **4mm** – Side length of Lock Pins and matching holes.
 3. **2mm** – Wall thickness of connectors.
 4. **0.2mm** – Tolerance added to connector interiors for print/material variances.
 
@@ -132,9 +132,9 @@ Supports are the structural spine of HomeRacker.
 Height is a multiple of 15mm (base units).  
 E.g.: A 3-unit support = 45mm tall, a 17-unit = 255mm.
 
-Each unit height includes a 4mm hole for a lock pin.
+Each unit height includes a 4mm hole for a Lock Pin.
 
-* Holes match lock pin dimensions (no tolerance).
+* Holes match Lock Pin dimensions (no tolerance).
 * Holes are convex on x and z axes for multi-directional insertion.
 
 Schematics:
@@ -174,7 +174,7 @@ Schematics:
 
 ### 📏 lock Pins
 
-lock pins hold the system together.
+Lock Pins hold the system together.
 
 ![lock Pin 3D](./img/core_lock_pin_3d.png)
 
@@ -183,7 +183,7 @@ They rely on tension from their convex shape to stay in place.
 Schematics:
 
 **Top View**
-![lock Pin Side](./img/core_lock_pin_top.png)
+![lock Pin Top](./img/core_lock_pin_top.png)
 
 **Side View**  
 > Don’t ask why the height is 3.791mm—it works. I left it as-is.
@@ -219,11 +219,13 @@ These licenses apply to the `HomeRacker - Core` system and customizable rackmoun
 > [!IMPORTANT]
 > Other models I publish may have more restrictive licenses. This will be stated clearly on Makerworld.
 
+HomeRacker is an unregistered trademark of Patrick Pötz (kellervater), first used publicly on 12.04.2025.
+
 # 🧪 Tests
 
 Of course I tested stuff... It took ~4 months from idea to this release.  
 Look at all the prototypes:
-![Prototypes](./img/prototypes.jpg)
+![Photo showing a variety of HomeRacker prototypes lined up](./img/prototypes.jpg)
 
 ## ⚠️ Disclaimer
 
@@ -249,7 +251,7 @@ My setup is as follows:
 * mostly I used the Textured PEI plate. It just works (provided you regularly clean it using Isopropyl alcohol). For the rest of the time I tried out the Cold Plate Super Track (it's nice but very hard to get your prints of the plates when it cools)
 
 All above's filament types can be be combined in any possible way (just make sure you do flow calibration before using new filaments. First ABS print turned out horribly just because I forgot to click the calibration checkbox).
-E.g.: you could print a connector in ABS, a support in PLA Matte and a lock pin in PLA and they will just fit when being assembled.
+E.g.: you could print a connector in ABS, a support in PLA Matte and a Lock Pin in PLA and they will just fit when being assembled.
 
 > 🛠️ **Btw:** I am not affiliated with Bambu in any way besides uploading my models to MakerWorld and occasionally making use of their Exclusive Model program. But they don't pay me for naming their products anywhere else (I wish 😉).
 
@@ -263,3 +265,5 @@ E.g.: you could print a connector in ABS, a support in PLA Matte and a lock pin 
   * [ ] HomeRacker - Airflow Kit (exclusive)
   * [ ] HomeRacker - Shelf
 * [ ] Can we even call it a standard yet?
+* [ ] Contributing.md stub?
+* [ ] Quickstart Guide
