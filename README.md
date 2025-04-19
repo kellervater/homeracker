@@ -254,17 +254,18 @@ E.g.: you could print a connector in ABS, a support in PLA Matte and a Lock Pin 
 > 🛠️ **Btw:** I am not affiliated with Bambu in any way besides uploading my models to MakerWorld and occasionally making use of their Exclusive Model program. But they don't pay me for naming their products anywhere else (I wish 😉).
 
 # 📋 Todos
-* [ ] Rename Building blocks in f3d (did bad translations from german to english there)
+* [x] Rename Building blocks in f3d (did bad translations from german to english there)
 * [ ] Release models on MakerLab
-  * [ ] HomeRacker - Core (under above's license, non-exclusive)
+  * [x] HomeRacker - Core (under above's license, non-exclusive)
   * [ ] HomeRacker - 10" Rackmount Kit (exclusive)
-  * [ ] HomeRacker - Pi5 Mount Kit (exclusive)
+  * [x] HomeRacker - Pi5 Mount Kit (exclusive)
   * [x] Customizable Rackmount Ears
   * [ ] HomeRacker - Airflow Kit (exclusive)
   * [ ] HomeRacker - Shelf
-* [ ] Can we even call it a standard yet?
+* [x] ~~Can we even call it a standard yet?~~ -> no, just no
 * [ ] Contributing.md stub?
 * [ ] Quickstart Guide
+* [ ] Parts Catalog
 
 # Logo
 I asked ChatGPT to create a logo, and I think it turned out great — so we’ll stick with it for now. This logo will also be used as an overlay image for the thumbnails of all my 3D models that are compatible with HomeRacker.
