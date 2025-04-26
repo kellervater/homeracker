@@ -25,10 +25,10 @@ LOCK_PIN_EDGE_DISTANCE=5.5; // mm
 
 /* [Device Measurements] */
 // Width of the device in mm. Will determine how far apart the actual mounts are in width.
-device_width=104.8 // [20:0.1:500]
+device_width=100 // [20:0.1:500]
 ; // TODO test for zero cube
 // Depth of the device in mm. Will determine how far apart the actual mounts are in depth.
-device_depth=105; // [54:0.1:500]
+device_depth=99; // [54:0.1:500]
 // Height of the device in mm. Will determine how far apart the actual mounts are in height.
 device_height=25.5; // [15:0.1:500]
 
