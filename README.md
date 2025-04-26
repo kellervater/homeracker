@@ -14,10 +14,10 @@ The parametric models are available in the [HomeRacker GitHub Repository](https:
 # 📑 Table of Contents
 - [🔧 Use Cases](#-use-cases)
 - [✨ Features](#-features)
-  - [⚙️ How it works](#-how-it-works)
-    - [🛠️ Assembly Basics](#-assembly-basics)
+  - [⚙️ How it works](#%EF%B8%8F-how-it-works)
+    - [🛠️ Assembly Basics](#%EF%B8%8F-assembly-basics)
     - [💡 Assembly Tips](#-assembly-tips)
-    - [🖨️ Printing Tips](#-printing-tips)
+    - [🖨️ Printing Tips](#%EF%B8%8F-printing-tips)
 - [📐 Tech Specs](#-tech-specs)
   - [🧱 Supports](#-supports)
   - [🔗 Connectors](#-connectors)
@@ -26,7 +26,7 @@ The parametric models are available in the [HomeRacker GitHub Repository](https:
 - [❓ Why the name?](#-why-the-name)
 - [📜 Licensing](#-licensing)
 - [🧪 Tests](#-tests)
-  - [⚠️ Disclaimer](#-disclaimer)
+  - [⚠️ Disclaimer](#%EF%B8%8F-disclaimer)
   - [🔬 How I tested](#-how-i-tested)
 - [📋 Todos](#-todos)
 
@@ -44,15 +44,15 @@ To give you an idea of how this may look (10" rack, half-constructed Pi mini-rac
 
 ![Real Life Example](./img/real_life_example.jpg)
 
-Aside from the basic [building blocks](#📐-tech-specs), the rack above also contains the following parts:
+Aside from the basic [building blocks](#-tech-specs), the rack above also contains the following parts:
 
 * **10" Rack**
-  * HomeRacker - 10" Rackmount Kit (Todo: link to Makerworld model) for standard-height units
-  * Raspi 5 Mount Kit:
+  * [HomeRacker - 10" Rackmount Kit](https://makerworld.com/en/models/1353730-modular-10-server-rack#profileId-1396904) for standard-height units
+  * [Raspi 5 Mount Kit](https://makerworld.com/en/models/1324096-pi-5-snapcase-for-homeracker#profileId-1360937):
     * Vertical Mount Adapter for HomeRacker
     * Front panel for 10" racks
   * Rackmount ears for the switch. These are fully customizable rackmount ears I created as an [OpenSCAD file](https://github.com/kellervater/homeracker/blob/main/models/rackmount_ears/rackmount_ears.scad). You can customize it directly [here](https://makerworld.com/en/models/1259227-fully-customizable-rackmount-ears#profileId-1283271).
-  * HomeRacker Airflow Kit (Todo: link to Makerworld model), which consists of:
+  * [HomeRacker Airflow Kit](https://makerworld.com/en/models/1353730-modular-10-server-rack#profileId-1396904) (currently part of the 10" rack model), which consists of:
     * Front/back panels
     * Side panels
     * Bottom/top panels with air intake/exhaust grids and bores for standard fans (80/92/120mm)
@@ -255,17 +255,17 @@ E.g.: you could print a connector in ABS, a support in PLA Matte and a Lock Pin 
 
 # 📋 Todos
 * [x] Rename Building blocks in f3d (did bad translations from german to english there)
-* [ ] Release models on MakerLab
+* [x] Release models on MakerLab
   * [x] HomeRacker - Core (under above's license, non-exclusive)
-  * [ ] HomeRacker - 10" Rackmount Kit (exclusive)
+  * [x] HomeRacker - 10" Rackmount Kit (exclusive)
   * [x] HomeRacker - Pi5 Mount Kit (exclusive)
   * [x] Customizable Rackmount Ears
-  * [ ] HomeRacker - Airflow Kit (exclusive)
-  * [ ] HomeRacker - Shelf
-* [x] ~~Can we even call it a standard yet?~~ -> no, just no
+  * [x] HomeRacker - Airflow Kit (exclusive) -> under 10" Rack
+  * [x] HomeRacker - Shelf
 * [ ] Contributing.md stub?
 * [ ] Quickstart Guide
 * [ ] Parts Catalog
+* [ ] Link (maybe via table) example models
 
 # Logo
 I asked ChatGPT to create a logo, and I think it turned out great — so we’ll stick with it for now. This logo will also be used as an overlay image for the thumbnails of all my 3D models that are compatible with HomeRacker.
