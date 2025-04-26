@@ -1,0 +1,11 @@
+[BASIC]
+
+good-names=i,j,k,ex,Run,_,pk,x,y
+
+[FORMAT]
+
+max-line-length=121
+
+[MESSAGES CONTROL]
+
+disable=import-error,logging-fstring-interpolation,missing-module-docstring,missing-function-docstring,missing-class-docstring,duplicate-code

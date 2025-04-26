@@ -14,4 +14,12 @@ repos:
   - id: renovate-config-validator
     args: ["--strict"]
     language_version: 20.18.0  # workaround till https://github.com/renovatebot/pre-commit-hooks/issues/2460 is fixed
+- repo: https://github.com/PyCQA/pylint
+  rev: v3.3.6
+  hooks:
+  - id: pylint
+    args:
+      [
+        "--rcfile=.lint/pylint/.pylintrc"
+      ]
 ...
