@@ -21,6 +21,8 @@ autosize=true;
 rack_size=10; // [10:10 inch,19:19 inch]
 // Asymetry Slider. CAUTION: there's no sanity check for this slider!
 asymetry=0; // [-150:0.1:150]
+// shows the distance between the rackmount ears considering the device width.
+show_distance=false;
 
 // Width of the device in mm. Will determine the width of the rackmount ears depending on rack_size.
 device_width=201;
@@ -119,11 +121,14 @@ module rackmount_ear(asym=0){
     }
 }
 
+// Ear distance
+ear_distance = show_distance ? -device_width : -CAGE_BOLT_DIAMETER;
+
 // Place the ears
 rackmount_ear(asymetry);
 
 x_mirror_plane = [1,0,0];
-translate([-device_width,0,0])
+translate([ear_distance,0,0])
 mirror(x_mirror_plane){
     rackmount_ear(-asymetry);
 }
