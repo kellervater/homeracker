@@ -19,8 +19,8 @@ RACK_WIDTH_19_INCH=482.6; // mm
 autosize=true;
 // rack size in inches. If autosize is true, this value will be ignored. Only 10 and 19 inch racks are supported.
 rack_size=10; // [10:10 inch,19:19 inch]
-// Asymetry Slider. If autosize is true, this value will be ignored. CAUTION: there's no sanity check for this slider!
-asymetry=100; // [-150:0.1:150]
+// Asymetry Slider. CAUTION: there's no sanity check for this slider!
+asymetry=0; // [-150:0.1:150]
 
 // Width of the device in mm. Will determine the width of the rackmount ears depending on rack_size.
 device_width=201;
