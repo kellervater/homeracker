@@ -114,6 +114,7 @@ module bore(){
 bore_position_x=BASE_STRENGTH+BASE_UNIT/2+TOLERANCE/2+BASE_UNIT;
 echo("bore_position_x: ", bore_position_x);
 // Assembly
+ translate([0,0,BASE_UNIT]) rotate([90,0,0])
 union(){
   difference() {
     mount();
