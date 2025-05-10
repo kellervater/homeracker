@@ -1,0 +1,12 @@
+{
+	"autodeskProduct":	"Fusion",
+	"type":	"script",
+	"author":	"kellervater (Patrick Poetz)",
+	"description":	{
+		"":	"Exports\n* Supports in all sane dimensions\n* Lock Pin\n* All Bodies which can be found in the Group \"Connectors\" and its subgroups"
+	},
+	"version":	"",
+	"supportedOS":	"windows|mac",
+	"editEnabled":	true,
+	"iconFilename":	"ScriptIcon.svg"
+}
