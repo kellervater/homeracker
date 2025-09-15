@@ -1,3 +1,4 @@
 *.3mf
 *.stl
 .vscode
+bin/OpenSCAD-*/
