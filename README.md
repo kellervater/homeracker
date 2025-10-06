@@ -1,6 +1,6 @@
 [📚 What's it for?](#-use-cases) | [⚙️ How does it work?](#-features) | [🌐 Free & OpenSource](#-open-specs)
 
-![HomeRacker Assembly](./img/assembly_basics_4.png)
+[![What is HomeRacker - YouTube video](./img/homeracker_watch_on_youtube.png)](https://youtu.be/g8k6X_axYug)
 
 HomeRacker is a fully modular 3D-printable rack-building system for virtually any “racking needs” (server rack, shoe rack, bookshelf, you name it).
 
