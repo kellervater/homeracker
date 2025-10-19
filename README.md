@@ -51,7 +51,7 @@ Aside from the basic [building blocks](#-tech-specs), the rack above also contai
   * [Raspi 5 Mount Kit](https://makerworld.com/en/models/1324096-pi-5-snapcase-for-homeracker#profileId-1360937):
     * Vertical Mount Adapter for HomeRacker
     * Front panel for 10" racks
-  * Rackmount ears for the switch. These are fully customizable rackmount ears I created as an [OpenSCAD file](https://github.com//homeracker/blob/main/models/rackmount_ears/rackmount_ears.scad). You can customize it directly [here](https://makerworld.com/en/models/1259227-fully-customizable-rackmount-ears#profileId-1283271).
+  * Rackmount ears for the switch. These are fully customizable rackmount ears I created as an [OpenSCAD file](https://github.com/kellervater/homeracker/blob/main/models/rackmount_ears/rackmount_ears.scad). You can customize it directly [here](https://makerworld.com/en/models/1259227-fully-customizable-rackmount-ears#profileId-1283271).
   * [HomeRacker Airflow Kit](https://makerworld.com/en/models/1353730-modular-10-server-rack#profileId-1396904) (currently part of the 10" rack model), which consists of:
     * Front/back panels
     * Side panels
@@ -196,7 +196,7 @@ I created `HomeRacker - Core` to be an open spec that any maker can build on, wi
 
 I encourage you to make your own models based on HomeRacker!  
 Let me know, and I’ll feature your work on this page and cross-link it on Makerworld (subject to my "very objective" approval 😄).  
-Just [create an issue](https://github.com//homeracker/issues/new) if you want to be featured.
+Just [create an issue](https://github.com/kellervater/homeracker/issues/new) if you want to be featured.
 
 # ❓ Why the name?
 
@@ -209,8 +209,8 @@ So, "HomeRacker" was born—part practical, part tongue-in-cheek. It fits the ho
 > 💡 **tl;dr**
 >  – Use it for ANY purpose (even commercial), but credit me and share alike!
 
-* Source code: `MIT License` ([LICENSE](https://github.com//homeracker/blob/main/LICENSE))
-* 3D models & creative assets (`/models/`): `CC BY 4.0 License` ([/models/LICENSE](https://github.com//homeracker/blob/main/models/LICENSE))
+* Source code: `MIT License` ([LICENSE](https://github.com/kellervater/homeracker/blob/main/LICENSE))
+* 3D models & creative assets (`/models/`): `CC BY 4.0 License` ([/models/LICENSE](https://github.com/kellervater/homeracker/blob/main/models/LICENSE))
 
 These licenses apply to the `HomeRacker - Core` system and customizable rackmount ears.
 
