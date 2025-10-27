@@ -74,6 +74,14 @@ module support(units=3) {
     
 }
 
+/**
+ * 📐 lock_pin_hole module
+ *
+ * Creates a bidirectional chamfered hole for lock pins, used in HomeRacker connectors and supports.
+ * The geometry consists of two mirrored prismoids forming a square hole with chamfered edges on both sides,
+ * allowing for easy insertion and secure locking of 4mm square lock pins.
+ * This ensures printability and mechanical strength while maintaining standard HomeRacker tolerances.
+ */
 module lock_pin_hole() {
         
     // Define one half of the hole shape in a module
