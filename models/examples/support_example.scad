@@ -10,6 +10,9 @@ use <../homeracker.scad>
 // The height of the support in base units.
 units = 3; // [1:1:50]
 
+// add x holes
+x_holes = false;
+
 // --- Examples ---
 
 // Example 1: Create a default support with 3 units
@@ -19,4 +22,4 @@ units = 3; // [1:1:50]
 // support(units=5);
 
 // Example 3: Create a taller support with 10 units
- support(units=units);
+ support(units=units, x_holes=x_holes);
