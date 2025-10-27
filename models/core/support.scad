@@ -55,6 +55,23 @@ lock_pin_outer_dimension = [lock_pin_outer_side, lock_pin_outer_side];
 lock_pin_prismoid_inner_length = base_unit/2 - lock_pin_chamfer;
 lock_pin_prismoid_outer_length = lock_pin_chamfer;
 
+/**
+ * HomeRacker Support Module
+ *
+ * Parameters:
+ *   units (int, default=3): Number of vertical base units (height) for the support.
+ *       - Each unit is 15mm tall (see base_unit).
+ *       - Typical range: 1 to 50.
+ *
+ * Produces:
+ *   A vertical support block for the HomeRacker modular rack system.
+ *   The block is sized [15mm x (units*15mm) x 15mm] and includes lock pin holes
+ *   for each unit of height, allowing secure connection with other components.
+ *
+ * Usage:
+ *   Call support(units) to generate a support of desired height.
+ *   Example: support(units=5);
+ */
 module support(units=3) {
     support_dimensions = [base_unit, base_unit*units, base_unit]; // single unit support dimensions
     
