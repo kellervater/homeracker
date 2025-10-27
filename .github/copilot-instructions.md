@@ -17,7 +17,7 @@ HomeRacker is a fully modular 3D-printable rack-building system designed for ver
 
 ## Key Components Architecture
 ### Building Blocks
-1. **Supports**: structural elements (beams) with standardized connection points as holes for lock pins
+1. **Supports**: Structural elements (beams) with standardized connection points as holes for lock pins
 2. **Connectors**: connection system for supports (front/back, left/right, up/down) - up to 6-way connections in a perpendicular 3D grid
 3. **Lock Pins**: Securing mechanism for assembled connections. Lock connectors and supports together using 4mm square pins and rely on tension friction fit.
 
