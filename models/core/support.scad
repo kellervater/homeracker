@@ -27,7 +27,7 @@ include <BOSL2/std.scad>
 
 /* [Parameters] */
 
-// The height of the support in base units.
+// The length of the support in base units.
 units = 3; // [1:1:50]
 
 /* [Hidden] */
@@ -40,6 +40,7 @@ printing_layer_height = 0.2; // in mm
 base_unit = 15; // Base unit for all core measurements in mm
 base_strength = 2; // Wall thickness in mm
 base_chamfer = 1; // Chamfer size in mm
+x_holes_chamfer = 2; // chamfer if x_holes are enabled to provide a valid printbed interface
 
 // Lock Pin Holes
 lock_pin_chamfer = 0.8; // Chamfer size in mm
@@ -59,33 +60,41 @@ lock_pin_prismoid_outer_length = lock_pin_chamfer;
  * HomeRacker Support Module
  *
  * Parameters:
- *   units (int, default=3): Number of vertical base units (height) for the support.
+ *   units (int, default=3): Number of base units (length) for the support.
  *       - Each unit is 15mm tall (see base_unit).
  *       - Typical range: 1 to 50.
+ *   x_holes (bool, default=false): If true, adds horizontal holes along the X-axis.
  *
  * Produces:
- *   A vertical support block for the HomeRacker modular rack system.
+ *   A support block for the HomeRacker modular rack system.
  *   The block is sized [15mm x (units*15mm) x 15mm] and includes lock pin holes
- *   for each unit of height, allowing secure connection with other components.
+ *   for each unit of length, allowing secure connection with other components.
  *
  * Usage:
- *   Call support(units) to generate a support of desired height.
- *   Example: support(units=5);
+ *   Call support(units) to generate a support of desired length.
+ *   Example: support(units=5, x_holes=true);
  */
-module support(units=3) {
+module support(units=3, x_holes=false) {
     support_dimensions = [base_unit, base_unit*units, base_unit]; // single unit support dimensions
     
     difference() {
-        // Single support block
+        // Single support block        
         color("darkslategray") 
         translate([0,units*base_unit/2-base_unit/2,0]) // let the support start from the origin on the y axis centered on the first unit
         cuboid(support_dimensions, chamfer=base_chamfer);
-
-        // Create a lock pin hole for each unit of height
+                
+        // Create a lock pin hole for each unit of length
         translate([0,units*base_unit/2-base_unit/2,0])
         ycopies(spacing=base_unit, n=units) {
             // the color is for testing purposes only when someone wants to visualize the hole
             color("red") lock_pin_hole();
+        }
+        if (x_holes) {
+            translate([0,units*base_unit/2-base_unit/2,0])
+            ycopies(spacing=base_unit, n=units) {
+                // the color is for testing purposes only when someone wants to visualize the hole
+                color("red") rotate([0,90,0]) lock_pin_hole();
+            }
         }
     }
     
@@ -118,5 +127,4 @@ module lock_pin_hole() {
     mirror([0, 0, 1]) {
         hole_half();
     }
-    
 }
