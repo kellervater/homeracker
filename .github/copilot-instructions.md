@@ -4,7 +4,7 @@
 HomeRacker is a fully modular 3D-printable rack-building system designed for versatile "racking needs" including server racks, shoe racks, bookshelves, and more. The project consists of:
 
 - **HomeRacker Core**: Open-spec modular building system (MIT License)
-- **3D Models**: Parametric and non-parametric models in OpenSCAD and Fusion 360 formats (CC BY 4.0)
+- **3D Models**: Parametric and non-parametric models in OpenSCAD and Fusion 360 formats (CC BY SA 4.0)
 - **Automation Scripts**: Fusion 360 export scripts for batch model generation
 - **GitHub Pages Site**: Documentation and showcase website
 
@@ -17,11 +17,9 @@ HomeRacker is a fully modular 3D-printable rack-building system designed for ver
 
 ## Key Components Architecture
 ### Building Blocks
-1. **Supports**: Vertical structural elements with standardized connection points
-2. **Connectors**: 6-way connection system for supports (front/back, left/right, up/down)
-3. **Lock Pins**: Securing mechanism for assembled connections
-4. **Rebar**: Horizontal structural reinforcement elements
-5. **Splints**: Additional reinforcement components
+1. **Supports**: structural elements (beams) with standardized connection points as holes for lock pins
+2. **Connectors**: connection system for supports (front/back, left/right, up/down) - up to 6-way connections in a perpendicular 3D grid
+3. **Lock Pins**: Securing mechanism for assembled connections. Lock connectors and supports together using 4mm square pins and rely on tension friction fit.
 
 ### Models Structure
 - `/models/rackmount_ears/`: Fully customizable rackmount ears (OpenSCAD)
@@ -74,7 +72,7 @@ HomeRacker is a fully modular 3D-printable rack-building system designed for ver
 
 ### Licensing Requirements
 - Source code: MIT License (commercial use allowed)
-- 3D models & assets: CC BY 4.0 (attribution required, share-alike)
+- 3D models & assets: CC BY SA 4.0 (attribution required, share-alike)
 - Always include proper license headers in new files
 - Credit original work when modifying existing models
 
@@ -88,7 +86,7 @@ HomeRacker is a fully modular 3D-printable rack-building system designed for ver
 
 ### Creating New Models
 1. Start with parametric design in OpenSCAD
-2. Use BOSL2 library for complex operations
+2. Prefer using BOSL2 library for all complex geometry (always lookup online docs https://github.com/BelfrySCAD/BOSL2/wiki)
 3. Include customizer parameters with proper grouping
 4. Test with common device dimensions
 5. Export STL files for immediate use
