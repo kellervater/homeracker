@@ -1,4 +1,5 @@
 *.3mf
 *.stl
 .vscode
-bin/OpenSCAD-*/
+bin/openscad/
+bin/openscad-nightly/

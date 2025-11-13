@@ -1,0 +1,68 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  // Ignore any repository config presets
+  "ignorePresets": [":all"],
+  // Force these settings to override any repository config
+  "force": {
+    "customManagers": [
+      {
+        "customType": "regex",
+        // Track OpenSCAD nightly version in install script
+        "managerFilePatterns": ["^tools/install-openscad\\.sh$"],
+        "matchStrings": [
+          "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\\s+OPENSCAD_NIGHTLY_VERSION=\"(?<currentValue>.*?)\""
+        ],
+        "datasourceTemplate": "custom.openscad-snapshots",
+        "versioningTemplate": "loose"
+      },
+      {
+        "customType": "regex",
+        // Track OpenSCAD stable version in install script
+        "managerFilePatterns": ["^tools/install-openscad\\.sh$"],
+        "matchStrings": [
+          "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\s+OPENSCAD_STABLE_VERSION=\"(?<currentValue>.*?)\""
+        ],
+        "datasourceTemplate": "github-releases",
+        "versioningTemplate": "semver"
+      }
+    ]
+  },
+  // Custom datasource for OpenSCAD nightly snapshots
+  "customDatasources": {
+    "openscad-snapshots": {
+      "defaultRegistryUrlTemplate": "https://files.openscad.org/snapshots/",
+      "format": "html",
+      // Extract version numbers from snapshot filenames like "OpenSCAD-2024.11.18-x86-64.zip"
+      "transformTemplates": [
+        "{\"releases\": $distinct($match(body, /OpenSCAD-(\\d{4}\\.\\d{2}\\.\\d{2})/g).groups[0].$string().{'version': $, 'releaseTimestamp': $})}}"
+      ]
+    }
+  },
+  // Regex managers for custom version tracking in shell scripts
+  "customManagers": [
+    {
+      "customType": "regex",
+      // Track OpenSCAD nightly version in install script
+      "managerFilePatterns": ["^tools/install-openscad\\.sh$"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\\s+OPENSCAD_NIGHTLY_VERSION=\"(?<currentValue>.*?)\""
+      ],
+      "datasourceTemplate": "custom.openscad-snapshots",
+      "versioningTemplate": "loose"
+    },
+    {
+      "customType": "regex",
+      // Track OpenSCAD stable version in install script
+      "managerFilePatterns": ["^tools/install-openscad\\.sh$"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\s+OPENSCAD_STABLE_VERSION=\"(?<currentValue>.*?)\""
+      ],
+      "datasourceTemplate": "github-releases",
+      "versioningTemplate": "semver"
+    }
+  ]
+}
+
