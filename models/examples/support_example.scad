@@ -10,7 +10,7 @@ include <../homeracker.scad>
 // The height of the support in base units.
 units = 3; // [1:1:50]
 
-// add x holes
+// Add x holes
 x_holes = false;
 
 // --- Examples ---
