@@ -27,7 +27,7 @@ include <BOSL2/std.scad>
 
 /* [Parameters] */
 
-// The length of the support in base units.
+// The length of the support in base units (Y-axis, each unit = 15mm).
 units = 3; // [1:1:50]
 
 /* [Hidden] */
