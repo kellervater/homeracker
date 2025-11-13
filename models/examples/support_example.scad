@@ -7,7 +7,7 @@ include <../homeracker.scad>
 
 /* [Parameters] */
 
-// The height of the support in base units.
+// The length (Y-axis) of the support in base units.
 units = 3; // [1:1:50]
 
 // Add x holes
