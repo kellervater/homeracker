@@ -3,7 +3,7 @@
 // This file demonstrates how to use the support module from the HomeRacker library.
 
 // Use the main homeracker library file
-use <../homeracker.scad>
+include <../homeracker.scad>
 
 /* [Parameters] */
 
