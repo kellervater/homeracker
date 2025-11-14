@@ -110,12 +110,20 @@ main() {
     local libraries_dir="${INSTALL_DIR}/libraries"
     
     log_info "Running OpenSCAD tests..."
+    log_info "INSTALL_DIR: ${INSTALL_DIR}"
+    log_info "Platform: ${PLATFORM}"
     
     # Find OpenSCAD executable
     if ! openscad_exe=$(find_openscad_exe); then
         log_error "OpenSCAD executable not found. Please install first."
+        log_info "Checked paths:"
+        log_info "  - ${INSTALL_DIR}/openscad.exe (Windows)"
+        log_info "  - ${INSTALL_DIR}/openscad (Linux)"
+        log_info "  - ${INSTALL_DIR}/OpenSCAD.AppImage (Linux)"
         exit 1
     fi
+    
+    log_info "Found OpenSCAD at: ${openscad_exe}"
     
     # Show OpenSCAD version
     local openscad_version
