@@ -70,7 +70,7 @@ smoke_test() {
     rm -f "${output_file}"
     
     # Render the test file with OPENSCADPATH set to bundled libraries
-    log_info "Rendering support_example.scad..."
+    log_info "Rendering $(basename "${test_file}")..."
     log_info "Using libraries from: ${libraries_dir}"
     if OPENSCADPATH="${libraries_dir}" "${openscad_exe}" -o "${output_file}" "${test_file}" --export-format=binstl 2>&1 | tee /tmp/openscad-test.log; then
         # Check if output file was created
