@@ -176,7 +176,7 @@ install_openscad_linux() {
     fi
     
     # Create installation directory
-    mkdir -p "${INSTALL_DIR}"
+    mkdir -p "${INSTALL_DIR}/libraries"
     
     # Download
     log_info "Downloading from ${download_url}..."
@@ -216,7 +216,7 @@ install_openscad_windows() {
     fi
     
     # Create installation directory
-    mkdir -p "${INSTALL_DIR}"
+    mkdir -p "${INSTALL_DIR}/libraries"
     
     # Download
     log_info "Downloading from ${download_url}..."
