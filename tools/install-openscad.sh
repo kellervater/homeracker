@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 #
-# OpenSCAD Nightly Installer (Cross-platform)
+# OpenSCAD Nightly Installer (Cross-platform: Windows/Linux)
 #
-# This script downloads and installs the latest OpenSCAD nightly build
-# for Windows and Linux. Version tracking is handled by Renovate Bot.
+# This script downloads and installs the latest OpenSCAD nightly build.
+# Version tracking is handled by Renovate Bot.
 #
 # Usage:
 #   ./tools/install-openscad.sh              # Install/upgrade to nightly build (default)
@@ -34,7 +34,6 @@ INSTALL_DIR="${WORKSPACE_ROOT}/bin/openscad"
 detect_platform() {
     case "$(uname -s)" in
         Linux*)     echo "linux";;
-        Darwin*)    echo "mac";;
         CYGWIN*|MINGW*|MSYS*)    echo "windows";;
         *)          echo "unknown";;
     esac
@@ -143,13 +142,6 @@ install_openscad() {
         exit 1
     fi
     
-    # Verify installation
-    local openscad_exe
-    if ! openscad_exe=$(find_openscad_exe); then
-        log_error "Installation completed but openscad executable not found"
-        exit 1
-    fi
-    
     log_success "OpenSCAD ${openscad_version} installed successfully!"
     
     # Install dependencies (BOSL2)
@@ -157,48 +149,15 @@ install_openscad() {
     "${SCRIPT_DIR}/install-dependencies.sh"
 }
 
-# Find OpenSCAD executable path
-find_openscad_exe() {
-    if [[ "${PLATFORM}" == "windows" ]]; then
-        # First try .com (better for terminal usage)
-        if [[ -f "${INSTALL_DIR}/openscad.com" ]]; then
-            echo "${INSTALL_DIR}/openscad.com"
-            return 0
-        # Fall back to .exe if .com not found
-        elif [[ -f "${INSTALL_DIR}/openscad.exe" ]]; then
-            echo "${INSTALL_DIR}/openscad.exe"
-            return 0
-        else
-            return 1
-        fi
-    else
-        # Linux/Mac: check for openscad binary or AppImage
-        if [[ -f "${INSTALL_DIR}/openscad" ]]; then
-            echo "${INSTALL_DIR}/openscad"
-            return 0
-        elif [[ -f "${INSTALL_DIR}/OpenSCAD.AppImage" ]]; then
-            echo "${INSTALL_DIR}/OpenSCAD.AppImage"
-            return 0
-        else
-            return 1
-        fi
-    fi
-}
-
 # Install OpenSCAD on Linux
 install_openscad_linux() {
     local openscad_version="$1"
     local download_url
-    local temp_file
     
     if [[ "${INSTALL_NIGHTLY}" == true ]]; then
-        # Use AppImage for nightly builds
         download_url="https://files.openscad.org/snapshots/OpenSCAD-${openscad_version}-x86_64.AppImage"
-        temp_file="/tmp/openscad-${openscad_version}.AppImage"
     else
-        # For stable, use AppImage as well
         download_url="https://files.openscad.org/OpenSCAD-${openscad_version}-x86_64.AppImage"
-        temp_file="/tmp/openscad-${openscad_version}.AppImage"
     fi
     
     log_info "Installing OpenSCAD ${openscad_version} for Linux..."
@@ -214,16 +173,15 @@ install_openscad_linux() {
     
     # Download
     log_info "Downloading from ${download_url}..."
-    if ! download_file "${download_url}" "${temp_file}"; then
+    if ! download_file "${download_url}" "${INSTALL_DIR}/OpenSCAD.AppImage"; then
         log_error "URL: ${download_url}"
         exit 1
     fi
     
-    # Move AppImage to install directory and make executable
-    mv "${temp_file}" "${INSTALL_DIR}/OpenSCAD.AppImage"
+    # Make executable
     chmod +x "${INSTALL_DIR}/OpenSCAD.AppImage"
     
-    # Create symlink for easier access
+    # Create symlink
     ln -sf "${INSTALL_DIR}/OpenSCAD.AppImage" "${INSTALL_DIR}/openscad"
 }
 

@@ -3,14 +3,20 @@ name: Validate OpenSCAD Models
 
 "on":
   push:
-    branches: [main, develop]
+    branches: [main]
     paths:
       - 'models/**/*.scad'
       - '.github/workflows/validate-models.yml'
+      - 'tools/install-openscad.sh'
+      - 'tools/install-dependencies.sh'
+      - 'tools/test-openscad.sh'
   pull_request:
     paths:
       - 'models/**/*.scad'
       - '.github/workflows/validate-models.yml'
+      - 'tools/install-openscad.sh'
+      - 'tools/install-dependencies.sh'
+      - 'tools/test-openscad.sh'
 
 jobs:
   validate:
@@ -18,127 +24,35 @@ jobs:
     permissions:
       contents: read
 
-    env:
-      # Use the same versions as in install scripts
-      # renovate: datasource=custom.openscad-snapshots
-      # depName=OpenSCAD versioning=loose
-      OPENSCAD_VERSION: "2024.11.18"
-      # renovate: datasource=github-commits
-      # depName=BelfrySCAD/BOSL2 versioning=loose
-      BOSL2_VERSION: "088d17ddd81d246fa1f0672a89a61c62958b7cee"
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install OpenSCAD (nightly)
-        run: |
-          echo "Installing OpenSCAD nightly ${OPENSCAD_VERSION}..."
+      - name: Install OpenSCAD and dependencies
+        run: ./tools/install-openscad.sh --nightly
 
-          # Download AppImage
-          APPIMAGE_URL="https://files.openscad.org/snapshots/"
-          APPIMAGE_URL+="OpenSCAD-${OPENSCAD_VERSION}-x86_64.AppImage"
-          wget -q "${APPIMAGE_URL}" -O /tmp/openscad.AppImage
-          chmod +x /tmp/openscad.AppImage
-
-          # Create installation directory matching install script structure
-          mkdir -p ./bin/openscad
-          mv /tmp/openscad.AppImage ./bin/openscad/OpenSCAD.AppImage
-          ln -sf ./bin/openscad/OpenSCAD.AppImage ./bin/openscad/openscad
-
-          # Verify installation
-          ./bin/openscad/openscad --version
-
-      - name: Install BOSL2 library
-        run: |
-          echo "Installing BOSL2 ${BOSL2_VERSION}..."
-
-          # Create libraries directory matching install script structure
-          mkdir -p ./bin/openscad/libraries
-          cd ./bin/openscad/libraries
-
-          # Download and extract BOSL2
-          BOSL2_URL="https://github.com/BelfrySCAD/BOSL2/archive/"
-          BOSL2_URL+="${BOSL2_VERSION}.tar.gz"
-          curl -L "${BOSL2_URL}" | tar xz
-          mv "BOSL2-${BOSL2_VERSION}" BOSL2
-
-          echo "BOSL2 installed to ./bin/openscad/libraries/BOSL2"
-
-      - name: Find and validate models
+      - name: Validate models
         run: |
           set -e
 
-          # Convention-based: only test files in specific subdirectories
+          # Find all .scad files in model subdirectories
           MODEL_DIRS="wallmount flexmount gridfinity rackmount_ears"
-          FAILED_MODELS=()
-          VALIDATED_COUNT=0
-
-          # Use the installed OpenSCAD from bin/openscad
-          OPENSCAD_EXE="./bin/openscad/openscad"
-          LIBRARIES_DIR="./bin/openscad/libraries"
-
-          echo "========================================="
-          echo "Finding OpenSCAD models to validate..."
-          echo "========================================="
-          echo "Using OpenSCAD: ${OPENSCAD_EXE}"
-          echo "Libraries path: ${LIBRARIES_DIR}"
-          echo ""
+          MODELS=()
 
           for dir in $MODEL_DIRS; do
-            model_path="models/${dir}"
-            if [ -d "${model_path}" ]; then
-              echo "Searching in ${model_path}/"
-              for model in "${model_path}"/*.scad; do
-                if [ -f "${model}" ]; then
-                  echo "  Found: ${model}"
-
-                  # Attempt to render to STL
-                  output_file="/tmp/$(basename ${model} .scad).stl"
-                  echo "  Rendering to ${output_file}..."
-
-                  if OPENSCADPATH="${LIBRARIES_DIR}" \
-                     "${OPENSCAD_EXE}" -o "${output_file}" \
-                     "${model}" --export-format=binstl 2>&1 \
-                     | tee "/tmp/$(basename ${model}).log"; then
-                    # Verify output file exists and is not empty
-                    if [ -f "${output_file}" ] && [ -s "${output_file}" ]
-                    then
-                      file_size=$(stat -c%s "${output_file}" 2>/dev/null \
-                        || stat -f%z "${output_file}" 2>/dev/null)
-                      echo "  ✓ SUCCESS: ${model} (${file_size} bytes)"
-                      VALIDATED_COUNT=$((VALIDATED_COUNT + 1))
-                    else
-                      echo "  ✗ FAILED: ${model} - Output file is empty"
-                      FAILED_MODELS+=("${model}")
-                    fi
-                  else
-                    echo "  ✗ FAILED: ${model} - OpenSCAD rendering error"
-                    FAILED_MODELS+=("${model}")
-                  fi
-
-                  echo ""
-                fi
-              done
-            fi
+            for model in models/${dir}/*.scad; do
+              if [ -f "${model}" ]; then
+                MODELS+=("${model}")
+              fi
+            done
           done
 
-          echo "========================================="
-          echo "Validation Results"
-          echo "========================================="
-          echo "Total models validated: ${VALIDATED_COUNT}"
+          echo "Found ${#MODELS[@]} models to validate"
 
-          if [ ${#FAILED_MODELS[@]} -gt 0 ]; then
-            echo "Failed models: ${#FAILED_MODELS[@]}"
-            for failed in "${FAILED_MODELS[@]}"; do
-              echo "  - ${failed}"
-            done
-            exit 1
-          else
-            echo "All models validated successfully! ✓"
-          fi
+          # Test all models
+          ./tools/test-openscad.sh "${MODELS[@]}"
 
-      - name: Upload render logs on failure
+      - name: Upload logs on failure
         if: failure()
         uses: actions/upload-artifact@v4
         with:
