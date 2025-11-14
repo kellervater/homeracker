@@ -24,7 +24,9 @@ INSTALL_NIGHTLY=true
 OPENSCAD_STABLE_VERSION="2021.01"
 
 # renovate: datasource=custom.openscad-snapshots depName=OpenSCAD versioning=loose
-OPENSCAD_NIGHTLY_VERSION="2024.11.18"
+OPENSCAD_NIGHTLY_VERSION_WINDOWS="2024.11.18"
+# renovate: datasource=custom.openscad-snapshots depName=OpenSCAD versioning=loose
+OPENSCAD_NIGHTLY_VERSION_LINUX="2024.11.18.ai21237"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORKSPACE_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
@@ -103,7 +105,11 @@ get_installed_version() {
 # Get OpenSCAD version based on nightly flag
 get_openscad_version() {
     if [[ "${INSTALL_NIGHTLY}" == true ]]; then
-        echo "${OPENSCAD_NIGHTLY_VERSION}"
+        if [[ "${PLATFORM}" == "linux" ]]; then
+            echo "${OPENSCAD_NIGHTLY_VERSION_LINUX}"
+        else
+            echo "${OPENSCAD_NIGHTLY_VERSION_WINDOWS}"
+        fi
     else
         echo "${OPENSCAD_STABLE_VERSION}"
     fi
