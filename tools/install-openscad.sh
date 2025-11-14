@@ -146,6 +146,7 @@ install_openscad() {
     
     # Install dependencies (BOSL2)
     log_info "Installing dependencies..."
+    chmod +x "${SCRIPT_DIR}/install-dependencies.sh"
     "${SCRIPT_DIR}/install-dependencies.sh"
 }
 
@@ -181,8 +182,10 @@ install_openscad_linux() {
     # Make executable
     chmod +x "${INSTALL_DIR}/OpenSCAD.AppImage"
     
-    # Create symlink
-    ln -sf "${INSTALL_DIR}/OpenSCAD.AppImage" "${INSTALL_DIR}/openscad"
+    # Create symlink (relative path)
+    cd "${INSTALL_DIR}"
+    ln -sf OpenSCAD.AppImage openscad
+    cd - > /dev/null
 }
 
 # Install OpenSCAD on Windows

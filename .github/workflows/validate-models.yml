@@ -29,11 +29,14 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install OpenSCAD and dependencies
-        run: ./tools/install-openscad.sh --nightly
+        run: |
+          chmod +x tools/install-openscad.sh
+          ./tools/install-openscad.sh --nightly
 
       - name: Validate models
         run: |
           set -e
+          chmod +x tools/test-openscad.sh
 
           # Find all .scad files in model subdirectories
           MODEL_DIRS="wallmount flexmount gridfinity rackmount_ears"
