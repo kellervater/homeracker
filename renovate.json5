@@ -27,6 +27,16 @@
         ],
         "datasourceTemplate": "github-releases",
         "versioningTemplate": "loose"
+      },
+      {
+        "customType": "regex",
+        // Track BOSL2 commit hash in dependencies script
+        "fileMatch": ["^tools/install-dependencies\\.sh$"],
+        "matchStrings": [
+          "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\\nBOSL2_VERSION=\"(?<currentValue>.*?)\""
+        ],
+        "datasourceTemplate": "github-commits",
+        "versioningTemplate": "loose"
       }
     ]
   },
@@ -42,39 +52,6 @@
     {
       "matchDatasources": ["custom.openscad-snapshots"],
       "extractVersion": "^OpenSCAD-(?<version>\\d{4}\\.\\d{2}\\.\\d{2})"
-    }
-  ],
-  // Regex managers for custom version tracking in shell scripts
-  "customManagers": [
-    {
-      "customType": "regex",
-      // Track OpenSCAD nightly version in install script
-      "fileMatch": ["^tools/install-openscad\\.sh$"],
-      "matchStrings": [
-        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\\nOPENSCAD_NIGHTLY_VERSION=\"(?<currentValue>.*?)\""
-      ],
-      "datasourceTemplate": "custom.openscad-snapshots",
-      "versioningTemplate": "loose"
-    },
-    {
-      "customType": "regex",
-      // Track OpenSCAD stable version in install script
-      "fileMatch": ["^tools/install-openscad\\.sh$"],
-      "matchStrings": [
-        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\nOPENSCAD_STABLE_VERSION=\"(?<currentValue>.*?)\""
-      ],
-      "datasourceTemplate": "github-releases",
-      "versioningTemplate": "semver"
-    },
-    {
-      "customType": "regex",
-      // Track BOSL2 commit hash in dependencies script
-      "fileMatch": ["^tools/install-dependencies\\.sh$"],
-      "matchStrings": [
-        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\\nBOSL2_VERSION=\"(?<currentValue>.*?)\""
-      ],
-      "datasourceTemplate": "github-commits",
-      "versioningTemplate": "loose"
     }
   ]
 }

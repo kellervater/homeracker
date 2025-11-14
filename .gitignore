@@ -3,3 +3,5 @@
 .vscode
 bin/openscad/
 bin/openscad-nightly/
+renovate_cache/
+renovate_base/
