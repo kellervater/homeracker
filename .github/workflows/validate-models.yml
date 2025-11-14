@@ -28,6 +28,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb libglu1-mesa
+
       - name: Install OpenSCAD and dependencies
         run: |
           chmod +x tools/install-openscad.sh

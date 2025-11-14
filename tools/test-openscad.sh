@@ -68,7 +68,22 @@ test_model() {
     rm -f "${output_file}"
     
     # Render the test file with OPENSCADPATH set to bundled libraries
-    if OPENSCADPATH="${libraries_dir}" "${openscad_exe}" -o "${output_file}" "${model_file}" --export-format=binstl 2>&1 | tee /tmp/openscad-test.log; then
+    # Use xvfb-run on Linux if available (needed for headless rendering in CI)
+    if [[ "${PLATFORM}" == "linux" ]] && command -v xvfb-run &> /dev/null; then
+        if OPENSCADPATH="${libraries_dir}" xvfb-run -a "${openscad_exe}" -o "${output_file}" "${model_file}" --export-format=binstl 2>&1 | tee /tmp/openscad-test.log; then
+            render_success=true
+        else
+            render_success=false
+        fi
+    else
+        if OPENSCADPATH="${libraries_dir}" "${openscad_exe}" -o "${output_file}" "${model_file}" --export-format=binstl 2>&1 | tee /tmp/openscad-test.log; then
+            render_success=true
+        else
+            render_success=false
+        fi
+    fi
+    
+    if [[ "${render_success}" == true ]]; then
         # Check if output file was created
         if [[ -f "${output_file}" ]]; then
             local file_size
