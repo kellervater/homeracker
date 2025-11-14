@@ -1,4 +1,4 @@
-[📚 What's it for?](#-use-cases) | [⚙️ How does it work?](#-features) | [🌐 Free & OpenSource](#-open-specs)
+[📚 What's it for?](#-use-cases) | [⚙️ How does it work?](#-features) | [🌐 Free & OpenSource](#-open-specs) | [🤝 Contributing](CONTRIBUTING.md)
 
 [![What is HomeRacker - YouTube video](./img/homeracker_watch_on_youtube.png)](https://youtu.be/g8k6X_axYug)
 
@@ -25,6 +25,7 @@ The parametric models are available in the [HomeRacker GitHub Repository](https:
   - [🌍 Open Specs](#-open-specs)
 - [❓ Why the name?](#-why-the-name)
 - [📜 Licensing](#-licensing)
+- [🤝 Contributing](CONTRIBUTING.md)
 - [🧪 Tests](#-tests)
   - [⚠️ Disclaimer](#%EF%B8%8F-disclaimer)
   - [🔬 How I tested](#-how-i-tested)
