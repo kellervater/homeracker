@@ -126,8 +126,14 @@ main() {
     log_info "Found OpenSCAD at: ${openscad_exe}"
     
     # Show OpenSCAD version
+    log_info "Attempting to get OpenSCAD version..."
     local openscad_version
-    openscad_version=$("${openscad_exe}" --version 2>&1 | awk '/OpenSCAD version/ {print $3}')
+    if ! openscad_version=$("${openscad_exe}" --version 2>&1 | awk '/OpenSCAD version/ {print $3}'); then
+        log_error "Failed to execute OpenSCAD"
+        log_error "Exit code: $?"
+        "${openscad_exe}" --version 2>&1 || true
+        exit 127
+    fi
     log_info "Using OpenSCAD version: ${openscad_version}"
     log_info "Using libraries from: ${libraries_dir}"
     
