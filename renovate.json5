@@ -13,7 +13,7 @@
         // Track OpenSCAD nightly version in install script
         "fileMatch": ["^tools/install-openscad\\.sh$"],
         "matchStrings": [
-          "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\\nOPENSCAD_NIGHTLY_VERSION=\"(?<currentValue>.*?)\""
+          "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\\nOPENSCAD_NIGHTLY_VERSION_(?:WINDOWS|LINUX)=\"(?<currentValue>.*?)\""
         ],
         "datasourceTemplate": "custom.openscad-snapshots",
         "versioningTemplate": "loose"
