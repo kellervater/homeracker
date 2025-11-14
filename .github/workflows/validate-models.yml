@@ -31,7 +31,7 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y xvfb libglu1-mesa
+          sudo apt-get install -y xvfb libglu1-mesa libfuse2
 
       - name: Install OpenSCAD and dependencies
         run: |
