@@ -15,6 +15,8 @@ name: Validate OpenSCAD Models
 jobs:
   validate:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     env:
       # Use the same versions as in install scripts
