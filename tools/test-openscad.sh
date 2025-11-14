@@ -14,22 +14,47 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORKSPACE_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 INSTALL_DIR="${WORKSPACE_ROOT}/bin/openscad"
 
+# Detect platform
+detect_platform() {
+    case "$(uname -s)" in
+        Linux*)     echo "linux";;
+        Darwin*)    echo "mac";;
+        CYGWIN*|MINGW*|MSYS*)    echo "windows";;
+        *)          echo "unknown";;
+    esac
+}
+
+PLATFORM=$(detect_platform)
+
 # Source common functions
 # shellcheck source=lib/common.sh
 source "${SCRIPT_DIR}/lib/common.sh"
 
-# Find OpenSCAD executable path (prefer .com for Windows console)
+# Find OpenSCAD executable path
 find_openscad_exe() {
-    # First try .com (better for terminal usage)
-    if [[ -f "${INSTALL_DIR}/openscad.com" ]]; then
-        echo "${INSTALL_DIR}/openscad.com"
-        return 0
-    # Fall back to .exe if .com not found
-    elif [[ -f "${INSTALL_DIR}/openscad.exe" ]]; then
-        echo "${INSTALL_DIR}/openscad.exe"
-        return 0
+    if [[ "${PLATFORM}" == "windows" ]]; then
+        # First try .com (better for terminal usage)
+        if [[ -f "${INSTALL_DIR}/openscad.com" ]]; then
+            echo "${INSTALL_DIR}/openscad.com"
+            return 0
+        # Fall back to .exe if .com not found
+        elif [[ -f "${INSTALL_DIR}/openscad.exe" ]]; then
+            echo "${INSTALL_DIR}/openscad.exe"
+            return 0
+        else
+            return 1
+        fi
     else
-        return 1
+        # Linux/Mac: check for openscad binary or AppImage
+        if [[ -f "${INSTALL_DIR}/openscad" ]]; then
+            echo "${INSTALL_DIR}/openscad"
+            return 0
+        elif [[ -f "${INSTALL_DIR}/OpenSCAD.AppImage" ]]; then
+            echo "${INSTALL_DIR}/OpenSCAD.AppImage"
+            return 0
+        else
+            return 1
+        fi
     fi
 }
 

@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 #
-# OpenSCAD Nightly Installer for Windows (Git Bash)
+# OpenSCAD Nightly Installer (Cross-platform)
 #
 # This script downloads and installs the latest OpenSCAD nightly build
-# for Windows. Version tracking is handled by Renovate Bot.
+# for Windows and Linux. Version tracking is handled by Renovate Bot.
 #
 # Usage:
 #   ./tools/install-openscad.sh              # Install/upgrade to nightly build (default)
@@ -29,6 +29,18 @@ OPENSCAD_NIGHTLY_VERSION="2024.11.18"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORKSPACE_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 INSTALL_DIR="${WORKSPACE_ROOT}/bin/openscad"
+
+# Detect platform
+detect_platform() {
+    case "$(uname -s)" in
+        Linux*)     echo "linux";;
+        Darwin*)    echo "mac";;
+        CYGWIN*|MINGW*|MSYS*)    echo "windows";;
+        *)          echo "unknown";;
+    esac
+}
+
+PLATFORM=$(detect_platform)
 
 # Source common functions
 # shellcheck source=lib/common.sh
@@ -67,11 +79,26 @@ EOF
 
 # Get currently installed version from binary
 get_installed_version() {
-    if [[ -f "${INSTALL_DIR}/openscad.exe" ]]; then
-        "${INSTALL_DIR}/openscad.exe" --version 2>&1 | awk '/OpenSCAD version/ {print $3}'
+    local openscad_exe
+    if [[ "${PLATFORM}" == "windows" ]]; then
+        if [[ -f "${INSTALL_DIR}/openscad.exe" ]]; then
+            openscad_exe="${INSTALL_DIR}/openscad.exe"
+        else
+            echo "none"
+            return
+        fi
     else
-        echo "none"
+        if [[ -f "${INSTALL_DIR}/openscad" ]]; then
+            openscad_exe="${INSTALL_DIR}/openscad"
+        elif [[ -f "${INSTALL_DIR}/OpenSCAD.AppImage" ]]; then
+            openscad_exe="${INSTALL_DIR}/OpenSCAD.AppImage"
+        else
+            echo "none"
+            return
+        fi
     fi
+    
+    "${openscad_exe}" --version 2>&1 | awk '/OpenSCAD version/ {print $3}'
 }
 
 # Get OpenSCAD version based on nightly flag
@@ -107,7 +134,104 @@ install_openscad() {
     local openscad_version
     openscad_version=$(get_openscad_version)
     
+    if [[ "${PLATFORM}" == "linux" ]]; then
+        install_openscad_linux "${openscad_version}"
+    elif [[ "${PLATFORM}" == "windows" ]]; then
+        install_openscad_windows "${openscad_version}"
+    else
+        log_error "Unsupported platform: ${PLATFORM}"
+        exit 1
+    fi
+    
+    # Verify installation
+    local openscad_exe
+    if ! openscad_exe=$(find_openscad_exe); then
+        log_error "Installation completed but openscad executable not found"
+        exit 1
+    fi
+    
+    log_success "OpenSCAD ${openscad_version} installed successfully!"
+    
+    # Install dependencies (BOSL2)
+    log_info "Installing dependencies..."
+    "${SCRIPT_DIR}/install-dependencies.sh"
+}
+
+# Find OpenSCAD executable path
+find_openscad_exe() {
+    if [[ "${PLATFORM}" == "windows" ]]; then
+        # First try .com (better for terminal usage)
+        if [[ -f "${INSTALL_DIR}/openscad.com" ]]; then
+            echo "${INSTALL_DIR}/openscad.com"
+            return 0
+        # Fall back to .exe if .com not found
+        elif [[ -f "${INSTALL_DIR}/openscad.exe" ]]; then
+            echo "${INSTALL_DIR}/openscad.exe"
+            return 0
+        else
+            return 1
+        fi
+    else
+        # Linux/Mac: check for openscad binary or AppImage
+        if [[ -f "${INSTALL_DIR}/openscad" ]]; then
+            echo "${INSTALL_DIR}/openscad"
+            return 0
+        elif [[ -f "${INSTALL_DIR}/OpenSCAD.AppImage" ]]; then
+            echo "${INSTALL_DIR}/OpenSCAD.AppImage"
+            return 0
+        else
+            return 1
+        fi
+    fi
+}
+
+# Install OpenSCAD on Linux
+install_openscad_linux() {
+    local openscad_version="$1"
     local download_url
+    local temp_file
+    
+    if [[ "${INSTALL_NIGHTLY}" == true ]]; then
+        # Use AppImage for nightly builds
+        download_url="https://files.openscad.org/snapshots/OpenSCAD-${openscad_version}-x86_64.AppImage"
+        temp_file="/tmp/openscad-${openscad_version}.AppImage"
+    else
+        # For stable, use AppImage as well
+        download_url="https://files.openscad.org/OpenSCAD-${openscad_version}-x86_64.AppImage"
+        temp_file="/tmp/openscad-${openscad_version}.AppImage"
+    fi
+    
+    log_info "Installing OpenSCAD ${openscad_version} for Linux..."
+    
+    # Remove old installation
+    if [[ -d "${INSTALL_DIR}" ]]; then
+        log_info "Cleaning up old installation..."
+        rm -rf "${INSTALL_DIR}"
+    fi
+    
+    # Create installation directory
+    mkdir -p "${INSTALL_DIR}"
+    
+    # Download
+    log_info "Downloading from ${download_url}..."
+    if ! download_file "${download_url}" "${temp_file}"; then
+        log_error "URL: ${download_url}"
+        exit 1
+    fi
+    
+    # Move AppImage to install directory and make executable
+    mv "${temp_file}" "${INSTALL_DIR}/OpenSCAD.AppImage"
+    chmod +x "${INSTALL_DIR}/OpenSCAD.AppImage"
+    
+    # Create symlink for easier access
+    ln -sf "${INSTALL_DIR}/OpenSCAD.AppImage" "${INSTALL_DIR}/openscad"
+}
+
+# Install OpenSCAD on Windows
+install_openscad_windows() {
+    local openscad_version="$1"
+    local download_url
+    
     if [[ "${INSTALL_NIGHTLY}" == true ]]; then
         download_url="https://files.openscad.org/snapshots/OpenSCAD-${openscad_version}-x86-64.zip"
     else
@@ -116,7 +240,7 @@ install_openscad() {
     
     local temp_file="/tmp/openscad-${openscad_version}.zip"
     
-    log_info "Installing OpenSCAD ${openscad_version}..."
+    log_info "Installing OpenSCAD ${openscad_version} for Windows..."
     
     # Remove old installation
     if [[ -d "${INSTALL_DIR}" ]]; then
@@ -149,18 +273,6 @@ install_openscad() {
     shopt -u dotglob
     
     rm -f "${temp_file}"
-    
-    # Verify installation
-    if [[ -f "${INSTALL_DIR}/openscad.exe" ]]; then
-        log_success "OpenSCAD ${openscad_version} installed successfully!"
-    else
-        log_error "Installation completed but openscad executable not found"
-        exit 1
-    fi
-    
-    # Install dependencies (BOSL2)
-    log_info "Installing dependencies..."
-    "${SCRIPT_DIR}/install-dependencies.sh"
 }
 
 # Run smoke test
