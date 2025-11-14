@@ -10,7 +10,10 @@ HomeRacker is a modular 3D-printable rack-building system. Core components use p
 
 ## Core Principles
 - **DRY, KISS, YAGNI**: Keep it simple, don't over-engineer
-- **Docs**: Concise and essential only (Use-cases, parameters, minimal examples)
+- **Be Brief**: All outputs (code, docs, issues, PRs) should be minimal and to-the-point
+  - Code: No unnecessary comments, clear variable names speak for themselves
+  - Docs: Essential info only - what/why/how in <100 lines when possible
+  - GitHub issues/PRs: Clear problem/solution, skip verbose explanations
 - **Testing**: Always test changes; use existing test files or create automated tests if feasible
 
 ## **MANDATORY** Workflow
@@ -18,7 +21,8 @@ HomeRacker is a modular 3D-printable rack-building system. Core components use p
 2. **Consult online docs** (especially BOSL2: https://github.com/BelfrySCAD/BOSL2/wiki)
 3. **Ask before proceeding** if requirements conflict with best practices
 4. **Provide outline** before implementation for confirmation
-5. **On errors**: Step back, check docs, ask user if stuck—don't iterate blindly
+5. **Test all changes** (use existing test scripts in `/tools/`. if none, create simple test cases)
+6. **On errors**: Step back, check docs, ask user if stuck—don't iterate blindly
 
 ## OpenSCAD Guidelines
 - Use BOSL2 for complex geometry

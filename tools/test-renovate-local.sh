@@ -9,7 +9,7 @@
 #   ./tools/test-renovate-local.sh
 #
 
-set -uo pipefail
+set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORKSPACE_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
@@ -76,6 +76,11 @@ log_info "Renovate dry-run started at: $(date)"
 log_info "Running in Docker container (this may take a few minutes)..."
 log_info ""
 
+# Get current branch name
+CURRENT_BRANCH=$(git -C "${WORKSPACE_ROOT}" branch --show-current)
+log_info "Testing Renovate config on branch: ${CURRENT_BRANCH}"
+log_info ""
+
 # Run renovate in dry-run mode
 # Note: MSYS_NO_PATHCONV=1 prevents Git Bash from converting paths
 MSYS_NO_PATHCONV=1 docker run --rm \
@@ -86,6 +91,7 @@ MSYS_NO_PATHCONV=1 docker run --rm \
   -e RENOVATE_TOKEN="${GITHUB_TOKEN}" \
   -e RENOVATE_REPOSITORIES="${REPO_NAME}" \
   -e RENOVATE_REQUIRE_CONFIG="ignored" \
+  -e RENOVATE_BASE_BRANCHES="${CURRENT_BRANCH}" \
   -e RENOVATE_CONFIG_FILE="/usr/src/app/mounted-renovate-config.json" \
   -v "${WIN_CONFIG_PATH}:/usr/src/app/mounted-renovate-config.json:ro" \
   -e RENOVATE_BASE_DIR="/tmp/renovate" \

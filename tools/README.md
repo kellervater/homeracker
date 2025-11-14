@@ -5,23 +5,20 @@ Automated installation of OpenSCAD for the HomeRacker workspace (Windows only at
 ## 📦 Quick Start
 
 ```bash
-# Install or upgrade to latest stable release (default)
+# Install or upgrade to latest nightly release (default)
 ./tools/install-openscad.sh
 
-# Install nightly build
+# Install nightly build (default)
 ./tools/install-openscad.sh --nightly
 
-# Install dependencies (BOSL2 library)
+# Install dependencies (BOSL2 library) - already done on a fresh install-openscad call
 ./tools/install-dependencies.sh
 
 # Check if update is available
 ./tools/install-openscad.sh --check
 
-# Run smoke test
+# Run smoke test - validates the current openscad installation against local models
 ./tools/install-openscad.sh --test
-
-# Reconfigure VS Code only
-./tools/install-openscad.sh --configure
 
 # Force reinstall
 ./tools/install-openscad.sh --force
@@ -33,11 +30,9 @@ Versions are tracked in the scripts and managed by Renovate Bot. When new releas
 
 ## 📝 Notes
 
-- **Default**: Stable release (2021.01) - recommended for compatibility with BOSL2
-- **Nightly**: Development snapshots - use `--nightly` flag for latest features
+- **Default**: Nightly snapshots - latest features and fixes
+- **Stable**: Release 2021.01 - use `--stable` flag for BOSL2 compatibility
 - **Current support**: Windows only (via Git Bash)
 - **Future**: macOS/Linux support tracked in [#40](https://github.com/kellervater/homeracker/issues/40)
-- **VS Code**: Auto-configures workspace settings after installation
 - **BOSL2**: Installed to bundled libraries directory
 - **Source**: https://files.openscad.org/
-

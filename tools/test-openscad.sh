@@ -36,7 +36,7 @@ find_openscad_exe() {
 # Run smoke test
 smoke_test() {
     local openscad_exe
-    local test_file="${WORKSPACE_ROOT}/models/examples/support_example.scad"
+    local test_file="${WORKSPACE_ROOT}/models/wallmount/wallmount.scad"
     local output_file="/tmp/homeracker-smoketest.stl"
     
     log_info "Running smoke test..."

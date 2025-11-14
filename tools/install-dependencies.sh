@@ -6,15 +6,15 @@
 # Currently installs: BOSL2
 #
 # Usage:
-#   ./bin/install-dependencies.sh              # Install all dependencies
-#   ./bin/install-dependencies.sh --check      # Check installation status
-#   ./bin/install-dependencies.sh --help       # Show help
+#   ./tools/install-dependencies.sh              # Install all dependencies
+#   ./tools/install-dependencies.sh --check      # Check installation status
+#   ./tools/install-dependencies.sh --help       # Show help
 #
 
 set -euo pipefail
 
-# renovate: datasource=github-tags depName=BelfrySCAD/BOSL2
-BOSL2_VERSION="master"
+# renovate: datasource=github-commits depName=BelfrySCAD/BOSL2 versioning=loose
+BOSL2_VERSION="088d17ddd81d246fa1f0672a89a61c62958b7cee"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORKSPACE_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
@@ -89,7 +89,7 @@ check_status() {
 # Install BOSL2
 install_bosl2() {
     local libraries_dir="$1"
-    local download_url="https://github.com/BelfrySCAD/BOSL2/archive/refs/heads/${BOSL2_VERSION}.tar.gz"
+    local download_url="https://github.com/BelfrySCAD/BOSL2/archive/${BOSL2_VERSION}.tar.gz"
     local temp_file="/tmp/bosl2-${BOSL2_VERSION}.tar.gz"
     
     log_info "Installing BOSL2 ${BOSL2_VERSION}..."

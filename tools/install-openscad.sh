@@ -6,10 +6,13 @@
 # for Windows. Version tracking is handled by Renovate Bot.
 #
 # Usage:
-#   ./bin/install-openscad.sh              # Install/upgrade to tracked version
-#   ./bin/install-openscad.sh --check      # Check current vs tracked version
-#   ./bin/install-openscad.sh --configure  # Update VS Code settings only
-#   ./bin/install-openscad.sh --help       # Show help
+#   ./tools/install-openscad.sh              # Install/upgrade to nightly build (default)
+#   ./tools/install-openscad.sh --stable     # Install stable release
+#   ./tools/install-openscad.sh --check      # Check current vs tracked version
+#   ./tools/install-openscad.sh --test       # Run smoke test
+#   ./tools/install-openscad.sh --configure  # Update VS Code settings only
+#   ./tools/install-openscad.sh --force      # Force reinstall
+#   ./tools/install-openscad.sh --help       # Show help
 #
 
 set -euo pipefail
@@ -26,7 +29,6 @@ OPENSCAD_NIGHTLY_VERSION="2024.11.18"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORKSPACE_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 INSTALL_DIR="${WORKSPACE_ROOT}/bin/openscad"
-VSCODE_SETTINGS="${WORKSPACE_ROOT}/.vscode/settings.json"
 
 # Source common functions
 # shellcheck source=lib/common.sh
@@ -43,10 +45,9 @@ Usage: $0 [OPTION]
 
 Options:
   --check       Check current installation vs tracked version
-  --configure   Update VS Code settings only (skip download)
-  --test        Run smoke test (render support_example.scad)
-  --stable      Install stable release (default for BOSL2 compatibility)
-  --nightly     Install nightly snapshot (may have BOSL2 issues)
+  --test        Run smoke test (render wallmount.scad)
+  --nightly     Install nightly snapshot (default, latest features)
+  --stable      Install stable release (for BOSL2 compatibility)
   --force       Force reinstall even if version matches
   --help        Show this help message
 
@@ -59,7 +60,6 @@ Examples:
   $0                    # Install/upgrade OpenSCAD (nightly)
   $0 --stable           # Install/upgrade OpenSCAD (stable 2021.01 for BOSL2)
   $0 --check            # Check versions
-  $0 --configure        # Reconfigure VS Code only
   $0 --test             # Verify installation with smoke test
 
 EOF
@@ -67,8 +67,8 @@ EOF
 
 # Get currently installed version from binary
 get_installed_version() {
-    if [[ -f "${INSTALL_DIR}/openscad.com" ]]; then
-        "${INSTALL_DIR}/openscad.com" --version 2>&1 | awk '/OpenSCAD version/ {print $3}'
+    if [[ -f "${INSTALL_DIR}/openscad.exe" ]]; then
+        "${INSTALL_DIR}/openscad.exe" --version 2>&1 | awk '/OpenSCAD version/ {print $3}'
     else
         echo "none"
     fi
@@ -80,21 +80,6 @@ get_openscad_version() {
         echo "${OPENSCAD_NIGHTLY_VERSION}"
     else
         echo "${OPENSCAD_STABLE_VERSION}"
-    fi
-}
-
-# Get OpenSCAD executable path (prefer .com for Windows console)
-find_openscad_exe() {
-    # First try .com (better for terminal usage)
-    if [[ -f "${INSTALL_DIR}/openscad.com" ]]; then
-        echo "${INSTALL_DIR}/openscad.com"
-        return 0
-    # Fall back to .exe if .com not found
-    elif [[ -f "${INSTALL_DIR}/openscad.exe" ]]; then
-        echo "${INSTALL_DIR}/openscad.exe"
-        return 0
-    else
-        return 1
     fi
 }
 
@@ -149,76 +134,33 @@ install_openscad() {
         exit 1
     fi
     
-    # Extract
+    # Extract (strip top-level folder)
     log_info "Extracting archive..."
-    local temp_extract="/tmp/openscad-extract-${openscad_version}"
-    rm -rf "${temp_extract}"
-    mkdir -p "${temp_extract}"
-    
-    if ! unzip -q "${temp_file}" -d "${temp_extract}"; then
+    if ! unzip -q "${temp_file}" -d "${INSTALL_DIR}"; then
         log_error "Failed to extract archive"
         rm -f "${temp_file}"
-        rm -rf "${temp_extract}"
         exit 1
     fi
     
-    # Move extracted contents to installation directory (strip top-level folder)
-    local extracted_dir
-    extracted_dir=$(find "${temp_extract}" -mindepth 1 -maxdepth 1 -type d | head -1)
-    if [[ -z "${extracted_dir}" ]]; then
-        log_error "No directory found in extracted archive"
-        rm -f "${temp_file}"
-        rm -rf "${temp_extract}"
-        exit 1
-    fi
+    # Move contents up one level (zip contains OpenSCAD-VERSION/* structure)
+    shopt -s dotglob
+    mv "${INSTALL_DIR}"/OpenSCAD-*/* "${INSTALL_DIR}/"
+    rmdir "${INSTALL_DIR}"/OpenSCAD-*
+    shopt -u dotglob
     
-    mv "${extracted_dir}"/* "${INSTALL_DIR}/"
-    
-    # Cleanup
     rm -f "${temp_file}"
-    rm -rf "${temp_extract}"
     
     # Verify installation
-    if find_openscad_exe >/dev/null; then
+    if [[ -f "${INSTALL_DIR}/openscad.exe" ]]; then
         log_success "OpenSCAD ${openscad_version} installed successfully!"
     else
         log_error "Installation completed but openscad executable not found"
         exit 1
     fi
-}
-
-# Configure VS Code settings
-configure_vscode() {
-    local openscad_exe
     
-    # Find OpenSCAD executable
-    if ! openscad_exe=$(find_openscad_exe); then
-        log_error "OpenSCAD executable not found. Please install first."
-        exit 1
-    fi
-    
-    # Convert to workspace-relative path
-    local relative_path="${openscad_exe#${WORKSPACE_ROOT}/}"
-    # Convert to forward slashes and workspace variable format
-    relative_path="${relative_path//\\/\/}"
-    
-    log_info "Configuring VS Code..."
-    
-    # Create .vscode directory if it doesn't exist
-    mkdir -p "${WORKSPACE_ROOT}/.vscode"
-    
-    # Generate settings.json with proper formatting
-    cat > "${VSCODE_SETTINGS}" << EOF
-{
-  "openscad.launchPath": "\${workspaceFolder}/${relative_path}",
-  "openscad.launchArgs": [],
-  "files.associations": {
-    "*.scad": "openscad"
-  }
-}
-EOF
-    
-    log_success "VS Code configured to use: \${workspaceFolder}/${relative_path}"
+    # Install dependencies (BOSL2)
+    log_info "Installing dependencies..."
+    "${SCRIPT_DIR}/install-dependencies.sh"
 }
 
 # Run smoke test
@@ -229,7 +171,6 @@ smoke_test() {
 # Main function
 main() {
     local check_only=false
-    local configure_only=false
     local test_only=false
     local force=false
     
@@ -238,10 +179,6 @@ main() {
         case $1 in
             --check)
                 check_only=true
-                shift
-                ;;
-            --configure)
-                configure_only=true
                 shift
                 ;;
             --test)
@@ -278,11 +215,6 @@ main() {
         exit $?
     fi
     
-    if [[ "${configure_only}" == true ]]; then
-        configure_vscode
-        exit 0
-    fi
-    
     if [[ "${test_only}" == true ]]; then
         smoke_test
         exit $?
@@ -294,9 +226,6 @@ main() {
     else
         install_openscad
     fi
-    
-    # Always configure VS Code after installation
-    configure_vscode
     
     local openscad_version
     openscad_version=$(get_openscad_version)
