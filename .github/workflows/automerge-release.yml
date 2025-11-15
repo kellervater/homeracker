@@ -1,0 +1,25 @@
+name: Automerge Release PRs
+
+on:
+  schedule:
+    # Run every Saturday at 6:00 AM UTC
+    - cron: '0 6 * * 6'
+  workflow_dispatch: # Allow manual triggering
+
+permissions: {}
+
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate GitHub App Token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.RELEASES_APP_ID }}
+          private-key: ${{ secrets.RELEASES_APP_PRIVATE_KEY }}
+      
+      - name: Automerge Release-Please PR
+        uses: camunda/infra-global-github-actions/teams/infra/pull-request/automerge@1c6cd774501c2210dd7a44bbc938508fffa80a26
+        with:
+          github-token: ${{ steps.app-token.outputs.token }}
