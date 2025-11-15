@@ -26,6 +26,7 @@ The parametric models are available in the [HomeRacker GitHub Repository](https:
 - [❓ Why the name?](#-why-the-name)
 - [📜 Licensing](#-licensing)
 - [🤝 Contributing](CONTRIBUTING.md)
+- [🚀 Releases](#-releases)
 - [🧪 Tests](#-tests)
   - [⚠️ Disclaimer](#%EF%B8%8F-disclaimer)
   - [🔬 How I tested](#-how-i-tested)
@@ -219,6 +220,17 @@ These licenses apply to the `HomeRacker - Core` system and customizable rackmoun
 > Other models I publish may have more restrictive licenses. This will be stated clearly on Makerworld.
 
 HomeRacker is an unregistered trademark of Patrick Pötz (), first used publicly on 12.04.2025.
+
+# 🚀 Releases
+
+HomeRacker uses automated releases powered by [release-please](https://github.com/googleapis/release-please):
+
+- **Automated versioning**: Follows [Semantic Versioning](https://semver.org/) based on [Conventional Commits](https://www.conventionalcommits.org/)
+- **Changelog generation**: Automatically generated from commit messages
+- **Release schedule**: Weekly releases every Monday at 9:00 AM UTC (or manual trigger)
+- **GitHub releases**: Tagged releases with changelog and version information
+
+To contribute and trigger releases, use conventional commit messages. See [CONTRIBUTING.md](CONTRIBUTING.md#-commit-conventions) for details.
 
 # 🧪 Tests
 
