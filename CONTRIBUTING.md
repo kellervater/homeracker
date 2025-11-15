@@ -61,7 +61,6 @@ This project uses [Conventional Commits](https://www.conventionalcommits.org/) f
 | `feat!:` or `fix!:` | Breaking change | **major** (x.0.0) |
 | `docs:` | Documentation only | none |
 | `chore:` | Maintenance tasks | none |
-| `perf:` | Performance improvements | **patch** (0.0.x) |
 | `refactor:` | Code restructuring | none |
 | `test:` | Adding tests | none |
 
@@ -82,9 +81,6 @@ docs: update installation instructions in README
 
 # Maintenance (no version bump)
 chore: update OpenSCAD to nightly-2024.11.20
-
-# Performance improvement (bumps patch version)
-perf: optimize connector geometry generation
 
 # With scope
 feat(wallmount): add cable management clips
