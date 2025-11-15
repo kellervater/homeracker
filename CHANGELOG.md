@@ -1,5 +1,36 @@
 # Changelog
 
+## [1.0.1](https://github.com/kellervater/homeracker/compare/v1.0.0...v1.0.1) (2025-11-15)
+
+
+### 🐛 Bug Fixes
+
+* **renovate:** openSCAD nightly versions ([#60](https://github.com/kellervater/homeracker/issues/60)) ([5e4e70d](https://github.com/kellervater/homeracker/commit/5e4e70d91e7e57b964c8d32627b85fdfee2a5708))
+* **renovate:** preserve .ai suffix for Linux OpenSCAD versions ([#63](https://github.com/kellervater/homeracker/issues/63)) ([a391cd3](https://github.com/kellervater/homeracker/commit/a391cd3bb30043bc8b1c39a97b9f6facc43c3989))
+
+
+### 📦 Dependencies
+
+* update actions/checkout action to v5 ([#54](https://github.com/kellervater/homeracker/issues/54)) ([405cd76](https://github.com/kellervater/homeracker/commit/405cd76e23cdb7dc2db850533bd16f64f6ff13c2))
+* update actions/create-github-app-token action to v2 ([#52](https://github.com/kellervater/homeracker/issues/52)) ([536396f](https://github.com/kellervater/homeracker/commit/536396f6a5c69f201b9220aa692426a66365d29a))
+* update actions/upload-artifact action to v5 ([#57](https://github.com/kellervater/homeracker/issues/57)) ([c403c66](https://github.com/kellervater/homeracker/commit/c403c66ecd8d381f67c4eac8a29dd8875b5dd30a))
+
+
+### 🔄 CI/CD
+
+* **pr titles:** fix validation ([d87e499](https://github.com/kellervater/homeracker/commit/d87e49989c7e607cca449ef6de97a872938cc08c))
+* **renovate:** activate automerge for openscad ([#64](https://github.com/kellervater/homeracker/issues/64)) ([0f1c11e](https://github.com/kellervater/homeracker/commit/0f1c11e03a4231f9589721e0c321da6783b772e4))
+* **renovate:** allow automerge for actions/chekcout ([7641f1e](https://github.com/kellervater/homeracker/commit/7641f1ecf9fea59b15cf6867f4d73ee21942a22d))
+* **renovate:** allow automerge of actions/create-github-app-token ([a78dccc](https://github.com/kellervater/homeracker/commit/a78dccc44ff00342fbc584401eded40f98f084c0))
+* **renovate:** deactivate platform automerge ([50f49ef](https://github.com/kellervater/homeracker/commit/50f49ef8e67f59cfeb19981546bdbf0be3886f43))
+* **renovate:** prettify commit prefixes ([cae76bb](https://github.com/kellervater/homeracker/commit/cae76bb4370ba0ef9767d0af0b477900ed491bd3))
+
+
+### 🔧 Miscellaneous
+
+* **deps:** update openscad nightly to v2025 ([#62](https://github.com/kellervater/homeracker/issues/62)) ([50bbaea](https://github.com/kellervater/homeracker/commit/50bbaea689a928b416e4476f7d3cd80e04a7a873))
+* **renovate:** config hygiene ([e5337de](https://github.com/kellervater/homeracker/commit/e5337de0bea5c011619c1c569b839d8666a785ad))
+
 ## 1.0.0 (2025-11-15)
 
 
