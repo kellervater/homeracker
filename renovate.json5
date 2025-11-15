@@ -5,6 +5,8 @@
   ],
   // Ignore any repository config presets
   "ignorePresets": [":all"],
+  // Disable platform-native automerge, let Renovate handle merges directly
+  "platformAutomerge": false,
   // Force these settings to override any repository config
   "force": {
     "customManagers": [
