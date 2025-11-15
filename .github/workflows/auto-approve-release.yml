@@ -1,0 +1,29 @@
+name: Auto-approve Release PRs
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  auto-approve:
+    runs-on: ubuntu-latest
+    if: |
+      github.actor == 'kellervater-release-please[bot]' &&
+      contains(github.event.pull_request.labels.*.name, 'automerge')
+    steps:
+      - name: Generate GitHub App Token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.RELEASES_APP_ID }}
+          private-key: ${{ secrets.RELEASES_APP_PRIVATE_KEY }}
+      
+      - name: Approve PR
+        run: |
+          gh pr review ${{ github.event.pull_request.number }} --approve --body "Auto-approved release PR"
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          GH_REPO: ${{ github.repository }}
