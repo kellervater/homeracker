@@ -79,6 +79,11 @@
       "groupSlug": "openscad-nightly",
       "separateMajorMinor": false,
       "automerge": true
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "matchPackageNames": ["actions/checkout", "actions/upload-artifact"],
+      "automerge": true
     }
   ]
 }
