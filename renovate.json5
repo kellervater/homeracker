@@ -82,9 +82,12 @@
     },
     {
       "matchManagers": ["github-actions"],
-      "matchPackageNames": ["actions/checkout", "actions/upload-artifact"],
+      "matchPackageNames": [
+        "actions/create-github-app-token",
+        "actions/checkout", 
+        "actions/upload-artifact"
+      ],
       "automerge": true
     }
   ]
 }
-
