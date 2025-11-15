@@ -16,7 +16,7 @@ HomeRacker is a modular 3D-printable rack-building system. Core components use p
   - GitHub issues/PRs: Clear problem/solution, skip verbose explanations
 - **Testing**: Always test changes; use existing test files or create automated tests if feasible
 - **Commits**: Use [Conventional Commits](https://www.conventionalcommits.org/) format
-  - Types: `feat`, `fix`, `docs`, `chore`, `refactor`, `test`, `perf`
+  - Types: `feat`, `fix`, `docs`, `chore`, `refactor`, `test`
   - Format: `type(scope): description` or `type: description`
   - Breaking changes: Add `!` (e.g., `feat!: change base unit`)
 

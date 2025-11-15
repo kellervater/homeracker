@@ -1,15 +1,20 @@
 {
-  "release-type": "simple",
-  "package-name": "homeracker",
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  
   "changelog-sections": [
     {"type": "feat", "section": "✨ Features"},
     {"type": "fix", "section": "🐛 Bug Fixes"},
-    {"type": "perf", "section": "⚡ Performance"},
     {"type": "docs", "section": "📚 Documentation"},
     {"type": "ci", "section": "🔄 CI/CD"},
     {"type": "test", "section": "🧪 Tests"},
-    {"type": "chore", "section": "🔧 Miscellaneous"}
+    {"type": "chore", "section": "🔧 Miscellaneous"},
+    {"type": "refactor", "section": "♻️ Code Refactoring"}
   ],
-  "bump-minor-pre-major": true,
-  "bump-patch-for-minor-pre-major": true
+  "changelog-type": "github",
+  "extra-label": "automerge",
+  "include-v-in-tag": true,
+  "packages": {
+    ".": {}
+  },
+  "release-type": "simple"
 }
