@@ -1,1 +1,6 @@
+# Default owner for everything
 * @kellervater
+
+# Release files can be approved by release bot
+CHANGELOG.md
+.release-please-manifest.json
