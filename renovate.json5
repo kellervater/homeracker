@@ -22,7 +22,7 @@
       },
       {
         "customType": "regex",
-        // Track OpenSCAD nightly Linux version - extracts from Linux .AppImage filenames  
+        // Track OpenSCAD nightly Linux version - extracts from Linux .AppImage filenames
         "fileMatch": ["^tools/install-openscad\\.sh$"],
         "matchStrings": [
           "OPENSCAD_NIGHTLY_VERSION_LINUX=\"(?<currentValue>[^\"]+)\""
