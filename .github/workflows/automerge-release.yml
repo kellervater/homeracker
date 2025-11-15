@@ -1,12 +1,13 @@
-name: Handle Release PRs
+name: Automerge Release PRs
 
 on:
-  push:
-    branches:
-      - main
+  schedule:
+    # Run every Monday at 9:00 AM UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch: # Allow manual triggering
 
 jobs:
-  release-please:
+  auto-merge:
     runs-on: ubuntu-latest
     steps:
       - name: Generate GitHub App Token
@@ -16,7 +17,7 @@ jobs:
           app-id: ${{ secrets.RELEASES_APP_ID }}
           private-key: ${{ secrets.RELEASES_APP_PRIVATE_KEY }}
       
-      - name: Handle Release Creation
-        uses: camunda/infra-global-github-actions/teams/infra/pull-request/release@main
+      - name: Automerge Release-Please PR
+        uses: camunda/infra-global-github-actions/teams/infra/pull-request/automerge@main
         with:
           github-token: ${{ steps.app-token.outputs.token }}
