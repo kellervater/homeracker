@@ -1,0 +1,69 @@
+---
+name: Validate OpenSCAD Models
+
+"on":
+  push:
+    branches: [main]
+    paths:
+      - 'models/**/*.scad'
+      - '.github/workflows/validate-models.yml'
+      - 'tools/install-openscad.sh'
+      - 'tools/install-dependencies.sh'
+      - 'tools/test-openscad.sh'
+  pull_request:
+    paths:
+      - 'models/**/*.scad'
+      - '.github/workflows/validate-models.yml'
+      - 'tools/install-openscad.sh'
+      - 'tools/install-dependencies.sh'
+      - 'tools/test-openscad.sh'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb libglu1-mesa libfuse2 libegl1 libxcb-cursor0
+
+      - name: Install OpenSCAD and dependencies
+        run: |
+          chmod +x tools/install-openscad.sh
+          ./tools/install-openscad.sh --nightly
+
+      - name: Validate models
+        run: |
+          set -euo pipefail
+          chmod +x tools/test-openscad.sh
+
+          # Find all .scad files in model subdirectories
+          MODEL_DIRS="wallmount flexmount gridfinity rackmount_ears"
+          MODELS=()
+
+          for dir in $MODEL_DIRS; do
+            for model in models/${dir}/*.scad; do
+              if [ -f "${model}" ]; then
+                MODELS+=("${model}")
+              fi
+            done
+          done
+
+          echo "Found ${#MODELS[@]} models to validate"
+
+          # Test all models
+          ./tools/test-openscad.sh "${MODELS[@]}"
+
+      - name: Upload logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: render-logs
+          path: /tmp/*.log
+          retention-days: 7
