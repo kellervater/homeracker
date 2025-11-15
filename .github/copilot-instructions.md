@@ -25,7 +25,7 @@ HomeRacker is a modular 3D-printable rack-building system. Core components use p
 2. **Consult online docs** (especially BOSL2: https://github.com/BelfrySCAD/BOSL2/wiki)
 3. **Ask before proceeding** if requirements conflict with best practices
 4. **Provide outline** before implementation for confirmation
-5. **Test all changes** (use existing test scripts in `/tools/`. if none, create simple test cases)
+5. **Test all changes** (see `TESTING.md` for details)
 6. **On errors**: Step back, check docs, ask user if stuck—don't iterate blindly
 
 ## OpenSCAD Guidelines

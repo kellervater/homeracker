@@ -10,12 +10,26 @@
     "customManagers": [
       {
         "customType": "regex",
-        // Track OpenSCAD nightly version in install script
+        // Track OpenSCAD nightly Windows version - extracts from Windows .zip filenames
         "fileMatch": ["^tools/install-openscad\\.sh$"],
         "matchStrings": [
-          "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\\nOPENSCAD_NIGHTLY_VERSION_(?:WINDOWS|LINUX)=\"(?<currentValue>.*?)\""
+          "OPENSCAD_NIGHTLY_VERSION_WINDOWS=\"(?<currentValue>[^\"]+)\""
         ],
         "datasourceTemplate": "custom.openscad-snapshots",
+        "depNameTemplate": "OpenSCAD-Windows",
+        "extractVersionTemplate": "^OpenSCAD-(?<version>\\d{4}\\.\\d{2}\\.\\d{2})-x86-64\\.zip$",
+        "versioningTemplate": "loose"
+      },
+      {
+        "customType": "regex",
+        // Track OpenSCAD nightly Linux version - extracts from Linux .AppImage filenames
+        "fileMatch": ["^tools/install-openscad\\.sh$"],
+        "matchStrings": [
+          "OPENSCAD_NIGHTLY_VERSION_LINUX=\"(?<currentValue>[^\"]+)\""
+        ],
+        "datasourceTemplate": "custom.openscad-snapshots",
+        "depNameTemplate": "OpenSCAD-Linux",
+        "extractVersionTemplate": "^OpenSCAD-(?<version>\\d{4}\\.\\d{2}\\.\\d{2}\\.ai\\d+)-x86_64\\.AppImage$",
         "versioningTemplate": "loose"
       },
       {
@@ -47,11 +61,10 @@
       "format": "html"
     }
   },
-  // Package rules to extract version from OpenSCAD snapshot filenames
+  // Package rules to group OpenSCAD updates together
   "packageRules": [
     {
       "matchDatasources": ["custom.openscad-snapshots"],
-      "extractVersion": "^OpenSCAD-(?<version>\\d{4}\\.\\d{2}\\.\\d{2}(?:\\.ai\\d+)?)",
       "groupName": "OpenSCAD nightly",
       "groupSlug": "openscad-nightly",
       "separateMajorMinor": false
