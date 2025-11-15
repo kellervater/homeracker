@@ -4,6 +4,7 @@
   "changelog-sections": [
     {"type": "feat", "section": "✨ Features"},
     {"type": "fix", "section": "🐛 Bug Fixes"},
+    {"type": "deps", "section": "📦 Dependencies"},
     {"type": "docs", "section": "📚 Documentation"},
     {"type": "ci", "section": "🔄 CI/CD"},
     {"type": "test", "section": "🧪 Tests"},

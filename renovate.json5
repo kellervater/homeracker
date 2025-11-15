@@ -7,6 +7,10 @@
   "ignorePresets": [":all"],
   // Disable platform-native automerge, let Renovate handle merges directly
   "platformAutomerge": false,
+  // Use "deps" as commit type instead of "chore(deps)"
+  "semanticCommits": "enabled",
+  "semanticCommitType": "deps",
+  "semanticCommitScope": null,
   // Force these settings to override any repository config
   "force": {
     "customManagers": [
