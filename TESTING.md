@@ -31,7 +31,7 @@ When modifying `renovate.json5`, always test changes before merging to prevent i
 
 4. **Test locally**
    ```bash
-   RENOVATE_BASE_BRANCHES=fix/renovate-<description> ./tools/test-renovate-local.sh
+   ./tools/test-renovate-local.sh
    ```
 
 5. **Validate output**
@@ -42,9 +42,9 @@ When modifying `renovate.json5`, always test changes before merging to prevent i
 ### Example: Testing OpenSCAD Updates
 
 ```bash
-# Filter for OpenSCAD-specific updates
-RENOVATE_BASE_BRANCHES=fix/renovate-openscad-separate-extractors \
-  ./tools/test-renovate-local.sh
+# Checkout the branch you want to test
+git checkout fix/renovate-openscad-separate-extractors
+./tools/test-renovate-local.sh
 ```
 
 Expected output should show:
