@@ -9,12 +9,12 @@ HomeRacker is a modular 3D-printable rack-building system. Core components use p
 - **HomeRacker Standards**: 15mm base unit, 4mm lock pins, 2mm walls, 0.2mm tolerance. See `README.md` for details.
 
 ## Core Principles
+- **Test-Driven Development**: NO change without a test. EVERY change MUST be tested before completion. No exceptions for "simple" changes.
 - **DRY, KISS, YAGNI**: Keep it simple, don't over-engineer
 - **Be Brief**: All outputs (code, docs, issues, PRs) should be minimal and to-the-point
   - Code: No unnecessary comments, clear variable names speak for themselves
   - Docs: Essential info only - what/why/how in <100 lines when possible
   - GitHub issues/PRs: Clear problem/solution, skip verbose explanations
-- **Testing**: Always test changes; use existing test files or create automated tests if feasible
 - **Commits**: Use [Conventional Commits](https://www.conventionalcommits.org/) format
   - Types: `feat`, `fix`, `docs`, `chore`, `refactor`, `test`
   - Format: `type(scope): description` or `type: description`
@@ -25,7 +25,7 @@ HomeRacker is a modular 3D-printable rack-building system. Core components use p
 2. **Consult online docs** (especially BOSL2: https://github.com/BelfrySCAD/BOSL2/wiki)
 3. **Ask before proceeding** if requirements conflict with best practices
 4. **Provide outline** before implementation for confirmation
-5. **Test all changes** (see `TESTING.md` for details)
+5. **Make the change** and immediately test it - do NOT announce completion before testing
 6. **On errors**: Step back, check docs, ask user if stuck—don't iterate blindly
 
 ## OpenSCAD Guidelines
