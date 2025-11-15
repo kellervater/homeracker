@@ -51,7 +51,9 @@
   "packageRules": [
     {
       "matchDatasources": ["custom.openscad-snapshots"],
-      "extractVersion": "^OpenSCAD-(?<version>\\d{4}\\.\\d{2}\\.\\d{2})"
+      "extractVersion": "^OpenSCAD-(?<version>\\d{4}\\.\\d{2}\\.\\d{2}(?:\\.ai\\d+)?)",
+      "groupName": "OpenSCAD nightly",
+      "groupSlug": "openscad-nightly"
     }
   ]
 }
