@@ -6,6 +6,8 @@ on:
     - cron: '0 9 * * 1'
   workflow_dispatch: # Allow manual triggering
 
+permissions: {}
+
 jobs:
   auto-merge:
     runs-on: ubuntu-latest
