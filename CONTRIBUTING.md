@@ -78,6 +78,18 @@ tools/              # Installation & test scripts
 - [Open an issue](https://github.com/kellervater/homeracker/issues) for bugs/features
 - [Start a discussion](https://github.com/kellervater/homeracker/discussions) for questions
 
+## 🔔 Discord Integration
+
+The repository is integrated with Discord to announce updates:
+
+- **Channel**: `#homeracker-announcements`
+- **Webhook Name**: GitHub Releases
+- **Events**: Release events
+- **Configuration**: Discord GitHub-formatted webhook (`/github` suffix)
+- **Status**: Active (last response: 204 OK)
+
+Releases automatically post to the Discord server, keeping the community updated.
+
 ## 📜 License
 
 Contributions are licensed under MIT (code) and CC BY-SA 4.0 (models).
