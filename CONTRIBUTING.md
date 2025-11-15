@@ -107,11 +107,14 @@ BREAKING CHANGE: Base unit changed from 15mm to 20mm. All models need regenerati
 
 ### Release Process
 
-Releases are automated using [release-please](https://github.com/googleapis/release-please):
+Releases are automated using Camunda's reusable workflows from [infra-global-github-actions](https://github.com/camunda/infra-global-github-actions):
 - Commits following Conventional Commits automatically update the changelog
 - Release PRs are created automatically when commits are pushed to `main`
-- Scheduled releases run every Monday at 9:00 AM UTC
+- Scheduled releases run every Monday at 9:00 AM UTC via auto-merge workflow
 - Manual releases can be triggered via GitHub Actions workflow dispatch
+- PR titles are validated to ensure Conventional Commits compliance
+
+**Note:** The workflows require GitHub App credentials configured as repository secrets.
 
 ## 🔄 Pull Request Workflow
 

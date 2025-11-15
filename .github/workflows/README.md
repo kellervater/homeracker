@@ -1,0 +1,51 @@
+# GitHub Workflows
+
+This directory contains automated workflows for the HomeRacker repository.
+
+## Workflows
+
+### 1. Handle Release PRs (`release-please.yml`)
+Creates and updates release PRs based on conventional commits.
+
+**Triggers:** Push to `main` branch
+
+**Requirements:** GitHub App credentials
+
+### 2. Automerge Release PRs (`automerge-release.yml`)
+Automatically merges release PRs on a schedule.
+
+**Triggers:** 
+- Weekly schedule (Monday 9:00 AM UTC)
+- Manual workflow dispatch
+
+**Requirements:** GitHub App credentials
+
+### 3. Validate PR Title (`validate-pr-title.yml`)
+Validates PR titles against Conventional Commits format to prevent broken releases when using "Squash & Merge".
+
+**Triggers:** PR opened, edited, synchronize, or reopened
+
+**Requirements:** None (uses default `github.token`)
+
+## GitHub App Setup
+
+The release and automerge workflows require a GitHub App with the following permissions:
+- Contents: Read & Write
+- Pull Requests: Read & Write
+
+### Required Repository Secrets
+
+Configure these secrets in your repository settings:
+
+1. `RELEASES_APP_ID` - The GitHub App ID
+2. `RELEASES_APP_PRIVATE_KEY` - The GitHub App private key
+
+### Why a GitHub App?
+
+A GitHub App is required to allow subsequent workflow runs to be triggered by the release workflows. The default `GITHUB_TOKEN` has limitations that prevent workflow-triggered events from starting new workflows.
+
+## References
+
+- [Camunda Infrastructure Actions](https://github.com/camunda/infra-global-github-actions/tree/main/teams/infra/pull-request)
+- [Conventional Commits](https://www.conventionalcommits.org/)
+- [Release Please](https://github.com/googleapis/release-please)

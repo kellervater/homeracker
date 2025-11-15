@@ -223,12 +223,15 @@ HomeRacker is an unregistered trademark of Patrick Pötz (), first used publicly
 
 # 🚀 Releases
 
-HomeRacker uses automated releases powered by [release-please](https://github.com/googleapis/release-please):
+HomeRacker uses automated releases powered by Camunda's reusable workflows:
 
 - **Automated versioning**: Follows [Semantic Versioning](https://semver.org/) based on [Conventional Commits](https://www.conventionalcommits.org/)
 - **Changelog generation**: Automatically generated from commit messages
-- **Release schedule**: Weekly releases every Monday at 9:00 AM UTC (or manual trigger)
+- **Release schedule**: Weekly auto-merge of release PRs every Monday at 9:00 AM UTC (or manual trigger)
 - **GitHub releases**: Tagged releases with changelog and version information
+- **PR validation**: Pull request titles are validated to ensure Conventional Commits compliance
+
+The release automation uses [Camunda's infra-global-github-actions](https://github.com/camunda/infra-global-github-actions/tree/main/teams/infra/pull-request) for release management and auto-merging.
 
 To contribute and trigger releases, use conventional commit messages. See [CONTRIBUTING.md](CONTRIBUTING.md#-commit-conventions) for details.
 
