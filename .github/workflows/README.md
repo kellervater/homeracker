@@ -5,17 +5,17 @@ This directory contains automated workflows for the HomeRacker repository.
 ## Workflows
 
 ### 1. Handle Release PRs (`release-please.yml`)
-Creates and updates release PRs based on conventional commits.
+Creates and updates release PRs based on conventional commits. The release PR accumulates all changes until it gets merged.
 
 **Triggers:** Push to `main` branch
 
 **Requirements:** GitHub App credentials
 
 ### 2. Automerge Release PRs (`automerge-release.yml`)
-Automatically merges release PRs on a schedule.
+Automatically merges release PRs on a schedule. This is what triggers the release PR to be merged and creates the actual release.
 
 **Triggers:** 
-- Weekly schedule (Monday 9:00 AM UTC)
+- Weekly schedule
 - Manual workflow dispatch
 
 **Requirements:** GitHub App credentials

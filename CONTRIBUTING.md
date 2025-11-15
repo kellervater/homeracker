@@ -93,24 +93,27 @@ fix(core): correct lock pin dimensions
 
 ### Breaking Changes
 
+> [!IMPORTANT]
+> Breaking changes must be aligned with the codeowners beforehand. We should avoid breaking changes as much as possible.
+
 For breaking changes, use `!` after the type or add `BREAKING CHANGE:` in the footer:
 
 ```bash
-feat!: change base unit from 15mm to 20mm
+feat!: change base unit from 15mm to 14mm
 
 # or
 
-feat: change base unit from 15mm to 20mm
+feat: change base unit from 15mm to 14mm
 
-BREAKING CHANGE: Base unit changed from 15mm to 20mm. All models need regeneration.
+BREAKING CHANGE: Base unit changed from 15mm to 14mm. All models need regeneration.
 ```
 
 ### Release Process
 
-Releases are automated using Camunda's reusable workflows from [infra-global-github-actions](https://github.com/camunda/infra-global-github-actions):
+Releases are automated using Camunda's GitHub actions from [infra-global-github-actions](https://github.com/camunda/infra-global-github-actions):
 - Commits following Conventional Commits automatically update the changelog
 - Release PRs are created automatically when commits are pushed to `main`
-- Scheduled releases run every Monday at 9:00 AM UTC via auto-merge workflow
+- Scheduled releases run weekly via auto-merge workflow
 - Manual releases can be triggered via GitHub Actions workflow dispatch
 - PR titles are validated to ensure Conventional Commits compliance
 

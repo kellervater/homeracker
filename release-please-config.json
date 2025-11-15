@@ -1,11 +1,13 @@
 {
   "release-type": "simple",
-  "package-name": "home-racker",
+  "package-name": "homeracker",
   "changelog-sections": [
     {"type": "feat", "section": "✨ Features"},
     {"type": "fix", "section": "🐛 Bug Fixes"},
     {"type": "perf", "section": "⚡ Performance"},
     {"type": "docs", "section": "📚 Documentation"},
+    {"type": "ci", "section": "🔄 CI/CD"},
+    {"type": "test", "section": "🧪 Tests"},
     {"type": "chore", "section": "🔧 Miscellaneous"}
   ],
   "bump-minor-pre-major": true,
