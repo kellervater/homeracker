@@ -67,7 +67,8 @@
       "matchDatasources": ["custom.openscad-snapshots"],
       "groupName": "OpenSCAD nightly",
       "groupSlug": "openscad-nightly",
-      "separateMajorMinor": false
+      "separateMajorMinor": false,
+      "automerge": true
     }
   ]
 }
