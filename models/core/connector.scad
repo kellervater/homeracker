@@ -86,7 +86,7 @@ CONNECTOR_CONFIGS = [
   *         - 1 to 2 when dimensions = 1.
   *         - 2 to 4 when dimensions = 2.
   *         - 3 to 6 when dimensions = 3.
-  *       - No worries, invalid combinations will be corrected to the min/max valid values.
+  *       - No worries, invalid dimension/direction combinations will be corrected to the min/max valid values.
   *   pull_through_axis (string, default="none"): Axis along which items can be pulled through.
   *       - Options: "none", "x", "y", "z".
   *   is_foot (bool, default=false): If true, configures the connector as a foot piece.
@@ -119,18 +119,27 @@ module connector(dimensions=3, directions=6, pull_through_axis="none", is_foot=f
   // for nicer optics, mirror the whole connector along the xy plane when it's a foot
 
 
-  // Printing interfaces
-  if (valid_directions > 4) {
-    // 5-6 way connectors: tetrahedron at chamfered corner
-    connector_raw(config, is_foot);
-    print_interface_3d();
-  } else if (valid_directions == 4 && valid_dimensions == 2) {
-    connector_raw(config, is_foot);
-  } else {
-    // All other cases: simple flat base with chamfered edge
-    intersection() {
-      connector_raw(config, is_foot);
-      print_interface_base();
+  // Substract Pull-Through Hole if applicable
+  difference() {
+    // Combine connector with Printing interfaces
+    union() {
+      if (valid_directions > 4) {
+        // 5-6 way connectors: tetrahedron at chamfered corner
+        connector_raw(config, is_foot);
+        print_interface_3d();
+      } else if (valid_directions == 4 && valid_dimensions == 2) {
+        connector_raw(config, is_foot);
+      } else {
+        // All other cases: simple flat base with chamfered edge
+        intersection() {
+          connector_raw(config, is_foot);
+          print_interface_base();
+        }
+      }
+    }
+    // Subtract pull-through hole if specified
+    if (pull_through_axis != "none") {
+      pull_through_hole(pull_through_axis);
     }
   }
 }
@@ -246,13 +255,33 @@ module print_interface_3d() {
 module print_interface_base() {
   base_height = base_unit * 3;
   side_length = connector_outer_side_length *2;
-  double_chamfer = base_chamfer * 2;
+  chamfer = base_chamfer * 3;
 
   // Position the base below the connector core
   //translate([0, 0, -base_height/2 - connector_outer_side_length/2])
   color(HR_CHARCOAL)
     // Main base cuboid with standard chamfer
   translate([connector_outer_side_length/2,connector_outer_side_length/2,0])
-  cuboid([side_length, side_length, base_height], chamfer=base_chamfer*2, edges=LEFT+FRONT);
+  cuboid([side_length, side_length, base_height], chamfer=chamfer, edges=LEFT+FRONT);
+}
 
+/* Pull-Through Hole Module
+  *
+  * Produces a pull-through hole along the specified axis.
+  */
+module pull_through_hole(axis="x") {
+  // Determine hole orientation and dimensions based on axis
+  hole_length = base_unit * 3;
+  hole_dimensions = [hole_length, base_unit, base_unit];
+
+  color(HR_WHITE)
+  if (axis == "y") {
+    rotate([0, 0, 90])
+    cuboid(hole_dimensions);
+  } else if (axis == "z" && !is_foot) {
+    rotate([0, -90, 0])
+    cuboid(hole_dimensions);
+  } else if (axis == "x") {
+    cuboid(hole_dimensions);
+  }
 }
