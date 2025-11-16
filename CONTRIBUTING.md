@@ -10,11 +10,11 @@ git clone https://github.com/kellervater/homeracker.git
 cd homeracker
 
 # Install OpenSCAD (Windows/Git Bash)
-./tools/install-openscad.sh
-./tools/install-dependencies.sh
+./cmd/setup/install-openscad.sh
+./cmd/setup/install-dependencies.sh
 
 # Verify installation
-./tools/test-openscad.sh
+./cmd/test/test-openscad.sh
 ```
 
 ## 📐 HomeRacker Standards
@@ -132,7 +132,7 @@ models/              # OpenSCAD models
   ├── flexmount/    # Flexible mounts
   ├── gridfinity/   # Gridfinity integration
   └── core/         # Core components
-tools/              # Installation & test scripts
+cmd/                # Command-line utilities (setup, test, lib)
 ```
 
 ## 💬 Getting Help

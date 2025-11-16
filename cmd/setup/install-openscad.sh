@@ -6,13 +6,13 @@
 # Version tracking is handled by Renovate Bot.
 #
 # Usage:
-#   ./tools/install-openscad.sh              # Install/upgrade to nightly build (default)
-#   ./tools/install-openscad.sh --stable     # Install stable release
-#   ./tools/install-openscad.sh --check      # Check current vs tracked version
-#   ./tools/install-openscad.sh --test       # Run smoke test
-#   ./tools/install-openscad.sh --configure  # Update VS Code settings only
-#   ./tools/install-openscad.sh --force      # Force reinstall
-#   ./tools/install-openscad.sh --help       # Show help
+#   ./cmd/setup/install-openscad.sh              # Install/upgrade to nightly build (default)
+#   ./cmd/setup/install-openscad.sh --stable     # Install stable release
+#   ./cmd/setup/install-openscad.sh --check      # Check current vs tracked version
+#   ./cmd/setup/install-openscad.sh --test       # Run smoke test
+#   ./cmd/setup/install-openscad.sh --configure  # Update VS Code settings only
+#   ./cmd/setup/install-openscad.sh --force      # Force reinstall
+#   ./cmd/setup/install-openscad.sh --help       # Show help
 #
 
 set -euo pipefail
@@ -29,7 +29,7 @@ OPENSCAD_NIGHTLY_VERSION_WINDOWS="2025.11.20"
 OPENSCAD_NIGHTLY_VERSION_LINUX="2025.11.20.ai29236"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-WORKSPACE_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
+WORKSPACE_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 INSTALL_DIR="${WORKSPACE_ROOT}/bin/openscad"
 
 # Detect platform
@@ -43,9 +43,16 @@ detect_platform() {
 
 PLATFORM=$(detect_platform)
 
+# Set platform-specific nightly version for display
+if [[ "${PLATFORM}" == "linux" ]]; then
+    OPENSCAD_NIGHTLY_VERSION="${OPENSCAD_NIGHTLY_VERSION_LINUX}"
+else
+    OPENSCAD_NIGHTLY_VERSION="${OPENSCAD_NIGHTLY_VERSION_WINDOWS}"
+fi
+
 # Source common functions
-# shellcheck source=lib/common.sh
-source "${SCRIPT_DIR}/lib/common.sh"
+# shellcheck source=../lib/common.sh
+source "${SCRIPT_DIR}/../lib/common.sh"
 
 show_help() {
     local openscad_version="${OPENSCAD_STABLE_VERSION}"
