@@ -46,3 +46,5 @@ HR_YELLOW = "#f7b600";
 HR_BLUE = "#0056b3";
 HR_RED = "#c41e3a";
 HR_GREEN = "#2d7a2e";
+HR_CHARCOAL = "#333333";
+HR_WHITE = "#f0f0f0";
