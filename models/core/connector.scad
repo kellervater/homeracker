@@ -23,6 +23,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+
+// TODO: 1D1W is completely useless if not a pull-through connector. we should account for that.
+
 include <BOSL2/std.scad>
 include <constants.scad>
 
@@ -114,6 +117,25 @@ module connector(dimensions=3, directions=6, pull_through_axis="none", is_foot=f
   config = CONNECTOR_CONFIGS[valid_dimensions - 1][valid_directions - min_directions];
 
   // for nicer optics, mirror the whole connector along the xy plane when it's a foot
+
+
+  // Printing interfaces
+  if (valid_directions > 4) {
+    // 5-6 way connectors: tetrahedron at chamfered corner
+    connector_raw(config, is_foot);
+    print_interface_3d();
+  } else if (valid_directions == 4 && valid_dimensions == 2) {
+    connector_raw(config, is_foot);
+  } else {
+    // All other cases: simple flat base with chamfered edge
+    intersection() {
+      connector_raw(config, is_foot);
+      print_interface_base();
+    }
+  }
+}
+
+module connector_raw(config, is_foot=false) {
   mirror([0, 0, is_foot ? 1 : 0])
   difference() {
     // Core + Outer Arms
@@ -185,4 +207,52 @@ module connectorCore() {
   core_dimensions = [connector_outer_side_length, connector_outer_side_length, connector_outer_side_length];
   color(HR_BLUE)
   cuboid(core_dimensions, chamfer=base_chamfer);
+}
+
+/** * 3D Print Interface Module
+  * Produces a tetrahedral shape that fits into the chamfered corner of the connector.
+  * Used to provide enough surface area for 3D printing when the connector has multiple arms (5 or 6)
+  */
+module print_interface_3d() {
+  // Create a tetrahedron by defining 4 vertices
+  // Right angle at origin, edges along +X, +Y, +Z axes
+  side_length = base_unit - tolerance/2 - base_strength/2;
+  // Position tetrahedron at chamfered corner: from center to outer edge, minus chamfer offset
+  translation = connector_outer_side_length/2 - base_chamfer;
+  points = [
+    [0, 0, 0],              // Origin (right angle corner)
+    [side_length, 0, 0],      // Along X axis
+    [0, side_length, 0],      // Along Y axis
+    [0, 0, side_length]       // Top point (apex)
+  ];
+
+  // Define the 4 triangular faces
+  faces = [
+    [0, 2, 1],  // Bottom face (XY plane triangle)
+    [0, 1, 3],  // XZ plane face
+    [0, 3, 2],  // YZ plane face
+    [1, 2, 3]   // Hypotenuse face (slanted)
+  ];
+
+  color(HR_CHARCOAL)
+  translate([translation, translation, translation])
+  polyhedron(points=points, faces=faces, convexity=2);
+}
+
+/** * Base Print Interface Module
+  * Produces a simple flat base with double-chamfered edge for print bed adhesion.
+  * Used for most connector configurations (1-3 way connectors and 2D3W).
+  */
+module print_interface_base() {
+  base_height = base_unit * 3;
+  side_length = connector_outer_side_length *2;
+  double_chamfer = base_chamfer * 2;
+
+  // Position the base below the connector core
+  //translate([0, 0, -base_height/2 - connector_outer_side_length/2])
+  color(HR_CHARCOAL)
+    // Main base cuboid with standard chamfer
+  translate([connector_outer_side_length/2,connector_outer_side_length/2,0])
+  cuboid([side_length, side_length, base_height], chamfer=base_chamfer*2, edges=LEFT+FRONT);
+
 }
