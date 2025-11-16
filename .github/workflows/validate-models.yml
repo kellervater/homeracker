@@ -32,7 +32,7 @@ jobs:
 
       - name: Validate models
         run: |
-          chmod +x cmd/test/test-models.sh
+          chmod +x cmd/test/test-models.sh cmd/test/test-openscad.sh
           ./cmd/test/test-models.sh
 
       - name: Upload logs on failure
