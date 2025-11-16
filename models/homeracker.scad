@@ -10,3 +10,4 @@
 
 // Include all the core components
 include <core/support.scad>
+include <core/connector.scad>
