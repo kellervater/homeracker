@@ -17,6 +17,43 @@ cd homeracker
 ./cmd/test/test-openscad.sh
 ```
 
+### Pre-commit Hooks (Recommended)
+
+This repository uses [pre-commit](https://pre-commit.dev/) to enforce code quality checks before commits.
+
+**Prerequisites**: Python 3.x installed on your system
+
+```bash
+# Create and activate a virtual environment (recommended)
+python -m venv .venv
+
+# Activate the virtual environment
+# Windows (Git Bash/CMD/PowerShell):
+source .venv/Scripts/activate
+# macOS/Linux:
+source .venv/bin/activate
+
+# Install pre-commit
+pip install pre-commit
+
+# Install the git hooks
+pre-commit install
+```
+
+Now pre-commit will automatically run on `git commit`. To manually run hooks on all files:
+
+```bash
+pre-commit run --all-files
+```
+
+The hooks include:
+- Trailing whitespace removal
+- End-of-file fixes
+- YAML syntax validation
+- Large file detection
+- Merge conflict marker checks
+- Renovate config validation
+
 ## 📐 HomeRacker Standards
 
 - **Base unit**: 15mm

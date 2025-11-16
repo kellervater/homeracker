@@ -84,7 +84,7 @@
       "matchManagers": ["github-actions"],
       "matchPackageNames": [
         "actions/create-github-app-token",
-        "actions/checkout", 
+        "actions/checkout",
         "actions/upload-artifact"
       ],
       "automerge": true

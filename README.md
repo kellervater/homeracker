@@ -33,7 +33,7 @@ The parametric models are available in the [HomeRacker GitHub Repository](https:
 - [📋 Todos](#-todos)
 
 # 🔧 Use Cases
-I created HomeRacker because I was dissatisfied with the existing solutions available online.  
+I created HomeRacker because I was dissatisfied with the existing solutions available online.
 Many designs were too specific—accommodating only certain devices owned by their creators. Others supported only the 10" standard, with no flexibility for deviations, often requiring additional adapters.
 
 As I began my homelab journey in April 2025, I wanted a modular solution that could adapt and grow with my evolving needs. This would eliminate the need to purchase larger racks or completely change concepts when the original design no longer met my requirements.
@@ -128,7 +128,7 @@ Supports are the structural spine of HomeRacker.
 
 ![Core Support 3D Transparent](./img/core_support_3d_transparent.png)
 
-Height is a multiple of 15mm (base units).  
+Height is a multiple of 15mm (base units).
 E.g.: A 3-unit support = 45mm tall, a 17-unit = 255mm.
 
 Each unit height includes a 4mm hole for a Lock Pin.
@@ -149,7 +149,7 @@ Schematics:
 
 ### 🔗 Connectors
 
-Connectors join supports in 1 to 3 dimensions.  
+Connectors join supports in 1 to 3 dimensions.
 From straight extenders to 6-way junctions.
 
 ![3D Shot of All Connectors](./img/3d_shot_all_connectors.png)
@@ -160,7 +160,7 @@ Types:
 * **Feet** – Solid end pieces; used as rack feet.
 
 > ❗ **Important**
-> Connector centers are always 1 `base_unit` in height. No offsets, no fluff.  
+> Connector centers are always 1 `base_unit` in height. No offsets, no fluff.
 > So: 2 × 3-unit supports + 1 connector = exactly 7 base units (105mm).
 
 Schematics:
@@ -184,7 +184,7 @@ Schematics:
 **Top View**
 ![lock Pin Top](./img/core_lock_pin_top.png)
 
-**Side View**  
+**Side View**
 > Don’t ask why the height is 3.791mm—it works. I left it as-is.
 
 ![lock Pin Side](./img/core_lock_pin_side.png)
@@ -193,11 +193,11 @@ Schematics:
 
 ## 🌍 Open Specs
 
-I created `HomeRacker - Core` to be an open spec that any maker can build on, with (almost) no strings attached.  
+I created `HomeRacker - Core` to be an open spec that any maker can build on, with (almost) no strings attached.
 (See [📜 Licensing](#-licensing) for more.)
 
-I encourage you to make your own models based on HomeRacker!  
-Let me know, and I’ll feature your work on this page and cross-link it on Makerworld (subject to my "very objective" approval 😄).  
+I encourage you to make your own models based on HomeRacker!
+Let me know, and I’ll feature your work on this page and cross-link it on Makerworld (subject to my "very objective" approval 😄).
 Just [create an issue](https://github.com/kellervater/homeracker/issues/new) if you want to be featured.
 
 # ❓ Why the name?
@@ -237,7 +237,7 @@ To contribute and trigger releases, use conventional commit messages. See [CONTR
 
 # 🧪 Tests
 
-Of course I tested stuff... It took ~4 months from idea to this release.  
+Of course I tested stuff... It took ~4 months from idea to this release.
 Look at all the prototypes:
 ![Photo showing a variety of HomeRacker prototypes lined up](./img/prototypes.jpg)
 

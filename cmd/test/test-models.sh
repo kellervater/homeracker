@@ -18,15 +18,15 @@ MODELS=()
 for dir in models/*/; do
   # Skip if not a directory
   [ -d "${dir}" ] || continue
-  
+
   # Extract directory name
   dirname=$(basename "${dir}")
-  
+
   # Skip core directory (library components, not standalone models)
   if [[ "${dirname}" == "core" ]]; then
     continue
   fi
-  
+
   # Find all .scad files in this directory
   for model in "${dir}"*.scad; do
     if [ -f "${model}" ]; then

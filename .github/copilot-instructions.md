@@ -77,7 +77,7 @@ HomeRacker is a fully modular 3D-printable rack-building system designed for ver
 - Credit original work when modifying existing models
 
 ### Brand Guidelines
-- Use "HomeRacker" (not "Home Racker" or "home-racker") 
+- Use "HomeRacker" (not "Home Racker" or "home-racker")
 - Include HomeRacker logo overlay on compatible model thumbnails
 - Maintain consistent visual style across documentation
 - Reference Makerworld links for published models
@@ -146,7 +146,7 @@ When receiving feedback about incorrect suggestions:
 - **BOSL2 Errors**: Verify library installation and include statements
 - **Performance**: Reduce `$fn` for development, increase for final exports
 
-### Export Script Issues  
+### Export Script Issues
 - **Fusion 360 API**: Check for API version compatibility and parameter access methods
 - **File Paths**: Use cross-platform path handling in Python scripts
 - **Batch Operations**: Implement proper error handling for automated exports

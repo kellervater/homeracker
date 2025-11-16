@@ -40,7 +40,6 @@ printing_layer_height = 0.2; // in mm
 base_unit = 15; // Base unit for all core measurements in mm
 base_strength = 2; // Wall thickness in mm
 base_chamfer = 1; // Chamfer size in mm
-x_holes_chamfer = 2; // chamfer if x_holes are enabled to provide a valid printbed interface
 
 // Lock Pin Holes
 lock_pin_chamfer = 0.8; // Chamfer size in mm
@@ -76,13 +75,13 @@ lock_pin_prismoid_outer_length = lock_pin_chamfer;
  */
 module support(units=3, x_holes=false) {
     support_dimensions = [base_unit, base_unit*units, base_unit]; // single unit support dimensions
-    
+
     difference() {
-        // Single support block        
-        color("darkslategray") 
+        // Single support block
+        color("darkslategray")
         translate([0,units*base_unit/2-base_unit/2,0]) // let the support start from the origin on the y axis centered on the first unit
         cuboid(support_dimensions, chamfer=base_chamfer);
-                
+
         // Create a lock pin hole for each unit of length
         translate([0,units*base_unit/2-base_unit/2,0])
         ycopies(spacing=base_unit, n=units) {
@@ -97,7 +96,7 @@ module support(units=3, x_holes=false) {
             }
         }
     }
-    
+
 }
 
 /**
@@ -109,7 +108,7 @@ module support(units=3, x_holes=false) {
  * This ensures printability and mechanical strength while maintaining standard HomeRacker tolerances.
  */
 module lock_pin_hole() {
-        
+
     // Define one half of the hole shape in a module
     module hole_half() {
         union() {
@@ -122,7 +121,7 @@ module lock_pin_hole() {
 
     // Render the original half
     hole_half();
-    
+
     // Render the mirrored half to complete the shape
     mirror([0, 0, 1]) {
         hole_half();

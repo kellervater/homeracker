@@ -17,7 +17,7 @@ jobs:
         with:
           app-id: ${{ secrets.RELEASES_APP_ID }}
           private-key: ${{ secrets.RELEASES_APP_PRIVATE_KEY }}
-      
+
       - name: Handle Release Creation
         uses: camunda/infra-global-github-actions/teams/infra/pull-request/release@1c6cd774501c2210dd7a44bbc938508fffa80a26
         with:
