@@ -44,9 +44,8 @@ is_foot = false; // [true,false]
 $fn = 100;
 
 connector_outer_side_length = base_unit + base_strength*2 + tolerance;
-arm_length_gross = base_unit - base_strength - tolerance/2;
 
-core_to_arm_translation = (connector_outer_side_length/2) + (arm_length_gross/2);
+core_to_arm_translation = base_unit;
 
 // Connector arm configuration lookup table
 // Format: [dimensions][ways-1] = [+z, -z, +x, -x, +y, -y]
