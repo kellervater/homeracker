@@ -3,7 +3,7 @@
 ## General Testing Principles
 
 Always test changes before committing:
-- **Use existing test scripts** in `/tools/` when available
+- **Use existing test scripts** in `/cmd/test/` when available
 - **Write simple tests** if none exist (bash scripts, Python tests, or manual verification steps)
 - **Document test steps** in commit messages or PR descriptions
 
@@ -31,7 +31,7 @@ When modifying `renovate.json5`, always test changes before merging to prevent i
 
 4. **Test locally**
    ```bash
-   ./tools/test-renovate-local.sh
+   ./cmd/test/test-renovate-local.sh
    ```
 
 5. **Validate output**
@@ -44,7 +44,7 @@ When modifying `renovate.json5`, always test changes before merging to prevent i
 ```bash
 # Checkout the branch you want to test
 git checkout fix/renovate-openscad-separate-extractors
-./tools/test-renovate-local.sh
+./cmd/test/test-renovate-local.sh
 ```
 
 Expected output should show:

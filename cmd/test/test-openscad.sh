@@ -5,14 +5,14 @@
 # Tests OpenSCAD installation by rendering model files
 #
 # Usage:
-#   ./tools/test-openscad.sh                 # Run smoke test on wallmount.scad
-#   ./tools/test-openscad.sh file1.scad ...  # Test specific files
+#   ./cmd/test/test-openscad.sh                 # Run smoke test on wallmount.scad
+#   ./cmd/test/test-openscad.sh file1.scad ...  # Test specific files
 #
 
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-WORKSPACE_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
+WORKSPACE_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 INSTALL_DIR="${WORKSPACE_ROOT}/bin/openscad"
 
 # Detect platform
@@ -27,8 +27,8 @@ detect_platform() {
 PLATFORM=$(detect_platform)
 
 # Source common functions
-# shellcheck source=lib/common.sh
-source "${SCRIPT_DIR}/lib/common.sh"
+# shellcheck source=../lib/common.sh
+source "${SCRIPT_DIR}/../lib/common.sh"
 
 # Find OpenSCAD executable path
 find_openscad_exe() {

@@ -16,7 +16,7 @@
     {
       "customType": "regex",
       // Track OpenSCAD nightly Windows version - extracts from Windows .zip filenames
-      "fileMatch": ["^tools/install-openscad\\.sh$"],
+      "fileMatch": ["^cmd/setup/install-openscad\\.sh$"],
       "matchStrings": [
         "OPENSCAD_NIGHTLY_VERSION_WINDOWS=\"(?<currentValue>[^\"]+)\""
       ],
@@ -28,7 +28,7 @@
     {
       "customType": "regex",
       // Track OpenSCAD nightly Linux version - extracts from Linux .AppImage filenames
-      "fileMatch": ["^tools/install-openscad\\.sh$"],
+      "fileMatch": ["^cmd/setup/install-openscad\\.sh$"],
       "matchStrings": [
         "OPENSCAD_NIGHTLY_VERSION_LINUX=\"(?<currentValue>[^\"]+)\""
       ],
@@ -40,7 +40,7 @@
     {
       "customType": "regex",
       // Track OpenSCAD stable version in install script
-      "fileMatch": ["^tools/install-openscad\\.sh$"],
+      "fileMatch": ["^cmd/setup/install-openscad\\.sh$"],
       "matchStrings": [
         "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\nOPENSCAD_STABLE_VERSION=\"(?<currentValue>.*?)\""
       ],
@@ -50,7 +50,7 @@
     {
       "customType": "regex",
       // Track BOSL2 commit hash in dependencies script
-      "fileMatch": ["^tools/install-dependencies\\.sh$"],
+      "fileMatch": ["^cmd/setup/install-dependencies\\.sh$"],
       "matchStrings": [
         "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\\nBOSL2_VERSION=\"(?<currentValue>.*?)\""
       ],
