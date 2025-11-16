@@ -57,7 +57,7 @@ source "${SCRIPT_DIR}/../lib/common.sh"
 show_help() {
     local openscad_version="${OPENSCAD_STABLE_VERSION}"
     [[ "${INSTALL_NIGHTLY}" == true ]] && openscad_version="${OPENSCAD_NIGHTLY_VERSION}"
-    
+
     cat << EOF
 OpenSCAD Installer
 
@@ -105,7 +105,7 @@ get_installed_version() {
             return
         fi
     fi
-    
+
     "${openscad_exe}" --version 2>&1 | awk '/OpenSCAD version/ {print $3}'
 }
 
@@ -128,10 +128,10 @@ check_version() {
     local openscad_version
     installed_version=$(get_installed_version)
     openscad_version=$(get_openscad_version)
-    
+
     log_info "Tracked version: ${openscad_version}"
     log_info "Installed version: ${installed_version}"
-    
+
     if [[ "${installed_version}" == "${openscad_version}" ]]; then
         log_success "OpenSCAD is up to date!"
         return 0
@@ -145,7 +145,7 @@ check_version() {
 install_openscad() {
     local openscad_version
     openscad_version=$(get_openscad_version)
-    
+
     if [[ "${PLATFORM}" == "linux" ]]; then
         install_openscad_linux "${openscad_version}"
     elif [[ "${PLATFORM}" == "windows" ]]; then
@@ -154,9 +154,9 @@ install_openscad() {
         log_error "Unsupported platform: ${PLATFORM}"
         exit 1
     fi
-    
+
     log_success "OpenSCAD ${openscad_version} installed successfully!"
-    
+
     # Install dependencies (BOSL2)
     log_info "Installing dependencies..."
     chmod +x "${SCRIPT_DIR}/install-dependencies.sh"
@@ -167,34 +167,34 @@ install_openscad() {
 install_openscad_linux() {
     local openscad_version="$1"
     local download_url
-    
+
     if [[ "${INSTALL_NIGHTLY}" == true ]]; then
         download_url="https://files.openscad.org/snapshots/OpenSCAD-${openscad_version}-x86_64.AppImage"
     else
         download_url="https://files.openscad.org/OpenSCAD-${openscad_version}-x86_64.AppImage"
     fi
-    
+
     log_info "Installing OpenSCAD ${openscad_version} for Linux..."
-    
+
     # Remove old installation
     if [[ -d "${INSTALL_DIR}" ]]; then
         log_info "Cleaning up old installation..."
         rm -rf "${INSTALL_DIR}"
     fi
-    
+
     # Create installation directory
     mkdir -p "${INSTALL_DIR}/libraries"
-    
+
     # Download
     log_info "Downloading from ${download_url}..."
     if ! download_file "${download_url}" "${INSTALL_DIR}/OpenSCAD.AppImage"; then
         log_error "URL: ${download_url}"
         exit 1
     fi
-    
+
     # Make executable
     chmod +x "${INSTALL_DIR}/OpenSCAD.AppImage"
-    
+
     # Create symlink (relative path)
     cd "${INSTALL_DIR}"
     ln -sf OpenSCAD.AppImage openscad
@@ -205,33 +205,33 @@ install_openscad_linux() {
 install_openscad_windows() {
     local openscad_version="$1"
     local download_url
-    
+
     if [[ "${INSTALL_NIGHTLY}" == true ]]; then
         download_url="https://files.openscad.org/snapshots/OpenSCAD-${openscad_version}-x86-64.zip"
     else
         download_url="https://files.openscad.org/OpenSCAD-${openscad_version}-x86-64.zip"
     fi
-    
+
     local temp_file="/tmp/openscad-${openscad_version}.zip"
-    
+
     log_info "Installing OpenSCAD ${openscad_version} for Windows..."
-    
+
     # Remove old installation
     if [[ -d "${INSTALL_DIR}" ]]; then
         log_info "Cleaning up old installation..."
         rm -rf "${INSTALL_DIR}"
     fi
-    
+
     # Create installation directory
     mkdir -p "${INSTALL_DIR}/libraries"
-    
+
     # Download
     log_info "Downloading from ${download_url}..."
     if ! download_file "${download_url}" "${temp_file}"; then
         log_error "URL: ${download_url}"
         exit 1
     fi
-    
+
     # Extract (strip top-level folder)
     log_info "Extracting archive..."
     if ! unzip -q "${temp_file}" -d "${INSTALL_DIR}"; then
@@ -239,13 +239,13 @@ install_openscad_windows() {
         rm -f "${temp_file}"
         exit 1
     fi
-    
+
     # Move contents up one level (zip contains OpenSCAD-VERSION/* structure)
     shopt -s dotglob
     mv "${INSTALL_DIR}"/OpenSCAD-*/* "${INSTALL_DIR}/"
     rmdir "${INSTALL_DIR}"/OpenSCAD-*
     shopt -u dotglob
-    
+
     rm -f "${temp_file}"
 }
 
@@ -259,7 +259,7 @@ main() {
     local check_only=false
     local test_only=false
     local force=false
-    
+
     # Parse arguments
     while [[ $# -gt 0 ]]; do
         case $1 in
@@ -294,25 +294,25 @@ main() {
                 ;;
         esac
     done
-    
+
     # Execute based on flags
     if [[ "${check_only}" == true ]]; then
         check_version
         exit $?
     fi
-    
+
     if [[ "${test_only}" == true ]]; then
         smoke_test
         exit $?
     fi
-    
+
     # Check if update needed (unless forced)
     if [[ "${force}" == false ]] && check_version; then
         log_info "Use --force to reinstall anyway"
     else
         install_openscad
     fi
-    
+
     local openscad_version
     openscad_version=$(get_openscad_version)
     log_success "Setup complete! OpenSCAD ${openscad_version} is ready to use."

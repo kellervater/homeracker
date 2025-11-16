@@ -59,7 +59,7 @@ module bracket(width,depth,height) {
     inner_width=width-bracket_strength_top*2+TOLERANCE;
     inner_depth=depth-bracket_strength_top*2+TOLERANCE;
     bottom_recess_height=height-bracket_strength_sides;
-    
+
     intersection(){
       difference() {
         // Outer
@@ -91,7 +91,7 @@ module bracket(width,depth,height) {
         size=[outer_width,outer_depth,bracket_strength_sides+BASE_STRENGTH-TOLERANCE/2],
         anchor=TOP,
         chamfer=CHAMFER, edges=[BOTTOM]
-      );  
+      );
     }
 }
 
@@ -105,10 +105,10 @@ module mount(){
   translate([0,mount_offset_depth,0])
 
   union(){
-   
+
     translate([mount_gap_filler_start,0,0])
     // Mount
-    union(){      
+    union(){
       top_width=BASE_STRENGTH;
       bottom_width=BASE_UNIT+gap_filler_width;
       // Bridge
@@ -136,14 +136,14 @@ module mount(){
       depth_enforcement_x = BASE_STRENGTH;
       depth_enforcemnt_y2 = BASE_UNIT*2;
       prismoid(
-        size1 = [depth_enforcement_x, depth],  
+        size1 = [depth_enforcement_x, depth],
         size2 = [depth_enforcement_x, depth_enforcemnt_y2],
-        shift = [0, (depth-depth_enforcemnt_y2)/2], 
-        h = device_height,             
+        shift = [0, (depth-depth_enforcemnt_y2)/2],
+        h = device_height,
         chamfer=[CHAMFER,0,0,CHAMFER],
-        anchor = BOTTOM+LEFT 
+        anchor = BOTTOM+LEFT
       );
-      
+
       // Mount Rail with holes
       difference(){
         // Mount Rail
@@ -193,7 +193,5 @@ union() {
   mirror(y_mirror_plane) {
     mirror_mount_x_plane();
   }
-  
+
 }
-
-

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # Local Renovate Configuration Test Script
-# 
+#
 # Tests the renovate.json5 configuration locally without committing changes.
 # Based on: https://github.com/camunda/camunda/blob/main/cmd/renovate/renovate-local.sh
 #

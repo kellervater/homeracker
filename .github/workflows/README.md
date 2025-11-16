@@ -14,7 +14,7 @@ Creates and updates release PRs based on conventional commits. The release PR ac
 ### 2. Automerge Release PRs (`automerge-release.yml`)
 Automatically merges release PRs on a schedule. This is what triggers the release PR to be merged and creates the actual release.
 
-**Triggers:** 
+**Triggers:**
 - Weekly schedule
 - Manual workflow dispatch
 

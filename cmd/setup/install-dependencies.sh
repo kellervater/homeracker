@@ -47,7 +47,7 @@ EOF
 # Find OpenSCAD libraries directory
 find_libraries_dir() {
     local libraries_dir="${WORKSPACE_ROOT}/bin/openscad/libraries"
-    
+
     if [[ -d "${libraries_dir}" ]]; then
         echo "${libraries_dir}"
         return 0
@@ -66,17 +66,17 @@ get_bosl2_version() {
 # Check installation status
 check_status() {
     local libraries_dir
-    
+
     if ! libraries_dir=$(find_libraries_dir); then
         exit 1
     fi
-    
+
     local bosl2_version
     bosl2_version=$(get_bosl2_version "${libraries_dir}")
-    
+
     log_info "BOSL2 tracked version: ${BOSL2_VERSION}"
     log_info "BOSL2 installed version: ${bosl2_version}"
-    
+
     if [[ "${bosl2_version}" == "${BOSL2_VERSION}" ]]; then
         log_success "All dependencies up to date!"
         return 0
@@ -91,21 +91,21 @@ install_bosl2() {
     local libraries_dir="$1"
     local download_url="https://github.com/BelfrySCAD/BOSL2/archive/${BOSL2_VERSION}.tar.gz"
     local temp_file="/tmp/bosl2-${BOSL2_VERSION}.tar.gz"
-    
+
     log_info "Installing BOSL2 ${BOSL2_VERSION}..."
-    
+
     # Remove old installation
     if [[ -d "${libraries_dir}/BOSL2" ]]; then
         log_info "Removing old BOSL2 installation..."
         rm -rf "${libraries_dir}/BOSL2"
     fi
-    
+
     # Download
     log_info "Downloading from ${download_url}..."
     if ! download_file "${download_url}" "${temp_file}"; then
         exit 1
     fi
-    
+
     # Extract
     log_info "Extracting archive..."
     mkdir -p "${libraries_dir}/BOSL2"
@@ -114,13 +114,13 @@ install_bosl2() {
         rm -f "${temp_file}"
         exit 1
     fi
-    
+
     # Cleanup
     rm -f "${temp_file}"
-    
+
     # Save version info
     save_version "${libraries_dir}/BOSL2/.bosl2-version" "${BOSL2_VERSION}"
-    
+
     log_success "BOSL2 ${BOSL2_VERSION} installed successfully!"
 }
 
@@ -128,7 +128,7 @@ install_bosl2() {
 main() {
     local check_only=false
     local force=false
-    
+
     # Parse arguments
     while [[ $# -gt 0 ]]; do
         case $1 in
@@ -151,26 +151,26 @@ main() {
                 ;;
         esac
     done
-    
+
     # Find libraries directory
     local libraries_dir
     if ! libraries_dir=$(find_libraries_dir); then
         exit 1
     fi
-    
+
     # Execute based on flags
     if [[ "${check_only}" == true ]]; then
         check_status
         exit $?
     fi
-    
+
     # Check if update needed (unless forced)
     if [[ "${force}" == false ]] && check_status; then
         log_info "Use --force to reinstall anyway"
     else
         install_bosl2 "${libraries_dir}"
     fi
-    
+
     log_success "All dependencies installed!"
 }
 
