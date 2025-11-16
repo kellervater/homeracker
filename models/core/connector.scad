@@ -113,23 +113,41 @@ module homeRackerConnector(dimensions=3, directions=6, pull_through_axis="none",
   // Array index: [dimensions-1][directions-min_directions]
   config = CONNECTOR_CONFIGS[valid_dimensions - 1][valid_directions - min_directions];
 
-  union() {
-    // Create connector core
-    connectorCore();
+  // for nicer optics, mirror the whole connector along the xy plane when it's a foot
+  mirror([0, 0, is_foot ? 1 : 0])
+  difference() {
+    // Core + Outer Arms
+    union() {
+      // Create connector core
+      connectorCore();
 
-    // Place arms based on configuration
+      // Place arms based on configuration
+      // Order: +Z, -Z, +X, -X, +Y, -Y
+      if (config[0]) translate([0, 0, core_to_arm_translation]) connectorArmOuter(is_foot);  // +Z
+      if (config[1]) translate([0, 0, -core_to_arm_translation]) rotate([180, 0, 0]) connectorArmOuter();  // -Z
+      if (config[2]) translate([core_to_arm_translation, 0, 0]) rotate([0, 90, 0]) connectorArmOuter();  // +X
+      if (config[3]) translate([-core_to_arm_translation, 0, 0]) rotate([0, -90, 0]) connectorArmOuter();  // -X
+      if (config[4]) translate([0, core_to_arm_translation, 0]) rotate([-90, 0, 0]) connectorArmOuter();  // +Y
+      if (config[5]) translate([0, -core_to_arm_translation, 0]) rotate([90, 0, 0]) connectorArmOuter();  // -Y
+    }
+    // Subract Inner Arms
     // Order: +Z, -Z, +X, -X, +Y, -Y
-    if (config[0]) translate([0, 0, core_to_arm_translation]) connectorArmOuter();  // +Z
-    if (config[1]) translate([0, 0, -core_to_arm_translation]) rotate([180, 0, 0]) connectorArmOuter();  // -Z
-    if (config[2]) translate([core_to_arm_translation, 0, 0]) rotate([0, 90, 0]) connectorArmOuter();  // +X
-    if (config[3]) translate([-core_to_arm_translation, 0, 0]) rotate([0, -90, 0]) connectorArmOuter();  // -X
-    if (config[4]) translate([0, core_to_arm_translation, 0]) rotate([-90, 0, 0]) connectorArmOuter();  // +Y
-    if (config[5]) translate([0, -core_to_arm_translation, 0]) rotate([90, 0, 0]) connectorArmOuter();  // -Y
+    if (config[0] && !is_foot) translate([0, 0, core_to_arm_translation]) connectorArmInner();  // +Z
+    if (config[1]) translate([0, 0, -core_to_arm_translation]) rotate([180, 0, 0]) connectorArmInner();  // -Z
+    if (config[2]) translate([core_to_arm_translation, 0, 0]) rotate([0, 90, 0]) connectorArmInner();  // +X
+    if (config[3]) translate([-core_to_arm_translation, 0, 0]) rotate([0, -90, 0]) connectorArmInner();  // -X
+    if (config[4]) translate([0, core_to_arm_translation, 0]) rotate([-90, 0, 0]) connectorArmInner();  // +Y
+    if (config[5]) translate([0, -core_to_arm_translation, 0]) rotate([90, 0, 0]) connectorArmInner();  // -Y
   }
 }
 
 
-module connectorArmOuter() {
+/** * Connector Arm Modules
+  *
+  * Produces a single arm of the connector to define the outer geometry.
+  * It also creates the lock pin holes.
+  */
+module connectorArmOuter(is_foot=false) {
 
   arm_dimensions_outer = [connector_outer_side_length, connector_outer_side_length, base_unit];
   arm_side_length_inner = connector_outer_side_length - base_strength*2;
@@ -138,20 +156,31 @@ module connectorArmOuter() {
   // outer cuboid
   difference() {
     color(HR_YELLOW) cuboid(arm_dimensions_outer, chamfer=base_chamfer,except=BOTTOM);
-    color(HR_RED) rotate([90, 0, 0]) cuboid([lock_pin_side, lock_pin_side, connector_outer_side_length], chamfer=-lock_pin_chamfer);
-    color(HR_RED) rotate([90, 0, 90]) cuboid([lock_pin_side, lock_pin_side, connector_outer_side_length], chamfer=-lock_pin_chamfer);
-    //cuboid([connector_outer_side_length, lock_pin_side, lock_pin_side]);
+    if(!is_foot){
+      color(HR_RED) rotate([90, 0, 0]) cuboid([lock_pin_side, lock_pin_side, connector_outer_side_length], chamfer=-lock_pin_chamfer);
+      color(HR_RED) rotate([90, 0, 90]) cuboid([lock_pin_side, lock_pin_side, connector_outer_side_length], chamfer=-lock_pin_chamfer);
+    }
   }
 }
 
+/** * Connector Arm Inner Module
+  *
+  * Produces a single arm of the connector to define the inner cutout.
+  * When you difference() this with the outer arm, you get the hollow arm structure.
+  */
 module connectorArmInner() {
 
   arm_side_length_inner = connector_outer_side_length - base_strength*2;
   arm_dimensions_inner = [arm_side_length_inner, arm_side_length_inner, base_unit];
-  color(HR_RED)
-  cuboid(arm_dimensions_inner, chamfer=base_chamfer,except=TOP);
+  color(HR_GREEN)
+  cuboid(arm_dimensions_inner, chamfer=base_chamfer,edges=BOTTOM);
 }
 
+/** * Connector Core Module
+  *
+  * Produces the core block of the connector.
+  * Around it, the arms are attached.
+  */
 module connectorCore() {
   core_dimensions = [connector_outer_side_length, connector_outer_side_length, connector_outer_side_length];
   color(HR_BLUE)
@@ -159,4 +188,4 @@ module connectorCore() {
 }
 
 
-homeRackerConnector(dimensions, directions, false, false);
+homeRackerConnector(dimensions, directions, false, is_foot);
