@@ -97,7 +97,7 @@ CONNECTOR_CONFIGS = [
   *   connector_piece = homeRackerConnector(dimensions=2, directions=4, pull_through_axis="y", is_foot=false);
   */
 
-module homeRackerConnector(dimensions=3, directions=6, pull_through_axis="none", is_foot=false) {
+module connector(dimensions=3, directions=6, pull_through_axis="none", is_foot=false) {
 
   // Validate and correct dimensions (1-3)
   valid_dimensions = max(1, min(3, dimensions));
@@ -186,6 +186,3 @@ module connectorCore() {
   color(HR_BLUE)
   cuboid(core_dimensions, chamfer=base_chamfer);
 }
-
-
-homeRackerConnector(dimensions, directions, false, is_foot);
