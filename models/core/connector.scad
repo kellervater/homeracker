@@ -113,18 +113,19 @@ module homeRackerConnector(dimensions=3, directions=6, pull_through_axis="none",
   // Array index: [dimensions-1][directions-min_directions]
   config = CONNECTOR_CONFIGS[valid_dimensions - 1][valid_directions - min_directions];
 
-  // Create connector core
-  connectorCore();
+  union() {
+    // Create connector core
+    connectorCore();
 
-  // Place arms based on configuration
-  // Order: +Z, -Z, +X, -X, +Y, -Y
-  if (config[0]) translate([0, 0, core_to_arm_translation]) connectorArmOuter();  // +Z
-  if (config[1]) translate([0, 0, -core_to_arm_translation]) rotate([180, 0, 0]) connectorArmOuter();  // -Z
-  if (config[2]) translate([core_to_arm_translation, 0, 0]) rotate([0, 90, 0]) connectorArmOuter();  // +X
-  if (config[3]) translate([-core_to_arm_translation, 0, 0]) rotate([0, -90, 0]) connectorArmOuter();  // -X
-  if (config[4]) translate([0, core_to_arm_translation, 0]) rotate([-90, 0, 0]) connectorArmOuter();  // +Y
-  if (config[5]) translate([0, -core_to_arm_translation, 0]) rotate([90, 0, 0]) connectorArmOuter();  // -Y
-
+    // Place arms based on configuration
+    // Order: +Z, -Z, +X, -X, +Y, -Y
+    if (config[0]) translate([0, 0, core_to_arm_translation]) connectorArmOuter();  // +Z
+    if (config[1]) translate([0, 0, -core_to_arm_translation]) rotate([180, 0, 0]) connectorArmOuter();  // -Z
+    if (config[2]) translate([core_to_arm_translation, 0, 0]) rotate([0, 90, 0]) connectorArmOuter();  // +X
+    if (config[3]) translate([-core_to_arm_translation, 0, 0]) rotate([0, -90, 0]) connectorArmOuter();  // -X
+    if (config[4]) translate([0, core_to_arm_translation, 0]) rotate([-90, 0, 0]) connectorArmOuter();  // +Y
+    if (config[5]) translate([0, -core_to_arm_translation, 0]) rotate([90, 0, 0]) connectorArmOuter();  // -Y
+  }
 }
 
 
@@ -133,16 +134,27 @@ module connectorArmOuter() {
   arm_dimensions_outer = [connector_outer_side_length, connector_outer_side_length, base_unit];
   arm_side_length_inner = connector_outer_side_length - base_strength*2;
   arm_dimensions_inner = [arm_side_length_inner, arm_side_length_inner, base_unit];
-  color("red")
+
   // outer cuboid
   difference() {
-    cuboid(arm_dimensions_outer, chamfer=base_chamfer,except=BOTTOM);
+    color(HR_YELLOW) cuboid(arm_dimensions_outer, chamfer=base_chamfer,except=BOTTOM);
+    color(HR_RED) rotate([90, 0, 0]) cuboid([lock_pin_side, lock_pin_side, connector_outer_side_length], chamfer=-lock_pin_chamfer);
+    color(HR_RED) rotate([90, 0, 90]) cuboid([lock_pin_side, lock_pin_side, connector_outer_side_length], chamfer=-lock_pin_chamfer);
+    //cuboid([connector_outer_side_length, lock_pin_side, lock_pin_side]);
   }
+}
+
+module connectorArmInner() {
+
+  arm_side_length_inner = connector_outer_side_length - base_strength*2;
+  arm_dimensions_inner = [arm_side_length_inner, arm_side_length_inner, base_unit];
+  color(HR_RED)
+  cuboid(arm_dimensions_inner, chamfer=base_chamfer,except=TOP);
 }
 
 module connectorCore() {
   core_dimensions = [connector_outer_side_length, connector_outer_side_length, connector_outer_side_length];
-  color("green")
+  color(HR_BLUE)
   cuboid(core_dimensions, chamfer=base_chamfer);
 }
 

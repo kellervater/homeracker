@@ -40,3 +40,9 @@ lock_pin_side_dimension = [lock_pin_side, lock_pin_side];
 
 // Tolerance for fitting parts together
 tolerance = 0.2; // in mm
+
+// HomeRacker Colors
+HR_YELLOW = "#f7b600";
+HR_BLUE = "#0056b3";
+HR_RED = "#c41e3a";
+HR_GREEN = "#2d7a2e";
