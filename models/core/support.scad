@@ -24,6 +24,7 @@
 // SOFTWARE.
 
 include <BOSL2/std.scad>
+include <constants.scad>
 
 /* [Parameters] */
 
@@ -32,19 +33,6 @@ units = 3; // [1:1:50]
 
 /* [Hidden] */
 $fn = 100;
-
-printing_layer_width = 0.4; // in mm
-printing_layer_height = 0.2; // in mm
-
-// HR Base Measurements
-base_unit = 15; // Base unit for all core measurements in mm
-base_strength = 2; // Wall thickness in mm
-base_chamfer = 1; // Chamfer size in mm
-
-// Lock Pin Holes
-lock_pin_chamfer = 0.8; // Chamfer size in mm
-lock_pin_side = 4;
-lock_pin_side_dimension = [lock_pin_side, lock_pin_side];
 
 lock_pin_center_side = lock_pin_side + printing_layer_width*2;
 lock_pin_center_dimension = [lock_pin_center_side, lock_pin_center_side];
