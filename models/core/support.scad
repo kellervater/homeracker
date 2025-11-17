@@ -31,6 +31,8 @@ include <constants.scad>
 // The length of the support in base units (Y-axis, each unit = 15mm).
 units = 3; // [1:1:50]
 
+// Add x holes (for printbed interface)
+x_holes = false;
 /* [Hidden] */
 $fn = 100;
 
