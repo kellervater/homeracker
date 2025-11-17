@@ -64,7 +64,7 @@ lock_pin_prismoid_outer_length = lock_pin_chamfer;
  *   Example: support(units=5, x_holes=true);
  */
 module support(units=3, x_holes=false) {
-    support_dimensions = [base_unit, base_unit*units, base_unit]; // single unit support dimensions
+    support_dimensions = [base_unit, base_unit*units, base_unit]; // support dimensions (multi-unit)
 
     difference() {
         // Single support block
