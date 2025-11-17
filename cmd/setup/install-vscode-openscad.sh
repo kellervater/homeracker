@@ -14,7 +14,7 @@ VSCODE_SETTINGS="${WORKSPACE_ROOT}/.vscode/settings.json"
 EXTENSION_ID="Leathong.openscad-language-support"
 
 # Source common functions
-# shellcheck source=../lib/common.sh
+# shellcheck source=../lib/common.sh disable=SC1091
 source "${SCRIPT_DIR}/../lib/common.sh"
 
 # Detect platform
@@ -33,7 +33,7 @@ if [[ "${PLATFORM}" == "windows" ]]; then
     OPENSCAD_PATH=$(cygpath -w "${INSTALL_DIR}/openscad.exe" | sed 's/\\/\\\\/g')
     SEARCH_PATHS=$(cygpath -w "${INSTALL_DIR}/libraries" | sed 's/\\/\\\\/g')
 else
-    OPENSCAD_PATH="${INSTALL_DIR}/openscad"
+    OPENSCAD_PATH="${WORKSPACE_ROOT}/cmd/linux/openscad-wrapper.sh"
     SEARCH_PATHS="${INSTALL_DIR}/libraries"
 fi
 

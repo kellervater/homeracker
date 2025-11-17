@@ -1,7 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended"
+    "config:recommended",
+    ":enablePreCommit",
   ],
   // Ignore any repository config presets
   "ignorePresets": [":all"],
@@ -16,7 +17,7 @@
     {
       "customType": "regex",
       // Track OpenSCAD nightly Windows version - extracts from Windows .zip filenames
-      "fileMatch": ["^cmd/setup/install-openscad\\.sh$"],
+      "managerFilePatterns": ["/^cmd/setup/install-openscad\\.sh$/"],
       "matchStrings": [
         "OPENSCAD_NIGHTLY_VERSION_WINDOWS=\"(?<currentValue>[^\"]+)\""
       ],
@@ -28,7 +29,7 @@
     {
       "customType": "regex",
       // Track OpenSCAD nightly Linux version - extracts from Linux .AppImage filenames
-      "fileMatch": ["^cmd/setup/install-openscad\\.sh$"],
+      "managerFilePatterns": ["/^cmd/setup/install-openscad\\.sh$/"],
       "matchStrings": [
         "OPENSCAD_NIGHTLY_VERSION_LINUX=\"(?<currentValue>[^\"]+)\""
       ],
@@ -40,7 +41,7 @@
     {
       "customType": "regex",
       // Track OpenSCAD stable version in install script
-      "fileMatch": ["^cmd/setup/install-openscad\\.sh$"],
+      "managerFilePatterns": ["/^cmd/setup/install-openscad\\.sh$/"],
       "matchStrings": [
         "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\nOPENSCAD_STABLE_VERSION=\"(?<currentValue>.*?)\""
       ],
@@ -50,7 +51,7 @@
     {
       "customType": "regex",
       // Track BOSL2 commit hash in dependencies script
-      "fileMatch": ["^cmd/setup/install-dependencies\\.sh$"],
+      "managerFilePatterns": ["/^cmd/setup/install-dependencies\\.sh$/"],
       "matchStrings": [
         "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\\nBOSL2_VERSION=\"(?<currentValue>.*?)\""
       ],

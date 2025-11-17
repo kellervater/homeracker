@@ -51,7 +51,7 @@ else
 fi
 
 # Source common functions
-# shellcheck source=../lib/common.sh
+# shellcheck source=../lib/common.sh disable=SC1091
 source "${SCRIPT_DIR}/../lib/common.sh"
 
 show_help() {
