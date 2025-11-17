@@ -15,11 +15,11 @@ x_holes = false;
 
 // --- Examples ---
 
-// Example 1: Create a default support with 3 units
+// Example 1: Create a default support (uses default units and x_holes)
 // support();
 
-// Example 2: Create a support with 5 units
-// support(units=5);
+// Example 2: Create a support with 5 units and no x holes
+// support(units=5, x_holes=false);
 
-// Example 3: Create a taller support with 10 units
- support(units=units, x_holes=x_holes);
+// Example 3: Create a support with units and x_holes as set above
+support(units=units, x_holes=x_holes);
