@@ -47,6 +47,7 @@ is_foot = false; // [true,false]
 $fn = 100;
 
 connector_outer_side_length = base_unit + base_strength*2 + tolerance;
+arm_side_length_inner = connector_outer_side_length - base_strength*2;
 
 core_to_arm_translation = base_unit;
 
@@ -201,7 +202,6 @@ module connectorArmOuter(is_foot=false) {
   */
 module connectorArmInner() {
 
-  arm_side_length_inner = connector_outer_side_length - base_strength*2;
   arm_dimensions_inner = [arm_side_length_inner, arm_side_length_inner, base_unit];
   color(HR_GREEN)
   cuboid(arm_dimensions_inner, chamfer=base_chamfer,edges=BOTTOM);
@@ -272,7 +272,7 @@ module print_interface_base() {
 module pull_through_hole(axis="x") {
   // Determine hole orientation and dimensions based on axis
   hole_length = base_unit * 3;
-  hole_dimensions = [hole_length, base_unit, base_unit];
+  hole_dimensions = [hole_length, arm_side_length_inner, arm_side_length_inner];
 
   color(HR_WHITE)
   if (axis == "y") {
