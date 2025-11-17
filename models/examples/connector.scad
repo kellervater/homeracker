@@ -1,6 +1,6 @@
-// HomeRacker - Support Example
+// HomeRacker - Connector Example
 //
-// This file demonstrates how to use the support module from the HomeRacker library.
+// This file demonstrates how to use the connector module from the HomeRacker library.
 
 // Use the main homeracker library file
 include <../homeracker.scad>
