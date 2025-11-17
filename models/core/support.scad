@@ -50,8 +50,8 @@ lock_pin_prismoid_outer_length = lock_pin_chamfer;
  *
  * Parameters:
  *   units (int, default=3): Number of base units (length) for the support.
- *       - Each unit is 15mm tall (see base_unit).
- *       - Typical range: 1 to 50.
+ *       - Each unit is 15mm in length along the Y-axis (see base_unit).
+ *       - Support height (Z-axis) is always 15mm. Typical range: 1 to 50.
  *   x_holes (bool, default=false): If true, adds horizontal holes along the X-axis.
  *
  * Produces:
