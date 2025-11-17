@@ -223,29 +223,25 @@ module connectorCore() {
   * Used to provide enough surface area for 3D printing when the connector has multiple arms (5 or 6)
   */
 module print_interface_3d() {
-  // Create a tetrahedron by defining 4 vertices
-  // Right angle at origin, edges along +X, +Y, +Z axes
+  // Create a right-angled tetrahedron using BOSL2's prismoid with a triangular base
+  // This tetrahedron fits into the chamfered corner of the connector
+  // and provides surface area for 3D printing support
   side_length = base_unit - tolerance/2 - base_strength/2;
   // Position tetrahedron at chamfered corner: from center to outer edge, minus chamfer offset
   translation = connector_outer_side_length/2 - base_chamfer;
-  points = [
-    [0, 0, 0],              // Origin (right angle corner)
-    [side_length, 0, 0],      // Along X axis
-    [0, side_length, 0],      // Along Y axis
-    [0, 0, side_length]       // Top point (apex)
-  ];
-
-  // Define the 4 triangular faces
-  faces = [
-    [0, 2, 1],  // Bottom face (XY plane triangle)
-    [0, 1, 3],  // XZ plane face
-    [0, 3, 2],  // YZ plane face
-    [1, 2, 3]   // Hypotenuse face (slanted)
-  ];
 
   color(HR_CHARCOAL)
   translate([translation, translation, translation])
-  polyhedron(points=points, faces=faces, convexity=2);
+  // Create tetrahedron using prismoid with triangular base and apex point
+  // This is cleaner and more maintainable than manual polyhedron vertex definitions
+  prismoid(
+    // Right triangle base in XY plane with right angle at origin
+    bottom=[[0, 0], [side_length, 0], [0, side_length]],
+    // Apex point directly above the origin
+    top=[[0, 0]],
+    h=side_length,
+    anchor=BOTTOM
+  );
 }
 
 /** * Base Print Interface Module
