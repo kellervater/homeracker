@@ -27,7 +27,7 @@ detect_platform() {
 PLATFORM=$(detect_platform)
 
 # Source common functions
-# shellcheck source=../lib/common.sh
+# shellcheck source=../lib/common.sh disable=SC1091
 source "${SCRIPT_DIR}/../lib/common.sh"
 
 # Find OpenSCAD executable path
@@ -54,7 +54,8 @@ test_model() {
     local model_file="$1"
     local openscad_exe="$2"
     local libraries_dir="$3"
-    local output_file="/tmp/$(basename "${model_file}" .scad)-test.stl"
+    local output_file
+    output_file="/tmp/$(basename "${model_file}" .scad)-test.stl"
 
     log_info "Testing: ${model_file}"
 
