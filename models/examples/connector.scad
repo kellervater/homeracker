@@ -19,7 +19,10 @@ pull_through_axis = "none"; // ["none","x","y","z"]
 // Is-Foot. Might clash with pull-through axis when set to "z". is_foot has priority then.
 is_foot = false; // [true,false]
 
+// Optimal Printing Orientation
+optimal_orientation = false; // [true,false]
+
 /* [Hidden] */
 $fn = 100;
 
-connector(dimensions, directions, pull_through_axis, is_foot);
+connector(dimensions, directions, pull_through_axis, is_foot, optimal_orientation);

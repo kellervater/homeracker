@@ -92,6 +92,7 @@ CONNECTOR_CONFIGS = [
   *       - Options: "none", "x", "y", "z".
   *   is_foot (bool, default=false): If true, configures the connector as a foot piece.
   *       - Note: If set to true, it overrides pull_through_axis when set to "z".
+  *   optimal_orientation (bool, default=false): If true, rotates the connector for optimal print orientation.
   *
   * Produces:
   *   A connector piece for the HomeRacker modular rack system.
@@ -101,7 +102,7 @@ CONNECTOR_CONFIGS = [
   *   connector_piece = homeRackerConnector(dimensions=2, directions=4, pull_through_axis="y", is_foot=false);
   */
 
-module connector(dimensions=3, directions=6, pull_through_axis="none", is_foot=false) {
+module connector(dimensions=3, directions=6, pull_through_axis="none", is_foot=false, optimal_orientation=false) {
 
   // Validate and correct dimensions (1-3)
   valid_dimensions = max(1, min(3, dimensions));
@@ -126,27 +127,42 @@ module connector(dimensions=3, directions=6, pull_through_axis="none", is_foot=f
     union() {
       if (valid_directions > 4) {
         // 5-6 way connectors: tetrahedron at chamfered corner
-        connector_raw(config, is_foot);
-        print_interface_3d();
+        rotation_1 = optimal_orientation ? [-(180 - acos(1/sqrt(3))),0,0] : [0,0,0];
+        rotation_2 = optimal_orientation ? [0,0,45] : [0,0,0];
+        rotate(rotation_1) rotate(rotation_2)
+        difference() {
+          union() {
+            connector_raw(config, is_foot);
+            print_interface_3d();
+          }
+          pull_through_hole(pull_through_axis, is_foot);
+        }
       } else if (valid_directions == 4 && valid_dimensions == 2) {
-        connector_raw(config, is_foot);
+        rotation = optimal_orientation ? [0,-135,45] : [0,0,0];
+        rotate(rotation)
+        difference() {
+          connector_raw(config, is_foot);
+          pull_through_hole(pull_through_axis, is_foot);
+        }
+
       } else {
         // All other cases: simple flat base with chamfered edge
-        intersection() {
-          connector_raw(config, is_foot);
-          print_interface_base();
+        rotation = optimal_orientation ? [90,-45,-45] : [0,0,0];
+        rotate(rotation)
+        difference() {
+          intersection() {
+            connector_raw(config, is_foot);
+            print_interface_base();
+          }
+          pull_through_hole(pull_through_axis, is_foot);
         }
       }
-    }
-    // Subtract pull-through hole if specified
-    if (pull_through_axis != "none") {
-      pull_through_hole(pull_through_axis);
     }
   }
 }
 
 module connector_raw(config, is_foot=false) {
-  mirror([0, 0, is_foot ? 1 : 0])
+  //mirror([0, 0, is_foot ? 1 : 0])
   difference() {
     // Core + Outer Arms
     union() {
@@ -269,7 +285,7 @@ module print_interface_base() {
   *
   * Produces a pull-through hole along the specified axis.
   */
-module pull_through_hole(axis="x") {
+module pull_through_hole(axis="none", is_foot=false) {
   // Determine hole orientation and dimensions based on axis
   hole_length = base_unit * 3;
   hole_dimensions = [hole_length, arm_side_length_inner, arm_side_length_inner];
