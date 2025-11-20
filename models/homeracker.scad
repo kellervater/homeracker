@@ -27,5 +27,5 @@
 // use <homeracker.scad>
 
 // Include all the core components
-include <core/support.scad>
-include <core/connector.scad>
+include <core/base/support.scad>
+include <core/base/connector.scad>
