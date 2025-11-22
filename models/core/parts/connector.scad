@@ -3,7 +3,7 @@
 // This file demonstrates how to use the connector module from the HomeRacker library.
 
 // Use the main homeracker library file
-include <../homeracker.scad>
+include <../main.scad>
 
 /* [Parameters] */
 

@@ -24,8 +24,8 @@
 // SOFTWARE.
 //
 // To use this library, add the following line to your OpenSCAD project:
-// use <homeracker.scad>
+// use <core/main.scad>
 
 // Include all the core components
-include <core/base/support.scad>
-include <core/base/connector.scad>
+include <lib/support.scad>
+include <lib/connector.scad>

@@ -22,6 +22,10 @@ HomeRacker is a fully modular 3D-printable rack-building system designed for ver
 3. **Lock Pins**: Securing mechanism for assembled connections. Lock connectors and supports together using 4mm square pins and rely on tension friction fit.
 
 ### Models Structure
+- `/models/core/main.scad`: Main library entry point (include this to use HomeRacker)
+- `/models/core/lib/`: Core module definitions (connector, support, constants)
+- `/models/core/parts/`: Single customizable instances of each part
+- `/models/core/presets/`: Pre-configured collections of all useful variants
 - `/models/rackmount_ears/`: Fully customizable rackmount ears (OpenSCAD)
 - `/models/gridfinity/`: Gridfinity-compatible base plates
 - `/models/flexmount/`: Flexible mounting solutions

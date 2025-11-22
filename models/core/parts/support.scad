@@ -1,9 +1,9 @@
-// HomeRacker - Support Example
+// HomeRacker - Support
 //
-// This file demonstrates how to use the support module from the HomeRacker library.
+// Fully customizable support beam part.
 
 // Use the main homeracker library file
-include <../homeracker.scad>
+include <../main.scad>
 
 /* [Parameters] */
 

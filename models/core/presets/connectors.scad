@@ -4,7 +4,7 @@
 // export and release. It includes standard connectors, footed connectors,
 // pull-through connectors, and footed pull-through connectors as separate modules.
 
-include <../homeracker.scad>
+include <../main.scad>
 
 /* [Hidden] */
 $fn = 100;
