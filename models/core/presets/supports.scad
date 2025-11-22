@@ -18,11 +18,11 @@ module linear_position(index) {
 }
 
 module basic(amount=17, x_holes=false) {
-    for (i = [0:amount-1]) {
+    for (i = [1:amount-1]) {
         linear_position(i) support(i + 1, x_holes);
     }
 }
 
 // Example calls
 // basic(17, false);  // Standard holes
-// basic(12, true);   // Double holes
+// basic(17, true);   // Double holes

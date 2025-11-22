@@ -50,17 +50,14 @@ module support(units=3, x_holes=false) {
     difference() {
         // Single support block
         color("darkslategray")
-        translate([0,units*base_unit/2-base_unit/2,0]) // let the support start from the origin on the y axis centered on the first unit
         cuboid(support_dimensions, chamfer=base_chamfer);
 
         // Create a lock pin hole for each unit of length
-        translate([0,units*base_unit/2-base_unit/2,0])
         ycopies(spacing=base_unit, n=units) {
             // the color is for testing purposes only when someone wants to visualize the hole
             color("red") lock_pin_hole();
         }
         if (x_holes) {
-            translate([0,units*base_unit/2-base_unit/2,0])
             ycopies(spacing=base_unit, n=units) {
                 // the color is for testing purposes only when someone wants to visualize the hole
                 color("red") rotate([0,90,0]) lock_pin_hole();
