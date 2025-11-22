@@ -31,21 +31,32 @@ $fn = 100;
 grip_type = "standard"; // ["standard", "no_grip"]
 
 // Lock Pin Dimensions
-
-// lockpin_fillet_front = lockpin_width_outer / 3;
 lockpin_chamfer = printing_layer_width;
-// lockpin_grip_thickness_inner = printing_layer_width*2;
-// lockpin_grip_thickness_outer = base_strength / 2;
-// lockpin_grip_distance = base_strength / 2;
-// lockpin_grip_width = lockpin_width + base_strength*2;
-// lockpin_tension_hole_width_inner = printing_layer_width*4; // widest/middle point of the tension hole
-
 lockpin_width_outer = lockpin_hole_side_length;
 lockpin_width_inner = lockpin_hole_side_length + printing_layer_width * 2;
 lockpin_height = lockpin_width_outer - tolerance;
 lockpin_prismoid_length = (base_unit - base_strength) / 2;
+lockpin_endpart_length = base_strength + base_strength / 2 + tolerance/2;
 
+/**
+ * 📐 lockpin module
+ *
+ * Creates a lock pin for the HomeRacker modular rack system.
+ *
+ * Parameters:
+ *   grip_type (string, default="standard"): Type of grip for the lock pin.
+ *       - "standard": Two grip arms on both sides.
+ *       - "no_grip": No grip arms.
+ *
+ * Produces:
+ *   A lock pin with a bidirectional tension hole and optional grip arms.
+ *
+ * Usage:
+ *   Call lockpin(grip_type) to generate a lock pin of desired grip type.
+ *   Example: lockpin(grip_type="no_grip");
+ */
 module lockpin(grip_type = "standard") {
+  rotate([90,0,0])
   difference() {
     // Create the lockpin shape
     union() {
@@ -54,6 +65,9 @@ module lockpin(grip_type = "standard") {
       tension_shape();
       // End part
       end_parts(grip_type);
+      // Grip part
+      color(HR_GREEN)
+      grip(grip_type);
     }
     // Subtract the tension hole
     color(HR_RED)
@@ -61,13 +75,67 @@ module lockpin(grip_type = "standard") {
   }
 }
 
+/**
+ * 📐 grip module
+ *
+ * Creates the grip part of the lock pin.
+ * If grip_type is "no_grip", no grip arms are created.
+ * If grip_type is "standard", two grip arms are created on both sides.
+ * If grip_type is "z_grip", a Z-shaped grip variant is created (not implemented yet).
+ */
+module grip(grip_type = "standard") {
+  if (grip_type != "no_grip") {
+    grip_thickness_inner = printing_layer_width*2;
+    grip_thickness_outer = base_strength / 2;
+    grip_distance = base_strength / 2;
+    grip_width = lockpin_width_outer + base_strength*2;
+
+    // we add lockpin_chamfer to cover the existing chamfer on the end part
+    grip_base_length = grip_thickness_inner + grip_thickness_outer + grip_distance + lockpin_chamfer + tolerance/2;
+
+    grip_base_dimensions = [lockpin_width_outer, lockpin_height, grip_base_length];
+    grip_outer_dimensions = [grip_width, lockpin_height, grip_thickness_outer];
+    grip_inner_dimensions = [grip_width, lockpin_height, grip_thickness_inner];
+
+    base_translation = lockpin_prismoid_length + lockpin_endpart_length - lockpin_chamfer;
+
+    // Base part of the grip
+    translate([0, 0, -base_translation - grip_base_length / 2])
+    cuboid(grip_base_dimensions, chamfer=lockpin_chamfer, except=TOP);
+
+    if(grip_type == "standard") {
+      translate([0, 0, -base_translation - grip_base_length + grip_thickness_outer / 2])
+      cuboid(grip_outer_dimensions, chamfer=lockpin_chamfer, except=TOP);
+      // Inner part of the grip
+      translate([0, 0, -base_translation - grip_base_length + + grip_thickness_outer + grip_thickness_inner / 2 + grip_distance])
+      cuboid(grip_inner_dimensions, chamfer=lockpin_chamfer, except=TOP);
+    } else if (grip_type == "z_grip") {
+      // TODO: Z-Grip variant has only 1 arm on each side but each arm is thicker
+      echo("Z-Grip variant not implemented yet.");
+    }
+  }
+}
+
+/**
+ * 📐 end_parts module
+ *
+ * Creates the complete end part of the lock pin with chamfered and filleted edges.
+ * The front half has filleted top edges for better grip, while the back half has chamfered edges.
+ * If grip_type is "no_grip", both halves will have chamfered edges.
+ */
 module end_parts(grip_type = "standard") {
   end_part_half(true);
   mirror([0, 0, 1]) end_part_half(grip_type == "no_grip");
 }
 
+/**
+ * 📐 end_part_half module
+ *
+ * Creates one half of the end part of the lock pin with chamfered and filleted edges.
+ * The front half has filleted top edges for better grip, while the back half has chamfered edges.
+ */
 module end_part_half(front = false) {
-  lockpin_endpart_length = base_strength + base_strength / 2 + tolerance/2;
+
   lockpin_fillet_front = lockpin_width_outer / 3;
   lockpin_endpart_dimension = [lockpin_width_outer, lockpin_height, lockpin_endpart_length]; // cubic
 
@@ -94,6 +162,11 @@ module tension_shape() {
     mirror([0, 0, 1]) tension_shape_half();
 }
 
+/**
+ * 📐 tension_shape_half module
+ *
+ * Creates one half of the main body of the lock pin with chamfered prismoid shape.
+ */
 module tension_shape_half() {
   lockpin_inner_dimension = [lockpin_width_inner, lockpin_height]; // planar
   lockpin_outer_dimension = [lockpin_width_outer, lockpin_height]; // planar
@@ -102,11 +175,22 @@ module tension_shape_half() {
   prismoid(lockpin_inner_dimension, lockpin_outer_dimension, height=lockpin_prismoid_length, chamfer=lockpin_chamfer);
 }
 
+
+/**
+ * 📐 tension_hole module
+ *
+ * Creates the bidirectional chamfered tension hole for lock pins.
+ */
 module tension_hole(){
   tension_hole_half();
   mirror([0,0,1]) tension_hole_half();
 }
 
+/**
+ * 📐 tension_hole_half module
+ *
+ * Creates one half of the bidirectional chamfered tension hole for lock pins.
+ */
 module tension_hole_half(){
   lockpin_tension_angle = 86.5; // in degrees
   lockpin_tension_hole_width_inner = printing_layer_width * 4; // widest/middle point of the tension hole
