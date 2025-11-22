@@ -26,17 +26,19 @@
 include <BOSL2/std.scad>
 include <constants.scad>
 
-$fn = 100;
-
-grip_type = "standard"; // ["standard", "no_grip"]
-
 // Lock Pin Dimensions
 lockpin_chamfer = printing_layer_width;
 lockpin_width_outer = lockpin_hole_side_length;
 lockpin_width_inner = lockpin_hole_side_length + printing_layer_width * 2;
 lockpin_height = lockpin_width_outer - tolerance;
 lockpin_prismoid_length = (base_unit - base_strength) / 2;
-lockpin_endpart_length = base_strength + base_strength / 2 + tolerance/2;
+lockpin_endpart_length = base_strength + base_strength / 2 + tolerance;
+grip_width = lockpin_width_outer + base_strength*2;
+grip_thickness_inner = printing_layer_width*2;
+grip_thickness_outer = base_strength / 2;
+grip_distance = base_strength / 2;
+// we add lockpin_chamfer to cover the existing chamfer on the end part
+grip_base_length = grip_thickness_inner + grip_thickness_outer + grip_distance + lockpin_chamfer + tolerance/2;
 
 /**
  * 📐 lockpin module
@@ -85,33 +87,27 @@ module lockpin(grip_type = "standard") {
  */
 module grip(grip_type = "standard") {
   if (grip_type != "no_grip") {
-    grip_thickness_inner = printing_layer_width*2;
-    grip_thickness_outer = base_strength / 2;
-    grip_distance = base_strength / 2;
-    grip_width = lockpin_width_outer + base_strength*2;
-
-    // we add lockpin_chamfer to cover the existing chamfer on the end part
-    grip_base_length = grip_thickness_inner + grip_thickness_outer + grip_distance + lockpin_chamfer + tolerance/2;
-
     grip_base_dimensions = [lockpin_width_outer, lockpin_height, grip_base_length];
     grip_outer_dimensions = [grip_width, lockpin_height, grip_thickness_outer];
     grip_inner_dimensions = [grip_width, lockpin_height, grip_thickness_inner];
 
-    base_translation = lockpin_prismoid_length + lockpin_endpart_length - lockpin_chamfer;
+    base_translation = lockpin_prismoid_length + lockpin_endpart_length - lockpin_chamfer - tolerance/2;
 
-    // Base part of the grip
-    translate([0, 0, -base_translation - grip_base_length / 2])
-    cuboid(grip_base_dimensions, chamfer=lockpin_chamfer, except=TOP);
+    union() {
+      // Base part of the grip
+      translate([0, 0, -base_translation - grip_base_length / 2])
+      cuboid(grip_base_dimensions, chamfer=lockpin_chamfer, except=TOP);
 
-    if(grip_type == "standard") {
-      translate([0, 0, -base_translation - grip_base_length + grip_thickness_outer / 2])
-      cuboid(grip_outer_dimensions, chamfer=lockpin_chamfer, except=TOP);
-      // Inner part of the grip
-      translate([0, 0, -base_translation - grip_base_length + + grip_thickness_outer + grip_thickness_inner / 2 + grip_distance])
-      cuboid(grip_inner_dimensions, chamfer=lockpin_chamfer, except=TOP);
-    } else if (grip_type == "z_grip") {
-      // TODO: Z-Grip variant has only 1 arm on each side but each arm is thicker
-      echo("Z-Grip variant not implemented yet.");
+      if(grip_type == "standard") {
+        translate([0, 0, -base_translation - grip_base_length + grip_thickness_outer / 2])
+        cuboid(grip_outer_dimensions, chamfer=lockpin_chamfer, except=TOP);
+        // Inner part of the grip
+        translate([0, 0, -base_translation - grip_base_length + grip_thickness_outer + grip_thickness_inner / 2 + grip_distance])
+        cuboid(grip_inner_dimensions, chamfer=lockpin_chamfer, except=TOP);
+      } else if (grip_type == "z_grip") {
+        // TODO: Z-Grip variant has only 1 arm on each side but each arm is thicker
+        echo("Z-Grip variant not implemented yet.");
+      }
     }
   }
 }
@@ -139,7 +135,7 @@ module end_part_half(front = false) {
   lockpin_fillet_front = lockpin_width_outer / 3;
   lockpin_endpart_dimension = [lockpin_width_outer, lockpin_height, lockpin_endpart_length]; // cubic
 
-  translate([0, 0, lockpin_prismoid_length + lockpin_endpart_length / 2])
+  translate([0, 0, lockpin_prismoid_length + lockpin_endpart_length / 2 - tolerance/2])
   color(HR_BLUE)
   // Since it's not possible to have both chamfer and fillet on the same edges,
   // we use an intersection of two shapes to achieve the desired effect.
@@ -198,7 +194,3 @@ module tension_hole_half(){
   lockpin_tension_hole_inner_dimension = [lockpin_tension_hole_width_inner, lockpin_height]; // planar
   prismoid(size1=lockpin_tension_hole_inner_dimension, height=lockpin_tension_hole_height, xang=lockpin_tension_angle, yang=90);
 }
-
-
-
-lockpin(grip_type);

@@ -23,9 +23,10 @@ HomeRacker is a fully modular 3D-printable rack-building system designed for ver
 
 ### Models Structure
 - `/models/core/main.scad`: Main library entry point (include this to use HomeRacker)
-- `/models/core/lib/`: Core module definitions (connector, support, constants)
+- `/models/core/lib/`: Core module definitions (connector, support, lockpin, constants)
 - `/models/core/parts/`: Single customizable instances of each part
 - `/models/core/presets/`: Pre-configured collections of all useful variants
+- `/models/core/test/`: Test files for validating each component
 - `/models/rackmount_ears/`: Fully customizable rackmount ears (OpenSCAD)
 - `/models/gridfinity/`: Gridfinity-compatible base plates
 - `/models/flexmount/`: Flexible mounting solutions

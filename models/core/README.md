@@ -10,12 +10,16 @@ core/
 ├── lib/               # Core module definitions (implementation)
 │   ├── connector.scad  # Connector module implementation
 │   ├── support.scad    # Support beam module implementation
+│   ├── lockpin.scad    # Lock pin module implementation
 │   └── constants.scad  # Shared constants and dimensions
 ├── parts/              # Single customizable instances of `lib` modules
 │   ├── connector.scad  # Fully customizable connector (use OpenSCAD Customizer)
-│   └── support.scad    # Fully customizable support beam
+│   ├── support.scad    # Fully customizable support beam
+│   └── lockpin.scad    # Fully customizable lock pin
 └── presets/            # Pre-configured variant collections
-    └── connectors.scad # All useful connector variants for export
+    ├── connectors.scad # All useful connector variants for export
+    ├── supports.scad   # All useful support variants for export
+    └── lockpins.scad   # All useful lock pin variants for export
 ```
 
 ## 🚀 Quick Start
@@ -32,6 +36,9 @@ connector(dimensions=3, directions=3);
 
 // Create a support beam (3 units long)
 support(units=3);
+
+// Create a lock pin with standard grip
+lockpin(grip_type="standard");
 ```
 
 ### Customizing Parts
@@ -40,12 +47,15 @@ Open any file in `parts/` with OpenSCAD and use the **Customizer** panel to adju
 
 - **`connector.scad`**: Customize dimensions, directions, pull-through axes, feet, and orientation
 - **`support.scad`**: Customize length and hole configurations
+- **`lockpin.scad`**: Customize grip type (standard or no-grip)
 
 ### Exporting Variants
 
 The `presets/` folder contains modules for batch-exporting all logical variants:
 
 - **`connectors.scad`**: Organized collections (standard, feet, pull-through, etc.)
+- **`supports.scad`**: Various support lengths with different hole configurations
+- **`lockpins.scad`**: Standard grip and no-grip variants
 
 ## 🔧 Core Components
 
@@ -64,6 +74,9 @@ Junction pieces that join supports in multiple directions.
 
 ### 3. **Lock Pins**
 4mm square pins that secure connectors to supports via tension fit.
+- Standard grip: Two grip arms for easy insertion/removal
+- No-grip variant: Smooth design for minimal profile
+- Bidirectional tension hole for secure fit
 
 ## 📐 Dimensional Standards
 

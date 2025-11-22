@@ -29,3 +29,4 @@
 // Include all the core components
 include <lib/support.scad>
 include <lib/connector.scad>
+include <lib/lockpin.scad>
