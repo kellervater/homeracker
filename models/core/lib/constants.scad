@@ -24,6 +24,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+// Tolerance for fitting parts together
+tolerance = 0.2; // in mm
+
 // Base printing parameters
 printing_layer_width = 0.4; // in mm
 printing_layer_height = 0.2; // in mm
@@ -34,12 +37,10 @@ base_strength = 2; // Wall thickness in mm
 base_chamfer = 1; // Chamfer size in mm
 
 // Lock Pin Holes
-lock_pin_chamfer = 0.8; // Chamfer size in mm
-lock_pin_side = 4;
-lock_pin_side_dimension = [lock_pin_side, lock_pin_side];
+lockpin_hole_chamfer = 0.8; // Chamfer size in mm
+lockpin_hole_side_length = 4;
+lockpin_hole_side_length_dimension = [lockpin_hole_side_length, lockpin_hole_side_length];
 
-// Tolerance for fitting parts together
-tolerance = 0.2; // in mm
 
 // HomeRacker Colors
 HR_YELLOW = "#f7b600";

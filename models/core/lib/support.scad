@@ -26,25 +26,6 @@
 include <BOSL2/std.scad>
 include <constants.scad>
 
-/* [Parameters] */
-
-// The length of the support in base units (Y-axis, each unit = 15mm).
-units = 3; // [1:1:50]
-
-// Add x holes (for printbed interface)
-x_holes = false;
-/* [Hidden] */
-$fn = 100;
-
-lock_pin_center_side = lock_pin_side + printing_layer_width*2;
-lock_pin_center_dimension = [lock_pin_center_side, lock_pin_center_side];
-
-lock_pin_outer_side = lock_pin_side + lock_pin_chamfer*2;
-lock_pin_outer_dimension = [lock_pin_outer_side, lock_pin_outer_side];
-
-lock_pin_prismoid_inner_length = base_unit/2 - lock_pin_chamfer;
-lock_pin_prismoid_outer_length = lock_pin_chamfer;
-
 /**
  * HomeRacker Support Module
  *
@@ -86,7 +67,6 @@ module support(units=3, x_holes=false) {
             }
         }
     }
-
 }
 
 /**
@@ -98,13 +78,21 @@ module support(units=3, x_holes=false) {
  * This ensures printability and mechanical strength while maintaining standard HomeRacker tolerances.
  */
 module lock_pin_hole() {
+    lock_pin_center_side = lockpin_hole_side_length + printing_layer_width*2;
+    lock_pin_center_dimension = [lock_pin_center_side, lock_pin_center_side];
+
+    lock_pin_outer_side = lockpin_hole_side_length + lockpin_hole_chamfer*2;
+    lock_pin_outer_dimension = [lock_pin_outer_side, lock_pin_outer_side];
+
+    lock_pin_prismoid_inner_length = base_unit/2 - lockpin_hole_chamfer;
+    lock_pin_prismoid_outer_length = lockpin_hole_chamfer;
 
     // Define one half of the hole shape in a module
     module hole_half() {
         union() {
-            prismoid(size1=lock_pin_center_dimension, size2=lock_pin_side_dimension, h=lock_pin_prismoid_inner_length);
+            prismoid(size1=lock_pin_center_dimension, size2=lockpin_hole_side_length_dimension, h=lock_pin_prismoid_inner_length);
             translate([0, 0, lock_pin_prismoid_inner_length]) {
-                prismoid(size1=lock_pin_side_dimension, size2=lock_pin_outer_dimension, h=lock_pin_prismoid_outer_length);
+                prismoid(size1=lockpin_hole_side_length_dimension, size2=lock_pin_outer_dimension, h=lock_pin_prismoid_outer_length);
             }
         }
     }

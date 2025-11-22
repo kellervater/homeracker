@@ -121,7 +121,7 @@ module connector(dimensions=3, directions=6, pull_through_axis="none", is_foot=f
   // for nicer optics, mirror the whole connector along the xy plane when it's a foot
 
 
-  // Substract Pull-Through Hole if applicable
+  // Subtract Pull-Through Hole if applicable
   difference() {
     // Combine connector with Printing interfaces
     union() {
@@ -204,8 +204,8 @@ module connectorArmOuter(is_foot=false) {
   difference() {
     color(HR_YELLOW) cuboid(arm_dimensions_outer, chamfer=base_chamfer,except=BOTTOM);
     if(!is_foot){
-      color(HR_RED) rotate([90, 0, 0]) cuboid([lock_pin_side, lock_pin_side, connector_outer_side_length], chamfer=-lock_pin_chamfer);
-      color(HR_RED) rotate([90, 0, 90]) cuboid([lock_pin_side, lock_pin_side, connector_outer_side_length], chamfer=-lock_pin_chamfer);
+      color(HR_RED) rotate([90, 0, 0]) cuboid([lockpin_hole_side_length, lockpin_hole_side_length, connector_outer_side_length], chamfer=-lockpin_hole_chamfer);
+      color(HR_RED) rotate([90, 0, 90]) cuboid([lockpin_hole_side_length, lockpin_hole_side_length, connector_outer_side_length], chamfer=-lockpin_hole_chamfer);
     }
   }
 }
