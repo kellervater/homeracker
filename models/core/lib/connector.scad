@@ -162,7 +162,6 @@ module connector(dimensions=3, directions=6, pull_through_axis="none", is_foot=f
 }
 
 module connector_raw(config, is_foot=false) {
-  //mirror([0, 0, is_foot ? 1 : 0])
   difference() {
     // Core + Outer Arms
     union() {
