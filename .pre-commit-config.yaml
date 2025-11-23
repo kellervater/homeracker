@@ -32,4 +32,12 @@ repos:
           [
             "--rcfile=.lint/pylint/.pylintrc"
           ]
+  - repo: local
+    hooks:
+      - id: validate-makerworld-exports
+        name: Validate MakerWorld Exports
+        entry: cmd/export/export-core-models.sh
+        language: script
+        pass_filenames: false
+        always_run: true
 ...

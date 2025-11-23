@@ -1,11 +1,16 @@
 #!/usr/bin/env bash
-# Test MakerWorld export script
+# DEPRECATED: Use cmd/export/export-core-models.sh instead
+#
+# This script is kept for backward compatibility but will be removed in the future.
+# Please use the new export-core-models.sh script which handles all models automatically.
 
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
+echo "WARNING: This script is deprecated. Use cmd/export/export-core-models.sh instead"
+echo ""
 echo "Testing MakerWorld export script..."
 
 # Test with connector.scad

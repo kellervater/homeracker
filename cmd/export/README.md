@@ -49,6 +49,65 @@ python cmd/export/export-makerworld.py models/core/parts/connector.scad
 
 ## Testing
 
+Use the automated export system:
+
 ```bash
-bash cmd/test/test-makerworld-export.sh
+# Export all configured models and validate
+./cmd/export/export-core-models.sh
+```
+
+Or test a single model:
+
+```bash
+python cmd/export/export_makerworld.py models/core/parts/connector.scad
+# → models/core/makerworld/connector.scad
+```
+
+## Automated Export System
+
+### Setup Pre-commit Hooks
+
+This project uses the [pre-commit](https://pre-commit.com/) framework:
+
+```bash
+# Install pre-commit (if not already installed)
+pip install pre-commit
+
+# Install git hooks
+pre-commit install
+```
+
+### Components
+
+**`export-core-models.sh`** - Orchestrates the export process:
+- Auto-discovers models from configured paths (`models/core/parts`)
+- Exports each via `export_makerworld.py`
+- Validates exports with `test-models.sh`
+
+**Pre-commit hook** - Configured in `.pre-commit-config.yaml`:
+- Runs `export-core-models.sh` automatically on commit
+- Validates exports are in sync with source files
+- Only runs when core model files change
+
+**GitHub Actions** - CI workflow runs all pre-commit hooks on PRs
+
+### Running Manually
+
+```bash
+# Run all pre-commit hooks
+pre-commit run --all-files
+
+# Run only the MakerWorld export validation
+pre-commit run validate-makerworld-exports --all-files
+```
+
+### Adding New Models
+
+Edit `cmd/export/export-core-models.sh` and add to `EXPORT_PATHS`:
+
+```bash
+EXPORT_PATHS=(
+    "models/core/parts"           # Folder: auto-discovers .scad files
+    "models/other/special.scad"   # File: exports specific file
+)
 ```

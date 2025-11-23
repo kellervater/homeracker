@@ -248,10 +248,6 @@ def process_file(file_path: Path, processed: Set[Path], bosl2_includes: Set[str]
                 inlined = process_file(resolved, processed, bosl2_includes)
                 if inlined:
                     result.append(inlined)
-                else:
-                    print(f"Warning: No content to inline from: {resolved}")
-            else:
-                print(f"Warning: Included file not found: {resolved}")
 
     # Strip comments, then extract only definitions
     clean_content = strip_comments(content)
@@ -341,10 +337,6 @@ def export_for_makerworld(input_file: Path, output_file: Path):
                 lib_content = process_file(resolved, processed, bosl2_includes)
                 if lib_content:
                     inlined_libs.append(lib_content)
-                else:
-                    print(f"Warning: No content to inline from: {resolved}")
-            else:
-                print(f"Warning: Included file not found: {resolved}")
 
     # Build final output
     output_parts = []
@@ -376,7 +368,16 @@ def export_for_makerworld(input_file: Path, output_file: Path):
     # Main code from root file
     output_parts.append(main_code)
 
-    output_file.write_text('\n'.join(output_parts), encoding='utf-8')
+    # Build final output with proper line endings
+    output_text = '\n'.join(output_parts)
+    # Strip trailing whitespace from each line
+    output_text = '\n'.join(line.rstrip() for line in output_text.split('\n'))
+    # Ensure file ends with exactly one newline (LF)
+    if not output_text.endswith('\n'):
+        output_text += '\n'
+
+    # Write with LF line endings (newline='\n' prevents Windows CRLF conversion)
+    output_file.write_text(output_text, encoding='utf-8', newline='\n')
     print(f"Exported: {output_file}")
 
 
