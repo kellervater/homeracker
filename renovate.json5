@@ -90,6 +90,11 @@
         "actions/upload-artifact"
       ],
       "automerge": true
+    },
+    {
+      "matchManagers": ["pre-commit"],
+      "groupName": "pre-commit hooks",
+      "groupSlug": "pre-commit-hooks"
     }
   ]
 }
