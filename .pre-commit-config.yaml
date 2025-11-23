@@ -37,7 +37,7 @@ repos:
     hooks:
       - id: validate-makerworld-exports
         name: Validate MakerWorld Exports
-        entry: cmd/export/export-core-models.sh
+        entry: .githooks/makerworld-export
         language: script
         pass_filenames: false
         always_run: true
