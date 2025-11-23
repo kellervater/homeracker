@@ -25,7 +25,6 @@ optimal_orientation = true; // [true,false]
 /* [Hidden] */
 $fn = 100;
 
-hha=1;
 // Color based on configuration:
 // HR_GREEN - standard (no pull through, no foot)
 // HR_YELLOW - pull-through (x/y/z pull through, no foot)
