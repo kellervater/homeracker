@@ -82,10 +82,12 @@ module connectors_pull_through_feet(optimal_orientation=false) {
 
   // Row 1: 3D foot pull-through variants
   grid_position(1, 0) connector(3, 3, "x", true, optimal_orientation);
-  grid_position(1, 1) connector(3, 4, "x", true, optimal_orientation);
-  grid_position(1, 2) connector(3, 5, "x", true, optimal_orientation);
-  grid_position(1, 3) connector(3, 5, "y", true, optimal_orientation);
-  grid_position(1, 4) connector(3, 6, "x", true, optimal_orientation);
+  grid_position(1, 1) connector(3, 3, "y", true, optimal_orientation);
+  grid_position(1, 2) connector(3, 4, "x", true, optimal_orientation);
+  grid_position(1, 3) connector(3, 4, "y", true, optimal_orientation);
+  grid_position(1, 4) connector(3, 5, "x", true, optimal_orientation);
+  grid_position(1, 5) connector(3, 5, "y", true, optimal_orientation);
+  grid_position(1, 6) connector(3, 6, "x", true, optimal_orientation);
 }
 
 
