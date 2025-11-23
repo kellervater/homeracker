@@ -1,12 +1,18 @@
 #!/usr/bin/env bash
 #
-# OpenSCAD Test Script
+# OpenSCAD Renderer - Core Testing Tool
 #
-# Tests OpenSCAD installation by rendering model files
+# Renders specific .scad files to validate syntax and geometry.
+# Use this for:
+#   - Testing individual model files during development
+#   - Validating exported files (e.g., MakerWorld exports)
+#   - Quick smoke tests of specific models
+#
+# For automated testing of all models in test/ directories, use test-models.sh instead.
 #
 # Usage:
-#   ./cmd/test/test-openscad.sh                 # Run smoke test on wallmount.scad
-#   ./cmd/test/test-openscad.sh file1.scad ...  # Test specific files
+#   ./cmd/test/openscad-render.sh                 # Run smoke test on wallmount.scad
+#   ./cmd/test/openscad-render.sh file1.scad ...  # Test specific files
 #
 
 set -euo pipefail

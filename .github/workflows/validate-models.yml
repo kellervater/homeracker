@@ -8,7 +8,7 @@ on:
       - '.github/workflows/validate-models.yml'
       - 'cmd/setup/install-openscad.sh'
       - 'cmd/setup/install-dependencies.sh'
-      - 'cmd/test/test-openscad.sh'
+      - 'cmd/test/openscad-render.sh'
 
 jobs:
   validate:
@@ -32,7 +32,7 @@ jobs:
 
       - name: Validate models
         run: |
-          chmod +x cmd/test/test-models.sh cmd/test/test-openscad.sh
+          chmod +x cmd/test/test-models.sh cmd/test/openscad-render.sh
           ./cmd/test/test-models.sh
 
       - name: Upload logs on failure

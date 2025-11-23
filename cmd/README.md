@@ -20,6 +20,12 @@ Automated installation of OpenSCAD for the HomeRacker workspace (Windows only at
 # Run smoke test - validates the current openscad installation against local models
 ./cmd/setup/install-openscad.sh --test
 
+# Test specific model files (e.g., after export or during development)
+./cmd/test/openscad-render.sh models/core/parts/connector.scad
+
+# Run automated test suite (all models in test/ and makerworld/ directories)
+./cmd/test/test-models.sh
+
 # Force reinstall
 ./cmd/setup/install-openscad.sh --force
 ```

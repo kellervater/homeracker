@@ -14,7 +14,7 @@ cd homeracker
 ./cmd/setup/install-dependencies.sh
 
 # Verify installation
-./cmd/test/test-openscad.sh
+./cmd/test/openscad-render.sh
 ```
 
 ### Pre-commit Hooks (Recommended)
@@ -69,6 +69,29 @@ The hooks include:
 - Use [BOSL2](https://github.com/BelfrySCAD/BOSL2/wiki) for complex geometry
 - Group parameters with `/* [Section] */` comments
 - Add sanity checks: `assert(height % 15 == 0, "Must be multiple of 15mm")`
+
+### Python Code Standards
+- **Docstrings**: All functions must use [Google style docstrings](https://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings)
+  ```python
+  def example_function(param1: str, param2: int) -> bool:
+      """Brief one-line summary of what the function does.
+
+      More detailed explanation if needed (optional).
+
+      Args:
+          param1: Description of first parameter
+          param2: Description of second parameter
+
+      Returns:
+          Description of return value
+
+      Raises:
+          ValueError: Description of when this exception is raised
+      """
+  ```
+- See `cmd/export/export_makerworld.py` for real examples
+- Use type hints for function parameters and return values
+- Keep inline comments minimal - code should be self-documenting
 
 ### Testing
 - Render in OpenSCAD without errors
