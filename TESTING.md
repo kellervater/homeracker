@@ -51,6 +51,20 @@ Expected output should show:
 - `OpenSCAD-Windows`: version without `.ai` suffix
 - `OpenSCAD-Linux`: version with `.ai` suffix preserved
 
+### Example: Testing Grouping and Automerge
+
+```bash
+# Test pre-commit hooks grouping
+git checkout renovate-pre-commit
+./cmd/test/test-renovate-local.sh
+```
+
+Expected output should show:
+- **Single branch** `renovate/pre-commit-hooks` containing all pre-commit hook updates
+- Both **major and minor** updates combined (verify `separateMajorMinor: false`)
+- `"automerge": true` in the branch configuration
+- No separate `renovate/major-pre-commit-hooks` branch
+
 ### Why Remote Push is Required
 
 Renovate test fetches from GitHub, so changes must exist remotely before testing validates them.
