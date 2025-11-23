@@ -1,22 +1,22 @@
 #!/usr/bin/env bash
 #
 # Local Renovate Configuration Test Script
-# 
+#
 # Tests the renovate.json5 configuration locally without committing changes.
 # Based on: https://github.com/camunda/camunda/blob/main/cmd/renovate/renovate-local.sh
 #
 # Usage:
-#   ./tools/test-renovate-local.sh
+#   ./cmd/test/test-renovate-local.sh
 #
 
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-WORKSPACE_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
+WORKSPACE_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 
 # Source common functions
-# shellcheck source=lib/common.sh
-source "${SCRIPT_DIR}/lib/common.sh"
+# shellcheck source=../lib/common.sh disable=SC1091
+source "${SCRIPT_DIR}/../lib/common.sh"
 
 # Ensure GitHub CLI is installed
 if ! command -v gh >/dev/null 2>&1; then
@@ -110,5 +110,5 @@ log_info "Renovate dry-run finished at: $(date)"
 log_success "Total runtime: ${minutes} minutes and ${seconds} seconds"
 log_info ""
 log_info "Check the output above for detected updates in:"
-log_info "  - tools/install-openscad.sh (OPENSCAD_NIGHTLY_VERSION)"
-log_info "  - tools/install-openscad.sh (OPENSCAD_STABLE_VERSION)"
+log_info "  - cmd/setup/install-openscad.sh (OPENSCAD_NIGHTLY_VERSION)"
+log_info "  - cmd/setup/install-openscad.sh (OPENSCAD_STABLE_VERSION)"

@@ -10,12 +10,49 @@ git clone https://github.com/kellervater/homeracker.git
 cd homeracker
 
 # Install OpenSCAD (Windows/Git Bash)
-./tools/install-openscad.sh
-./tools/install-dependencies.sh
+./cmd/setup/install-openscad.sh
+./cmd/setup/install-dependencies.sh
 
 # Verify installation
-./tools/test-openscad.sh
+./cmd/test/openscad-render.sh
 ```
+
+### Pre-commit Hooks (Recommended)
+
+This repository uses [pre-commit](https://pre-commit.dev/) to enforce code quality checks before commits.
+
+**Prerequisites**: Python 3.x installed on your system
+
+```bash
+# Create and activate a virtual environment (recommended)
+python -m venv .venv
+
+# Activate the virtual environment
+# Windows (Git Bash/CMD/PowerShell):
+source .venv/Scripts/activate
+# macOS/Linux:
+source .venv/bin/activate
+
+# Install pre-commit
+pip install pre-commit
+
+# Install the git hooks
+pre-commit install
+```
+
+Now pre-commit will automatically run on `git commit`. To manually run hooks on all files:
+
+```bash
+pre-commit run --all-files
+```
+
+The hooks include:
+- Trailing whitespace removal
+- End-of-file fixes
+- YAML syntax validation
+- Large file detection
+- Merge conflict marker checks
+- Renovate config validation
 
 ## 📐 HomeRacker Standards
 
@@ -32,6 +69,29 @@ cd homeracker
 - Use [BOSL2](https://github.com/BelfrySCAD/BOSL2/wiki) for complex geometry
 - Group parameters with `/* [Section] */` comments
 - Add sanity checks: `assert(height % 15 == 0, "Must be multiple of 15mm")`
+
+### Python Code Standards
+- **Docstrings**: All functions must use [Google style docstrings](https://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings)
+  ```python
+  def example_function(param1: str, param2: int) -> bool:
+      """Brief one-line summary of what the function does.
+
+      More detailed explanation if needed (optional).
+
+      Args:
+          param1: Description of first parameter
+          param2: Description of second parameter
+
+      Returns:
+          Description of return value
+
+      Raises:
+          ValueError: Description of when this exception is raised
+      """
+  ```
+- See `cmd/export/export_makerworld.py` for real examples
+- Use type hints for function parameters and return values
+- Keep inline comments minimal - code should be self-documenting
 
 ### Testing
 - Render in OpenSCAD without errors
@@ -132,7 +192,7 @@ models/              # OpenSCAD models
   ├── flexmount/    # Flexible mounts
   ├── gridfinity/   # Gridfinity integration
   └── core/         # Core components
-tools/              # Installation & test scripts
+cmd/                # Command-line utilities (setup, test, lib)
 ```
 
 ## 💬 Getting Help

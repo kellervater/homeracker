@@ -37,12 +37,12 @@ module recess(side_length,chamfer){
   //chamfer
   rotate([180,0,0])
   prismoid(
-    size1=[side_length,side_length], 
-    rounding=chamfer, 
+    size1=[side_length,side_length],
+    rounding=chamfer,
     h=chamfer,
     xang=45,
     yang=45
-    ); 
+    );
 }
 
 module gridfinity_unit(){
@@ -53,7 +53,7 @@ module gridfinity_unit(){
         anchor=CENTER+BOTTOM
     );
     //1st recess
-    
+
     translate([0,0,GRIDFINITY_BASEPLATE_HEIGHT])
     recess(
       GRIDFINITY_BASEPLATE_SIDE_LENGTH,
@@ -91,7 +91,7 @@ module grid(x,y){
       except=[BOTTOM,TOP]
     );
   }
-  
+
 }
 
 

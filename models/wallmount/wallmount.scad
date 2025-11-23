@@ -19,7 +19,7 @@ LOCK_PIN_SIDE=4; // mm
 LOCK_PIN_EDGE_DISTANCE=5.5; // mm
 // lock pin chamfer
 LOCK_PIN_CHAMFER=0.8; // mm
-// Negative chamfer fix: 
+// Negative chamfer fix:
 NEGATIVE_CHAMFER_TRANSLATE=0.01;
 
 mount_units=2;
@@ -30,7 +30,7 @@ mount_units=2;
 //mount_units=2; //[2:1:10]
 // Shall bores be countersunk or flathead
 bore_type="flathead"; //[flathead,countersunk]
-// Bore Shaft Diameter in mm 
+// Bore Shaft Diameter in mm
 bore_shaft_diameter=4;
 // Bore Head Diameter in mm (only relevant if bore_type=countersunk)
 bore_head_diameter=8.5;
@@ -107,7 +107,7 @@ module bore(){
       // Shaft
       cylinder(r=bore_shaft_radius,h=mount_thickness,anchor=CENTER+BOTTOM);
     }
-    
+
   }
 }
 
@@ -126,5 +126,5 @@ union(){
     // Lock Pin Holes
     lock_pin_holes();
   }
-  
+
 }

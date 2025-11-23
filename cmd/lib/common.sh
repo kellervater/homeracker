@@ -50,7 +50,7 @@ get_version() {
 download_file() {
     local url="$1"
     local output="$2"
-    
+
     if ! curl -L -f -o "${output}" "${url}"; then
         log_error "Failed to download from ${url}"
         return 1

@@ -6,22 +6,28 @@ Automated installation of OpenSCAD for the HomeRacker workspace (Windows only at
 
 ```bash
 # Install or upgrade to latest nightly release (default)
-./tools/install-openscad.sh
+./cmd/setup/install-openscad.sh
 
 # Install nightly build (default)
-./tools/install-openscad.sh --nightly
+./cmd/setup/install-openscad.sh --nightly
 
 # Install dependencies (BOSL2 library) - already done on a fresh install-openscad call
-./tools/install-dependencies.sh
+./cmd/setup/install-dependencies.sh
 
 # Check if update is available
-./tools/install-openscad.sh --check
+./cmd/setup/install-openscad.sh --check
 
 # Run smoke test - validates the current openscad installation against local models
-./tools/install-openscad.sh --test
+./cmd/setup/install-openscad.sh --test
+
+# Test specific model files (e.g., after export or during development)
+./cmd/test/openscad-render.sh models/core/parts/connector.scad
+
+# Run automated test suite (all models in test/ and makerworld/ directories)
+./cmd/test/test-models.sh
 
 # Force reinstall
-./tools/install-openscad.sh --force
+./cmd/setup/install-openscad.sh --force
 ```
 
 ## 🤖 Automatic Updates

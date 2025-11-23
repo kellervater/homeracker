@@ -1,3 +1,4 @@
+---
 name: Automerge Release PRs
 
 on:
@@ -18,7 +19,7 @@ jobs:
         with:
           app-id: ${{ secrets.RELEASES_APP_ID }}
           private-key: ${{ secrets.RELEASES_APP_PRIVATE_KEY }}
-      
+
       - name: Enable auto-merge for release PRs
         run: |
           gh pr merge --auto --squash release-please--branches--main || true

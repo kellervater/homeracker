@@ -34,3 +34,13 @@ HomeRacker is a modular 3D-printable rack-building system. Core components use p
 - Group parameters with `/* [Section] */` comments
 - Include sanity checks for critical params
 - Test parameter ranges for edge cases
+
+## Python Guidelines
+- **Docstrings**: Use [Google style](https://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings) for all functions
+  - Brief summary on first line
+  - `Args:` section describing each parameter
+  - `Returns:` section describing return value
+  - `Raises:` section for exceptions (if applicable)
+  - Example: See `cmd/export/export_makerworld.py`
+- Keep code self-documenting with clear variable names
+- Add inline comments only for complex regex patterns or non-obvious logic
