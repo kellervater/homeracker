@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.1.0](https://github.com/kellervater/homeracker/compare/v1.0.1...v1.1.0) (2025-11-23)
+
+
+### ✨ Features
+
+* **core:** provide HomeRacker core as OpenSCAD library ([#32](https://github.com/kellervater/homeracker/issues/32)) ([a50e774](https://github.com/kellervater/homeracker/commit/a50e774507f9102238b0d63465a5388bbf876149))
+
+
+### 📦 Dependencies
+
+* update actions/setup-python action to v6 ([#82](https://github.com/kellervater/homeracker/issues/82)) ([a77c738](https://github.com/kellervater/homeracker/commit/a77c7382471e3549f6b762b6d73b9425de5490c0))
+* update camunda/infra-global-github-actions digest to 83dd377 ([#80](https://github.com/kellervater/homeracker/issues/80)) ([3c03342](https://github.com/kellervater/homeracker/commit/3c033423a1ebbcd80f5afd33f7c1e85c1b95b17d))
+* update openscad nightly ([#81](https://github.com/kellervater/homeracker/issues/81)) ([c5d0ee0](https://github.com/kellervater/homeracker/commit/c5d0ee0846df4bdd85dc25ae3637f23501bad40e))
+* update pre-commit hooks ([#83](https://github.com/kellervater/homeracker/issues/83)) ([e41bd82](https://github.com/kellervater/homeracker/commit/e41bd8235f28f4ebf7ce923da1652e11385e2d95))
+
+
+### 🔄 CI/CD
+
+* **renovate:** automerge various gha ([#84](https://github.com/kellervater/homeracker/issues/84)) ([cdf34e3](https://github.com/kellervater/homeracker/commit/cdf34e375e46b231dfc2372bd324cbcc579e8688))
+* **renovate:** group pre-commit PRs ([#79](https://github.com/kellervater/homeracker/issues/79)) ([68d036e](https://github.com/kellervater/homeracker/commit/68d036ee2f3a364ec22ff86fffc18208bfb4fd2c))
+
 ## [1.0.1](https://github.com/kellervater/homeracker/compare/v1.0.0...v1.0.1) (2025-11-21)
 
 
