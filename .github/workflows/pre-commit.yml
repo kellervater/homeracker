@@ -29,5 +29,8 @@ jobs:
           chmod +x cmd/setup/install-openscad.sh
           ./cmd/setup/install-openscad.sh --nightly
 
+      - name: Make scripts executable
+        run: chmod +x cmd/export/export-core-models.sh
+
       - name: Run pre-commit
         uses: pre-commit/action@v3.0.1
