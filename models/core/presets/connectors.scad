@@ -95,4 +95,4 @@ module connectors_pull_through_feet(optimal_orientation=false) {
 // connectors_standard(true);
 // connectors_feet(true);
 // connectors_pull_through(true);
-connectors_pull_through_feet(true);
+// connectors_pull_through_feet(true);
