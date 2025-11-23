@@ -69,7 +69,11 @@ fi
 echo ""
 echo "Validating exported models..."
 if ! "${PROJECT_ROOT}/cmd/test/test-models.sh"; then
+    echo ""
     echo "ERROR: Validation failed"
+    echo ""
+    echo "To run tests manually:"
+    echo "  ./cmd/test/test-models.sh"
     exit 1
 fi
 
