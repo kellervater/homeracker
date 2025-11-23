@@ -1,7 +1,7 @@
 ---
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+    rev: v6.0.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
@@ -9,7 +9,7 @@ repos:
         args:
           - --maxkb=1000
   - repo: https://github.com/renovatebot/pre-commit-hooks
-    rev: 42.11.0
+    rev: 42.19.3
     hooks:
       - id: renovate-config-validator
         args: ["--strict"]
@@ -26,7 +26,7 @@ repos:
       - id: yamllint
         args: ['-c', '.lint/yamllint/.yamllint']
   - repo: https://github.com/PyCQA/pylint
-    rev: v3.3.6
+    rev: v4.0.3
     hooks:
       - id: pylint
         args:
