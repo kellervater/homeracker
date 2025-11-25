@@ -253,7 +253,7 @@ install_openscad_macos() {
     # Mount DMG
     log_info "Mounting DMG..."
     local mount_point
-    mount_point=$(hdiutil attach "${temp_file}" | grep "/Volumes/" | tail -1 | awk '{print $3}')
+    mount_point=$(hdiutil attach "${temp_file}" | grep "/Volumes/" | tail -1 | awk -F'\t' '{print $NF}')
     
     if [[ -z "${mount_point}" ]]; then
         log_error "Failed to mount DMG"
