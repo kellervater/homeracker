@@ -230,7 +230,8 @@ install_openscad_macos() {
         download_url="https://files.openscad.org/OpenSCAD-${openscad_version}.dmg"
     fi
 
-    local temp_file="/tmp/openscad-${openscad_version}.dmg"
+    local temp_file
+    temp_file=$(mktemp -t openscad-XXXXXX.dmg)
 
     log_info "Installing OpenSCAD ${openscad_version} for macOS..."
 
@@ -253,7 +254,8 @@ install_openscad_macos() {
     # Mount DMG
     log_info "Mounting DMG..."
     local mount_point
-    mount_point=$(hdiutil attach "${temp_file}" | grep "/Volumes/" | tail -1 | awk -F'\t' '{print $NF}')
+    # hdiutil output is tab-delimited: device, mount_point, etc.
+    mount_point=$(hdiutil attach "${temp_file}" 2>/dev/null | grep "/Volumes/" | tail -1 | cut -f 3-)
     
     if [[ -z "${mount_point}" ]]; then
         log_error "Failed to mount DMG"
