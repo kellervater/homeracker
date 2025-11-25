@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# OpenSCAD Nightly Installer (Cross-platform: Windows/Linux)
+# OpenSCAD Nightly Installer (Cross-platform: Windows/Linux/macOS)
 #
 # This script downloads and installs the latest OpenSCAD nightly build.
 # Version tracking is handled by Renovate Bot.
@@ -27,6 +27,8 @@ OPENSCAD_STABLE_VERSION="2021.01"
 OPENSCAD_NIGHTLY_VERSION_WINDOWS="2025.11.22"
 # renovate: datasource=custom.openscad-snapshots depName=OpenSCAD versioning=loose
 OPENSCAD_NIGHTLY_VERSION_LINUX="2025.11.22.ai29346"
+# renovate: datasource=custom.openscad-snapshots depName=OpenSCAD versioning=loose
+OPENSCAD_NIGHTLY_VERSION_MACOS="2025.11.22"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORKSPACE_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
@@ -36,6 +38,7 @@ INSTALL_DIR="${WORKSPACE_ROOT}/bin/openscad"
 detect_platform() {
     case "$(uname -s)" in
         Linux*)     echo "linux";;
+        Darwin*)    echo "macos";;
         CYGWIN*|MINGW*|MSYS*)    echo "windows";;
         *)          echo "unknown";;
     esac
@@ -46,6 +49,8 @@ PLATFORM=$(detect_platform)
 # Set platform-specific nightly version for display
 if [[ "${PLATFORM}" == "linux" ]]; then
     OPENSCAD_NIGHTLY_VERSION="${OPENSCAD_NIGHTLY_VERSION_LINUX}"
+elif [[ "${PLATFORM}" == "macos" ]]; then
+    OPENSCAD_NIGHTLY_VERSION="${OPENSCAD_NIGHTLY_VERSION_MACOS}"
 else
     OPENSCAD_NIGHTLY_VERSION="${OPENSCAD_NIGHTLY_VERSION_WINDOWS}"
 fi
@@ -95,6 +100,15 @@ get_installed_version() {
             echo "none"
             return
         fi
+    elif [[ "${PLATFORM}" == "macos" ]]; then
+        if [[ -f "${INSTALL_DIR}/openscad" ]]; then
+            openscad_exe="${INSTALL_DIR}/openscad"
+        elif [[ -f "${INSTALL_DIR}/OpenSCAD.app/Contents/MacOS/OpenSCAD" ]]; then
+            openscad_exe="${INSTALL_DIR}/OpenSCAD.app/Contents/MacOS/OpenSCAD"
+        else
+            echo "none"
+            return
+        fi
     else
         if [[ -f "${INSTALL_DIR}/openscad" ]]; then
             openscad_exe="${INSTALL_DIR}/openscad"
@@ -114,6 +128,8 @@ get_openscad_version() {
     if [[ "${INSTALL_NIGHTLY}" == true ]]; then
         if [[ "${PLATFORM}" == "linux" ]]; then
             echo "${OPENSCAD_NIGHTLY_VERSION_LINUX}"
+        elif [[ "${PLATFORM}" == "macos" ]]; then
+            echo "${OPENSCAD_NIGHTLY_VERSION_MACOS}"
         else
             echo "${OPENSCAD_NIGHTLY_VERSION_WINDOWS}"
         fi
@@ -148,6 +164,8 @@ install_openscad() {
 
     if [[ "${PLATFORM}" == "linux" ]]; then
         install_openscad_linux "${openscad_version}"
+    elif [[ "${PLATFORM}" == "macos" ]]; then
+        install_openscad_macos "${openscad_version}"
     elif [[ "${PLATFORM}" == "windows" ]]; then
         install_openscad_windows "${openscad_version}"
     else
@@ -198,6 +216,69 @@ install_openscad_linux() {
     # Create symlink (relative path)
     cd "${INSTALL_DIR}"
     ln -sf OpenSCAD.AppImage openscad
+    cd - > /dev/null
+}
+
+# Install OpenSCAD on macOS
+install_openscad_macos() {
+    local openscad_version="$1"
+    local download_url
+
+    if [[ "${INSTALL_NIGHTLY}" == true ]]; then
+        download_url="https://files.openscad.org/snapshots/OpenSCAD-${openscad_version}.dmg"
+    else
+        download_url="https://files.openscad.org/OpenSCAD-${openscad_version}.dmg"
+    fi
+
+    local temp_file="/tmp/openscad-${openscad_version}.dmg"
+
+    log_info "Installing OpenSCAD ${openscad_version} for macOS..."
+
+    # Remove old installation
+    if [[ -d "${INSTALL_DIR}" ]]; then
+        log_info "Cleaning up old installation..."
+        rm -rf "${INSTALL_DIR}"
+    fi
+
+    # Create installation directory
+    mkdir -p "${INSTALL_DIR}/libraries"
+
+    # Download
+    log_info "Downloading from ${download_url}..."
+    if ! download_file "${download_url}" "${temp_file}"; then
+        log_error "URL: ${download_url}"
+        exit 1
+    fi
+
+    # Mount DMG
+    log_info "Mounting DMG..."
+    local mount_point
+    mount_point=$(hdiutil attach "${temp_file}" | grep "/Volumes/" | tail -1 | awk '{print $3}')
+    
+    if [[ -z "${mount_point}" ]]; then
+        log_error "Failed to mount DMG"
+        rm -f "${temp_file}"
+        exit 1
+    fi
+
+    # Copy application
+    log_info "Copying OpenSCAD.app..."
+    if [[ -d "${mount_point}/OpenSCAD.app" ]]; then
+        cp -R "${mount_point}/OpenSCAD.app" "${INSTALL_DIR}/"
+    else
+        log_error "OpenSCAD.app not found in DMG"
+        hdiutil detach "${mount_point}" > /dev/null 2>&1
+        rm -f "${temp_file}"
+        exit 1
+    fi
+
+    # Unmount DMG
+    hdiutil detach "${mount_point}" > /dev/null 2>&1
+    rm -f "${temp_file}"
+
+    # Create symlink to binary
+    cd "${INSTALL_DIR}"
+    ln -sf OpenSCAD.app/Contents/MacOS/OpenSCAD openscad
     cd - > /dev/null
 }
 
