@@ -8,7 +8,7 @@
   "ignorePresets": [":all"],
   // Disable platform-native automerge, let Renovate handle merges directly
   "platformAutomerge": false,
-  "schedule": ["on Friday"],
+  // "schedule": ["on Friday"], // Optional: restrict opening PRs to Fridays only
   // Use "deps" as commit type instead of "chore(deps)"
   "semanticCommits": "enabled",
   "semanticCommitType": "deps",
