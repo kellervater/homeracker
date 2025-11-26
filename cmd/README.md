@@ -1,6 +1,6 @@
 # 🔧 OpenSCAD Installation Scripts
 
-Automated installation of OpenSCAD for the HomeRacker workspace (Windows only atm).
+Automated installation of OpenSCAD for the HomeRacker workspace (Windows/Linux/macOS).
 
 ## 📦 Quick Start
 
@@ -38,7 +38,6 @@ Versions are tracked in the scripts and managed by Renovate Bot. When new releas
 
 - **Default**: Nightly snapshots - latest features and fixes
 - **Stable**: Release 2021.01 - use `--stable` flag for BOSL2 compatibility
-- **Current support**: Windows only (via Git Bash)
-- **Future**: macOS/Linux support tracked in [#40](https://github.com/kellervater/homeracker/issues/40)
+- **Platform Support**: Windows, Linux, and macOS (macOS treated as Linux using AppImage - untested)
 - **BOSL2**: Installed to bundled libraries directory
 - **Source**: https://files.openscad.org/

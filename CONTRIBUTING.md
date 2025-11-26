@@ -9,7 +9,7 @@ Thanks for your interest in contributing! Even getting this far is already worth
 git clone https://github.com/kellervater/homeracker.git
 cd homeracker
 
-# Install OpenSCAD (Windows/Git Bash)
+# Install OpenSCAD (Windows/Linux/macOS)
 ./cmd/setup/install-openscad.sh
 ./cmd/setup/install-dependencies.sh
 
@@ -218,4 +218,4 @@ Contributions are licensed under MIT (code) and CC BY-SA 4.0 (models).
 
 ---
 
-**Platform**: Windows (Git Bash) | macOS/Linux support: [#40](https://github.com/kellervater/homeracker/issues/40)
+**Platform**: Windows/Linux/macOS (macOS treated as Linux, untested)

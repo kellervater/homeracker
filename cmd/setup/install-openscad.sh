@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 #
-# OpenSCAD Nightly Installer (Cross-platform: Windows/Linux)
+# OpenSCAD Nightly Installer (Cross-platform: Windows/Linux/macOS)
 #
 # This script downloads and installs the latest OpenSCAD nightly build.
 # Version tracking is handled by Renovate Bot.
+#
+# Note: macOS is treated as Linux (uses AppImage) - untested
 #
 # Usage:
 #   ./cmd/setup/install-openscad.sh              # Install/upgrade to nightly build (default)
@@ -35,7 +37,7 @@ INSTALL_DIR="${WORKSPACE_ROOT}/bin/openscad"
 # Detect platform
 detect_platform() {
     case "$(uname -s)" in
-        Linux*)     echo "linux";;
+        Linux*|Darwin*)     echo "linux";;
         CYGWIN*|MINGW*|MSYS*)    echo "windows";;
         *)          echo "unknown";;
     esac
