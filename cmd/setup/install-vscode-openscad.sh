@@ -19,7 +19,7 @@ source "${SCRIPT_DIR}/../lib/common.sh"
 
 # Detect platform
 case "$(uname -s)" in
-    Linux*)     PLATFORM="linux";;
+    Linux*|Darwin*)     PLATFORM="linux";;
     CYGWIN*|MINGW*|MSYS*)    PLATFORM="windows";;
     *)          PLATFORM="unknown";;
 esac
