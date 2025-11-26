@@ -54,8 +54,9 @@
       // Track BOSL2 commit hash in dependencies script
       "managerFilePatterns": ["/^cmd/setup/install-dependencies\\.sh$/"],
       "matchStrings": [
-        "BOSL2_VERSION=\"(?<currentValue>.*?)\""
+        "BOSL2_VERSION=\"(?<currentDigest>.*?)\""
       ],
+      "currentValueTemplate": "master",
       "datasourceTemplate": "git-refs",
       "depNameTemplate": "BelfrySCAD/BOSL2",
       "packageNameTemplate": "https://github.com/BelfrySCAD/BOSL2.git",
