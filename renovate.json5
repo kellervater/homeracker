@@ -86,13 +86,13 @@
       "automerge": true
     },
     {
-      "matchManagers": ["github-actions"],
       "matchPackageNames": [
         "actions/create-github-app-token",
         "actions/checkout",
         "actions/upload-artifact",
         "actions/setup-python",
-        "camunda/infra-global-github-actions"
+        "camunda/infra-global-github-actions",
+        "BelfrySCAD/BOSL2"
       ],
       "automerge": true
     },
