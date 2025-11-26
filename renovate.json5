@@ -56,8 +56,9 @@
       "matchStrings": [
         "BOSL2_VERSION=\"(?<currentValue>.*?)\""
       ],
-      "datasourceTemplate": "github-commits",
+      "datasourceTemplate": "git-refs",
       "depNameTemplate": "BelfrySCAD/BOSL2",
+      "packageNameTemplate": "https://github.com/BelfrySCAD/BOSL2.git",
       "versioningTemplate": "git"
     }
   ],
