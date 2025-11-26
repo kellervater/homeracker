@@ -58,7 +58,7 @@
       ],
       "datasourceTemplate": "github-commits",
       "depNameTemplate": "BelfrySCAD/BOSL2",
-      "versioningTemplate": "loose"
+      "versioningTemplate": "git"
     }
   ],
   // Custom datasource for OpenSCAD nightly snapshots
