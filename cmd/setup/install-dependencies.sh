@@ -13,7 +13,7 @@
 
 set -euo pipefail
 
-# renovate: datasource=github-commits depName=BelfrySCAD/BOSL2 versioning=loose
+# renovate: datasource=github-commits depName=BelfrySCAD/BOSL2 versioning=git
 BOSL2_VERSION="088d17ddd81d246fa1f0672a89a61c62958b7cee"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

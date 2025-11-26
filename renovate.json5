@@ -57,7 +57,7 @@
         "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\\nBOSL2_VERSION=\"(?<currentValue>.*?)\""
       ],
       "datasourceTemplate": "github-commits",
-      "versioningTemplate": "loose"
+      "versioningTemplate": "git"
     }
   ],
   // Custom datasource for OpenSCAD nightly snapshots
