@@ -2,7 +2,7 @@
 #
 # Local Renovate Configuration Test Script
 #
-# Tests the renovate.json5 configuration locally without committing changes.
+# Tests the renovate.json5 configuration using a remote branch (changes must be committed and pushed before testing).
 # Based on: https://github.com/camunda/camunda/blob/main/cmd/renovate/renovate-local.sh
 #
 # IMPORTANT: Changes must be committed and pushed to a branch BEFORE running this test.
