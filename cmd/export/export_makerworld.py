@@ -26,9 +26,9 @@ def strip_comments(content: str) -> str:
         Source code with all comments removed
     """
     # Remove multi-line comments: /* anything */
-    content = re.sub(r'/\*.*?\*/', '', content, flags=re.DOTALL)
+    content = re.sub(r"/\*.*?\*/", "", content, flags=re.DOTALL)
     # Remove single-line comments: // anything until end of line
-    content = re.sub(r'//.*?$', '', content, flags=re.MULTILINE)
+    content = re.sub(r"//.*?$", "", content, flags=re.MULTILINE)
     return content
 
 
@@ -50,13 +50,13 @@ def extract_parameters(content: str) -> str:
 
     while True:
         # Match parameter section markers: /* [SectionName] */
-        match = re.search(r'/\*\s*\[(.+?)\]\s*\*/', content[current_pos:])
+        match = re.search(r"/\*\s*\[(.+?)\]\s*\*/", content[current_pos:])
         if not match:
             break
 
         section_name = match.group(1)
         # Skip the Hidden section
-        if section_name.lower() == 'hidden':
+        if section_name.lower() == "hidden":
             break
 
         section_start = current_pos + match.start()
@@ -64,8 +64,7 @@ def extract_parameters(content: str) -> str:
 
         # Find where this section ends (next section or code starts)
         # Match: /* [Name] */ OR newline followed by include/use/module/function
-        next_section = re.search(r'/\*\s*\[.+?\]\s*\*/|\n\s*(?:include|use|module|function)\s+',
-                                content[current_pos:])
+        next_section = re.search(r"/\*\s*\[.+?\]\s*\*/|\n\s*(?:include|use|module|function)\s+", content[current_pos:])
         if next_section:
             section_end = current_pos + next_section.start()
         else:
@@ -73,7 +72,7 @@ def extract_parameters(content: str) -> str:
 
         sections.append(content[section_start:section_end])
 
-    return '\n'.join(sections).strip() if sections else ""
+    return "\n".join(sections).strip() if sections else ""
 
 
 def extract_hidden_section(content: str) -> str:
@@ -89,8 +88,7 @@ def extract_hidden_section(content: str) -> str:
         Hidden section with marker and content, or empty string if not found
     """
     # Match: /* [Hidden] */ followed by content until include/use/module/function/$
-    match = re.search(r'/\*\s*\[Hidden\]\s*\*/.*?(?=\n(?:include|use|module|function|\$))',
-                     content, re.DOTALL)
+    match = re.search(r"/\*\s*\[Hidden\]\s*\*/.*?(?=\n(?:include|use|module|function|\$))", content, re.DOTALL)
     return match.group(0) if match else ""
 
 
@@ -106,7 +104,7 @@ def get_includes(content: str) -> list:
         List of tuples: [(directive, path), ...] e.g., [('include', 'lib/foo.scad'), ...]
     """
     # Match: include <path> or use <path> (start to end of line)
-    pattern = r'^\s*(include|use)\s*<([^>]+)>\s*$'
+    pattern = r"^\s*(include|use)\s*<([^>]+)>\s*$"
     return re.findall(pattern, content, re.MULTILINE)
 
 
@@ -122,7 +120,7 @@ def is_bosl2(path: str) -> bool:
     Returns:
         True if path starts with 'BOSL2/', False otherwise
     """
-    return path.startswith('BOSL2/')
+    return path.startswith("BOSL2/")
 
 
 def resolve_path(current_file: Path, include_path: str) -> Path:
@@ -153,7 +151,7 @@ def has_parameter_section(content: str) -> bool:
         True if any parameter section markers found, False otherwise
     """
     # Match: /* [anything] */
-    return bool(re.search(r'/\*\s*\[.+?\]\s*\*/', content))
+    return bool(re.search(r"/\*\s*\[.+?\]\s*\*/", content))
 
 
 def extract_definitions(content: str) -> str:
@@ -168,42 +166,42 @@ def extract_definitions(content: str) -> str:
     Returns:
         Extracted definitions and variables as string, excluding include statements and comments
     """
-    lines = content.split('\n')
+    lines = content.split("\n")
     result = []
     in_definition = False  # True when inside a module/function definition (between braces)
-    in_variable = False    # True when inside a multi-line variable assignment (until semicolon)
-    brace_count = 0        # Tracks nesting depth of braces to detect end of module/function
+    in_variable = False  # True when inside a multi-line variable assignment (until semicolon)
+    brace_count = 0  # Tracks nesting depth of braces to detect end of module/function
 
     for line in lines:
         stripped = line.strip()
 
         # Start of module or function: module name or function name
-        if re.match(r'^(module|function)\s+\w+', stripped):
+        if re.match(r"^(module|function)\s+\w+", stripped):
             in_definition = True
 
         # Top-level variable assignment (start): varname = ...
-        if not in_definition and not in_variable and re.match(r'^\w+\s*=', stripped):
+        if not in_definition and not in_variable and re.match(r"^\w+\s*=", stripped):
             in_variable = True
             result.append(line)
             # Check if assignment ends on same line
-            if ';' in stripped:
+            if ";" in stripped:
                 in_variable = False
             continue
 
         # Continue multi-line variable assignment
         if in_variable:
             result.append(line)
-            if ';' in stripped:
+            if ";" in stripped:
                 in_variable = False
             continue
 
         if in_definition:
             result.append(line)
-            brace_count += line.count('{') - line.count('}')
-            if brace_count == 0 and '{' in line:
+            brace_count += line.count("{") - line.count("}")
+            if brace_count == 0 and "{" in line:
                 in_definition = False
 
-    return '\n'.join(result)
+    return "\n".join(result)
 
 
 def process_file(file_path: Path, processed: Set[Path], bosl2_includes: Set[str]) -> str:
@@ -227,7 +225,7 @@ def process_file(file_path: Path, processed: Set[Path], bosl2_includes: Set[str]
         return ""
 
     processed.add(file_path)
-    content = file_path.read_text(encoding='utf-8')
+    content = file_path.read_text(encoding="utf-8")
 
     # Validate: library files must NOT have parameter sections
     if has_parameter_section(content):
@@ -253,15 +251,14 @@ def process_file(file_path: Path, processed: Set[Path], bosl2_includes: Set[str]
     clean_content = strip_comments(content)
     clean_content = extract_definitions(clean_content)
     # Remove: include <path> or use <path> lines
-    clean_content = re.sub(r'^\s*(include|use)\s*<[^>]+>\s*$', '',
-                          clean_content, flags=re.MULTILINE)
+    clean_content = re.sub(r"^\s*(include|use)\s*<[^>]+>\s*$", "", clean_content, flags=re.MULTILINE)
     # Remove excessive blank lines: 3+ consecutive newlines → 2 newlines
-    clean_content = re.sub(r'\n\s*\n\s*\n+', '\n\n', clean_content)
+    clean_content = re.sub(r"\n\s*\n\s*\n+", "\n\n", clean_content)
     clean_content = clean_content.strip()
 
     if clean_content:
         result.append(clean_content)
-    return '\n\n'.join(result)
+    return "\n\n".join(result)
 
 
 def extract_main_code(content: str) -> str:
@@ -281,27 +278,27 @@ def extract_main_code(content: str) -> str:
     # Remove everything before the main code starts (all parameter sections)
     # Find last parameter section marker: /* [anything] */
     last_section = None
-    for match in re.finditer(r'/\*\s*\[.+?\]\s*\*/', content):
+    for match in re.finditer(r"/\*\s*\[.+?\]\s*\*/", content):
         last_section = match
 
     if last_section:
         # Start from after the last parameter section
-        content = content[last_section.end():]
+        content = content[last_section.end() :]
 
     # Remove include statements: include <path> or use <path>
-    content = re.sub(r'^\s*(include|use)\s*<[^>]+>\s*$', '', content, flags=re.MULTILINE)
+    content = re.sub(r"^\s*(include|use)\s*<[^>]+>\s*$", "", content, flags=re.MULTILINE)
 
     # Filter out variable assignments, keep only function/module calls and other statements
-    lines = content.split('\n')
+    lines = content.split("\n")
     result = []
     for line in lines:
         stripped = line.strip()
         # Skip empty lines and variable assignments: varname = value;
-        if not stripped or re.match(r'^\w+\s*=.*;\s*$', stripped):
+        if not stripped or re.match(r"^\w+\s*=.*;\s*$", stripped):
             continue
         result.append(line)
 
-    return '\n'.join(result).strip()
+    return "\n".join(result).strip()
 
 
 def export_for_makerworld(input_file: Path, output_file: Path):
@@ -320,7 +317,7 @@ def export_for_makerworld(input_file: Path, output_file: Path):
     processed: Set[Path] = set()
     bosl2_includes: Set[str] = set()
 
-    root_content = input_file.read_text(encoding='utf-8')
+    root_content = input_file.read_text(encoding="utf-8")
     params = extract_parameters(root_content)
     hidden = extract_hidden_section(root_content)
     main_code = extract_main_code(root_content)
@@ -355,13 +352,13 @@ def export_for_makerworld(input_file: Path, output_file: Path):
     output_parts.append("/* [Hidden] */")
     if hidden:
         # Extract just the content after /* [Hidden] */, removing the marker: /* [Hidden] */
-        hidden_content = re.sub(r'/\*\s*\[Hidden\]\s*\*/', '', hidden).strip()
+        hidden_content = re.sub(r"/\*\s*\[Hidden\]\s*\*/", "", hidden).strip()
         if hidden_content:
             output_parts.append(hidden_content)
 
     # Add inlined library content to hidden section
     if inlined_libs:
-        output_parts.append('\n\n'.join(inlined_libs))
+        output_parts.append("\n\n".join(inlined_libs))
 
     output_parts.append("")
 
@@ -369,15 +366,15 @@ def export_for_makerworld(input_file: Path, output_file: Path):
     output_parts.append(main_code)
 
     # Build final output with proper line endings
-    output_text = '\n'.join(output_parts)
+    output_text = "\n".join(output_parts)
     # Strip trailing whitespace from each line
-    output_text = '\n'.join(line.rstrip() for line in output_text.split('\n'))
+    output_text = "\n".join(line.rstrip() for line in output_text.split("\n"))
     # Ensure file ends with exactly one newline (LF)
-    if not output_text.endswith('\n'):
-        output_text += '\n'
+    if not output_text.endswith("\n"):
+        output_text += "\n"
 
     # Write with LF line endings (newline='\n' prevents Windows CRLF conversion)
-    output_file.write_text(output_text, encoding='utf-8', newline='\n')
+    output_file.write_text(output_text, encoding="utf-8", newline="\n")
     print(f"Exported: {output_file}")
 
 
