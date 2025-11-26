@@ -218,8 +218,4 @@ Contributions are licensed under MIT (code) and CC BY-SA 4.0 (models).
 
 ---
 
-<<<<<<< HEAD
 **Platform**: Windows/Linux/macOS (macOS treated as Linux, untested)
-=======
-**Platform**: Windows/Linux/macOS fully supported
->>>>>>> bd83f37ec35c27c70bc7a353551fc0e99c3c04fa

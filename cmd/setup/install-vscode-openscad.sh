@@ -19,12 +19,7 @@ source "${SCRIPT_DIR}/../lib/common.sh"
 
 # Detect platform
 case "$(uname -s)" in
-<<<<<<< HEAD
     Linux*|Darwin*)     PLATFORM="linux";;
-=======
-    Linux*)     PLATFORM="linux";;
-    Darwin*)    PLATFORM="macos";;
->>>>>>> bd83f37ec35c27c70bc7a353551fc0e99c3c04fa
     CYGWIN*|MINGW*|MSYS*)    PLATFORM="windows";;
     *)          PLATFORM="unknown";;
 esac
@@ -37,9 +32,6 @@ code --install-extension "${EXTENSION_ID}" --force > /dev/null 2>&1 || true
 if [[ "${PLATFORM}" == "windows" ]]; then
     OPENSCAD_PATH=$(cygpath -w "${INSTALL_DIR}/openscad.exe" | sed 's/\\/\\\\/g')
     SEARCH_PATHS=$(cygpath -w "${INSTALL_DIR}/libraries" | sed 's/\\/\\\\/g')
-elif [[ "${PLATFORM}" == "macos" ]]; then
-    OPENSCAD_PATH="${INSTALL_DIR}/OpenSCAD.app/Contents/MacOS/OpenSCAD"
-    SEARCH_PATHS="${INSTALL_DIR}/libraries"
 else
     OPENSCAD_PATH="${WORKSPACE_ROOT}/cmd/linux/openscad-wrapper.sh"
     SEARCH_PATHS="${INSTALL_DIR}/libraries"

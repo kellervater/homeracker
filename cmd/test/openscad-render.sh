@@ -24,12 +24,7 @@ INSTALL_DIR="${WORKSPACE_ROOT}/bin/openscad"
 # Detect platform
 detect_platform() {
     case "$(uname -s)" in
-<<<<<<< HEAD
         Linux*|Darwin*)     echo "linux";;
-=======
-        Linux*)     echo "linux";;
-        Darwin*)    echo "macos";;
->>>>>>> bd83f37ec35c27c70bc7a353551fc0e99c3c04fa
         CYGWIN*|MINGW*|MSYS*)    echo "windows";;
         *)          echo "unknown";;
     esac

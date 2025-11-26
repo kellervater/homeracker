@@ -39,12 +39,7 @@ INSTALL_DIR="${WORKSPACE_ROOT}/bin/openscad"
 # Detect platform
 detect_platform() {
     case "$(uname -s)" in
-<<<<<<< HEAD
         Linux*|Darwin*)     echo "linux";;
-=======
-        Linux*)     echo "linux";;
-        Darwin*)    echo "macos";;
->>>>>>> bd83f37ec35c27c70bc7a353551fc0e99c3c04fa
         CYGWIN*|MINGW*|MSYS*)    echo "windows";;
         *)          echo "unknown";;
     esac
@@ -55,8 +50,6 @@ PLATFORM=$(detect_platform)
 # Set platform-specific nightly version for display
 if [[ "${PLATFORM}" == "linux" ]]; then
     OPENSCAD_NIGHTLY_VERSION="${OPENSCAD_NIGHTLY_VERSION_LINUX}"
-elif [[ "${PLATFORM}" == "macos" ]]; then
-    OPENSCAD_NIGHTLY_VERSION="${OPENSCAD_NIGHTLY_VERSION_MACOS}"
 else
     OPENSCAD_NIGHTLY_VERSION="${OPENSCAD_NIGHTLY_VERSION_WINDOWS}"
 fi
