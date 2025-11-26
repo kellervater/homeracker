@@ -5,7 +5,15 @@
 # Tests the renovate.json5 configuration locally without committing changes.
 # Based on: https://github.com/camunda/camunda/blob/main/cmd/renovate/renovate-local.sh
 #
+# IMPORTANT: Changes must be committed and pushed to a branch BEFORE running this test.
+# The script runs Renovate in a Docker container which clones the repository from GitHub.
+# Any uncommitted local changes will NOT be visible to Renovate during testing.
+#
 # Usage:
+#   git checkout -b <test-branch>
+#   git add <changed-files>
+#   git commit -m "test: renovate config changes"
+#   git push -u origin <test-branch>
 #   ./cmd/test/test-renovate-local.sh
 #
 
