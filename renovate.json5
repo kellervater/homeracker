@@ -8,7 +8,7 @@
   "ignorePresets": [":all"],
   // Disable platform-native automerge, let Renovate handle merges directly
   "platformAutomerge": false,
-  "schedule": ["on Friday"],
+  "schedule": ["* * * * 0,6"],
   // Use "deps" as commit type instead of "chore(deps)"
   "semanticCommits": "enabled",
   "semanticCommitType": "deps",
@@ -54,10 +54,13 @@
       // Track BOSL2 commit hash in dependencies script
       "managerFilePatterns": ["/^cmd/setup/install-dependencies\\.sh$/"],
       "matchStrings": [
-        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\\nBOSL2_VERSION=\"(?<currentValue>.*?)\""
+        "BOSL2_VERSION=\"(?<currentDigest>.*?)\""
       ],
-      "datasourceTemplate": "github-commits",
-      "versioningTemplate": "loose"
+      "currentValueTemplate": "master",
+      "datasourceTemplate": "git-refs",
+      "depNameTemplate": "BelfrySCAD/BOSL2",
+      "packageNameTemplate": "https://github.com/BelfrySCAD/BOSL2.git",
+      "versioningTemplate": "git"
     }
   ],
   // Custom datasource for OpenSCAD nightly snapshots

@@ -3,8 +3,8 @@ name: Automerge Release PRs
 
 on:
   schedule:
-    # Run every Saturday at 6:00 AM UTC
-    - cron: '0 6 * * 6'
+    # Run every Monday at 6:00 AM UTC
+    - cron: '0 6 * * 1'
   workflow_dispatch: # Allow manual triggering
 
 permissions: {}

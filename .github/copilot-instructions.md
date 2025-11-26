@@ -44,3 +44,7 @@ HomeRacker is a modular 3D-printable rack-building system. Core components use p
   - Example: See `cmd/export/export_makerworld.py`
 - Keep code self-documenting with clear variable names
 - Add inline comments only for complex regex patterns or non-obvious logic
+
+## Renovate Guidelines
+- **Testing**: Run `cmd/test/test-renovate-local.sh` to verify config changes
+- **Important**: Changes MUST be pushed to the current branch before running the test (script runs in Docker context)
