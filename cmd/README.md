@@ -38,6 +38,10 @@ Versions are tracked in the scripts and managed by Renovate Bot. When new releas
 
 - **Default**: Nightly snapshots - latest features and fixes
 - **Stable**: Release 2021.01 - use `--stable` flag for BOSL2 compatibility
+<<<<<<< HEAD
 - **Platform Support**: Windows, Linux, and macOS (macOS treated as Linux using AppImage - untested)
+=======
+- **Platform Support**: Windows, Linux, and macOS fully supported
+>>>>>>> bd83f37ec35c27c70bc7a353551fc0e99c3c04fa
 - **BOSL2**: Installed to bundled libraries directory
 - **Source**: https://files.openscad.org/

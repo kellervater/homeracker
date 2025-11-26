@@ -24,7 +24,12 @@ INSTALL_DIR="${WORKSPACE_ROOT}/bin/openscad"
 # Detect platform
 detect_platform() {
     case "$(uname -s)" in
+<<<<<<< HEAD
         Linux*|Darwin*)     echo "linux";;
+=======
+        Linux*)     echo "linux";;
+        Darwin*)    echo "macos";;
+>>>>>>> bd83f37ec35c27c70bc7a353551fc0e99c3c04fa
         CYGWIN*|MINGW*|MSYS*)    echo "windows";;
         *)          echo "unknown";;
     esac
@@ -41,6 +46,14 @@ find_openscad_exe() {
     if [[ "${PLATFORM}" == "windows" ]]; then
         if [[ -f "${INSTALL_DIR}/openscad.exe" ]]; then
             echo "${INSTALL_DIR}/openscad.exe"
+            return 0
+        fi
+    elif [[ "${PLATFORM}" == "macos" ]]; then
+        if [[ -f "${INSTALL_DIR}/openscad" ]]; then
+            echo "${INSTALL_DIR}/openscad"
+            return 0
+        elif [[ -f "${INSTALL_DIR}/OpenSCAD.app/Contents/MacOS/OpenSCAD" ]]; then
+            echo "${INSTALL_DIR}/OpenSCAD.app/Contents/MacOS/OpenSCAD"
             return 0
         fi
     else
