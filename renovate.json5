@@ -54,10 +54,11 @@
       // Track BOSL2 commit hash in dependencies script
       "managerFilePatterns": ["/^cmd/setup/install-dependencies\\.sh$/"],
       "matchStrings": [
-        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\\nBOSL2_VERSION=\"(?<currentValue>.*?)\""
+        "BOSL2_VERSION=\"(?<currentValue>.*?)\""
       ],
       "datasourceTemplate": "github-commits",
-      "versioningTemplate": "git"
+      "depNameTemplate": "BelfrySCAD/BOSL2",
+      "versioningTemplate": "loose"
     }
   ],
   // Custom datasource for OpenSCAD nightly snapshots
