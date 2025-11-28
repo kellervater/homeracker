@@ -1,6 +1,13 @@
 // import BOSL2
 include <BOSL2/std.scad>
 
+/**
+  * DEPRECATED: Flexmount for HomeRacker
+  * This model is deprecated and will not be supported.
+  * The new version has become closed source due to commercial reasons.
+  * Please find it on Makerworld under the name "Universal Mount for HomeRacker".
+  * License: MIT License
+ */
 
 
 /* [Hidden] */
