@@ -26,9 +26,9 @@ INSTALL_NIGHTLY=true
 OPENSCAD_STABLE_VERSION="2021.01"
 
 # renovate: datasource=custom.openscad-snapshots depName=OpenSCAD versioning=loose
-OPENSCAD_NIGHTLY_VERSION_WINDOWS="2025.11.27"
+OPENSCAD_NIGHTLY_VERSION_WINDOWS="2025.11.29"
 # renovate: datasource=custom.openscad-snapshots depName=OpenSCAD versioning=loose
-OPENSCAD_NIGHTLY_VERSION_LINUX="2025.11.27.ai29484"
+OPENSCAD_NIGHTLY_VERSION_LINUX="2025.11.29.ai29571"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORKSPACE_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
