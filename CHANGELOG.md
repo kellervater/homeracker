@@ -1,5 +1,47 @@
 # Changelog
 
+## [1.2.0](https://github.com/kellervater/homeracker/compare/v1.1.0...v1.2.0) (2025-11-30)
+
+
+### ✨ Features
+
+* **core:** added more pull-through feet ([#85](https://github.com/kellervater/homeracker/issues/85)) ([d4461c4](https://github.com/kellervater/homeracker/commit/d4461c4f6841d9316901127a4e21240775c7493b))
+
+
+### 🐛 Bug Fixes
+
+* **renovate:** use currentDigest for BOSL2 ([#92](https://github.com/kellervater/homeracker/issues/92)) ([99704a5](https://github.com/kellervater/homeracker/commit/99704a500f9154ea270552db3b0274999a8649c7))
+* **renovate:** use full git URL for BOSL2 automerge matching ([#96](https://github.com/kellervater/homeracker/issues/96)) ([f7997e7](https://github.com/kellervater/homeracker/commit/f7997e7e3ebdff9b82ddae7e91f4955a352c5fb7))
+
+
+### 📦 Dependencies
+
+* update belfryscad/bosl2 digest to 266792b ([#95](https://github.com/kellervater/homeracker/issues/95)) ([a57d100](https://github.com/kellervater/homeracker/commit/a57d1004ee25e987641de28c9ae30f738933300f))
+* update camunda/infra-global-github-actions digest to b0fe528 ([#104](https://github.com/kellervater/homeracker/issues/104)) ([03d3cd6](https://github.com/kellervater/homeracker/commit/03d3cd64df99b8d7470c6d64f297f18d0559d1f6))
+* update camunda/infra-global-github-actions digest to b80b223 ([#90](https://github.com/kellervater/homeracker/issues/90)) ([177f039](https://github.com/kellervater/homeracker/commit/177f039537742ff1d3b5d1c8e5d515b257e9047a))
+* update camunda/infra-global-github-actions digest to dc24d25 ([#101](https://github.com/kellervater/homeracker/issues/101)) ([ed96b2f](https://github.com/kellervater/homeracker/commit/ed96b2f46d456e7557f3029f9a705422820b8a9e))
+* update openscad nightly ([#102](https://github.com/kellervater/homeracker/issues/102)) ([c73dfe2](https://github.com/kellervater/homeracker/commit/c73dfe21c25e03355ae0ae1738f06f9d6bc9206b))
+* update openscad nightly ([#91](https://github.com/kellervater/homeracker/issues/91)) ([216c977](https://github.com/kellervater/homeracker/commit/216c977d0f947c9dc2abb7e5eb2765e635933172))
+* update openscad nightly ([#99](https://github.com/kellervater/homeracker/issues/99)) ([93c34c3](https://github.com/kellervater/homeracker/commit/93c34c3bf19cab309420fe0fa58d264b757aa6ea))
+* update pre-commit hook renovatebot/pre-commit-hooks to v42.22.0 ([#93](https://github.com/kellervater/homeracker/issues/93)) ([e572e14](https://github.com/kellervater/homeracker/commit/e572e14659334bd96d5fa1322a3d9a3fd65b2616))
+* update pre-commit hook renovatebot/pre-commit-hooks to v42.26.11 ([#100](https://github.com/kellervater/homeracker/issues/100)) ([2b2eead](https://github.com/kellervater/homeracker/commit/2b2eead8c3f2aba8c6995485c9a018f63cd063c1))
+* update pre-commit hooks ([#103](https://github.com/kellervater/homeracker/issues/103)) ([f298ab0](https://github.com/kellervater/homeracker/commit/f298ab0a2a294ef37eee68379df9baf3caf8bc41))
+
+
+### 📚 Documentation
+
+* contributing & deprecation ([345ed8a](https://github.com/kellervater/homeracker/commit/345ed8a18c4ab1c53a3f6ee80ef2daebe5f66b1b))
+* linux and macos support ([#87](https://github.com/kellervater/homeracker/issues/87)) ([e072ef0](https://github.com/kellervater/homeracker/commit/e072ef0c69105fcb049f200a2db8dd0d1491b5e2))
+
+
+### 🔄 CI/CD
+
+* improve pre-commit hooks ([#97](https://github.com/kellervater/homeracker/issues/97)) ([b1f416b](https://github.com/kellervater/homeracker/commit/b1f416b59f2acf0366ab6dcb418b651bf3ad7475)), closes [#45](https://github.com/kellervater/homeracker/issues/45)
+* **renovate:** add BOSL2 to automerge section ([3718452](https://github.com/kellervater/homeracker/commit/3718452d343e32629c4547883f74168e439e620d))
+* **renovate:** align release and renovate schedules ([24a1bca](https://github.com/kellervater/homeracker/commit/24a1bca18bbbf5f3e5a053717044925ef9bf3e32))
+* **renovate:** allow PRs anytime ([5a7cadc](https://github.com/kellervater/homeracker/commit/5a7cadc4c906025fd93e10ea13241c5d20a6ad39))
+* **renovate:** fix BOSL2 upgrades ([#89](https://github.com/kellervater/homeracker/issues/89)) ([a337a17](https://github.com/kellervater/homeracker/commit/a337a17558b8d52e2b4b9271583353860d70bddf))
+
 ## [1.1.0](https://github.com/kellervater/homeracker/compare/v1.0.1...v1.1.0) (2025-11-23)
 
 
