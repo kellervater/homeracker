@@ -69,31 +69,12 @@ Dependencies are defined in `cmd/setup/dependencies.json`. The installer support
 
 ### Renovate Integration
 
-To enable Renovate to update these dependencies, add the following `customManagers` to your `renovate.json`:
+To enable Renovate to update these dependencies, extend the configuration from this repository in your `renovate.json`:
 
 ```json
 {
-  "customManagers": [
-    {
-      "customType": "regex",
-      "fileMatch": ["^cmd/setup/dependencies\\.json$"],
-      "matchStrings": [
-        "\"repository\":\\s*\"(?<depName>[^\"]+)\",\\s*\"version\":\\s*\"(?<currentDigest>[a-f0-9]{40})\""
-      ],
-      "currentValueTemplate": "master",
-      "depNameTemplate": "https://github.com/{{depName}}.git",
-      "datasourceTemplate": "git-refs",
-      "versioningTemplate": "git"
-    },
-    {
-      "customType": "regex",
-      "fileMatch": ["^cmd/setup/dependencies\\.json$"],
-      "matchStrings": [
-        "\"repository\":\\s*\"(?<depName>[^\"]+)\",\\s*\"version\":\\s*\"(?<currentValue>v?\\d+\\.\\d+\\.\\d+)\""
-      ],
-      "datasourceTemplate": "github-tags",
-      "versioningTemplate": "semver"
-    }
+  "extends": [
+    "github>kellervater/homeracker:renovate-dependencies.json"
   ]
 }
 ```
