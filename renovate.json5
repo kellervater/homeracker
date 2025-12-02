@@ -51,15 +51,13 @@
     },
     {
       "customType": "regex",
-      // Track BOSL2 commit hash in dependencies script
-      "managerFilePatterns": ["/^cmd/setup/install-dependencies\\.sh$/"],
+      // Track dependencies in dependencies.json
+      "managerFilePatterns": ["^cmd/setup/dependencies\\.json$"],
       "matchStrings": [
-        "BOSL2_VERSION=\"(?<currentDigest>.*?)\""
+        "\"repository\": \"(?<depName>[^\"]+)\",\\s*\"version\": \"(?<currentDigest>[^\"]+)\""
       ],
       "currentValueTemplate": "master",
       "datasourceTemplate": "git-refs",
-      "depNameTemplate": "BelfrySCAD/BOSL2",
-      "packageNameTemplate": "https://github.com/BelfrySCAD/BOSL2.git",
       "versioningTemplate": "git"
     }
   ],
