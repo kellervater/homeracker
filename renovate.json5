@@ -54,10 +54,11 @@
       // Track dependencies in dependencies.json
       "managerFilePatterns": ["^cmd/setup/dependencies\\.json$"],
       "matchStrings": [
-        "\"repository\": \"(?<depName>[^\"]+)\",\\s*\"version\": \"(?<currentDigest>[^\"]+)\""
+        "\"repository\":\\s*\"(?<depName>[^\"]+)\",\\s*\"version\":\\s*\"(?<currentDigest>[^\"]+)\""
       ],
       "matchStringsStrategy": "any",
       "currentValueTemplate": "master",
+      "depNameTemplate": "https://github.com/{{depName}}.git",
       "datasourceTemplate": "git-refs",
       "versioningTemplate": "git"
     }
