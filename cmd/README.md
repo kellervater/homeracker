@@ -5,29 +5,26 @@ Automated installation of OpenSCAD for the HomeRacker workspace (Windows/Linux/m
 ## 📦 Quick Start
 
 ```bash
-# Install or upgrade to latest nightly release (default)
-./cmd/setup/install-openscad.sh
+# Install or upgrade to latest nightly release (default) + dependencies
+python3 cmd/setup/install.py
 
 # Install nightly build (default)
-./cmd/setup/install-openscad.sh --nightly
+python3 cmd/setup/install.py --nightly
 
-# Install dependencies (BOSL2 library)
-python3 cmd/setup/install_dependencies.py
+# Install stable release
+python3 cmd/setup/install.py --stable
 
 # Check if update is available
-./cmd/setup/install-openscad.sh --check
+python3 cmd/setup/install.py --check
 
 # Run smoke test - validates the current openscad installation against local models
-./cmd/setup/install-openscad.sh --test
-
-# Test specific model files (e.g., after export or during development)
 ./cmd/test/openscad-render.sh models/core/parts/connector.scad
 
 # Run automated test suite (all models in test/ and makerworld/ directories)
 ./cmd/test/test-models.sh
 
 # Force reinstall
-./cmd/setup/install-openscad.sh --force
+python3 cmd/setup/install.py --force
 ```
 
 ## 🤖 Automatic Updates
