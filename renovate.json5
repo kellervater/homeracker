@@ -52,7 +52,7 @@
     {
       "customType": "regex",
       // Track dependencies in dependencies.json
-      "managerFilePatterns": ["^cmd/setup/dependencies\\.json$"],
+      "managerFilePatterns": ["/^cmd/setup/dependencies\\.json$/"],
       "matchStrings": [
         "\"repository\":\\s*\"(?<depName>[^\"]+)\",\\s*\"version\":\\s*\"(?<currentDigest>[^\"]+)\""
       ],
