@@ -7,8 +7,8 @@ Replaces install-openscad.sh and install_dependencies.py.
 """
 
 import argparse
-import ctypes
 import json
+import logging
 import os
 import platform
 import re
@@ -40,71 +40,10 @@ INSTALL_DIR = WORKSPACE_ROOT / "bin" / "openscad"
 LIBRARIES_DIR = INSTALL_DIR / "libraries"
 
 
-# --- Colors & Logging ---
-class Colors:  # pylint: disable=too-few-public-methods
-    """ANSI Color codes"""
+# --- Logging ---
+logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s", handlers=[logging.StreamHandler()])
 
-    HEADER = "\033[95m"
-    BLUE = "\033[94m"
-    GREEN = "\033[92m"
-    YELLOW = "\033[93m"
-    RED = "\033[91m"
-    ENDC = "\033[0m"
-
-    @staticmethod
-    def disable():
-        """Disable colors"""
-        Colors.HEADER = ""
-        Colors.BLUE = ""
-        Colors.GREEN = ""
-        Colors.YELLOW = ""
-        Colors.RED = ""
-        Colors.ENDC = ""
-
-
-if os.name == "nt":
-    # Enable ANSI colors in Windows terminal if possible, or disable them
-    try:
-        kernel32 = ctypes.windll.kernel32
-        kernel32.SetConsoleMode(kernel32.GetStdHandle(-11), 7)
-    except Exception:  # pylint: disable=broad-exception-caught
-        Colors.disable()
-
-
-def log_info(msg):
-    """Log info message.
-
-    Args:
-        msg: The message to log.
-    """
-    print(f"{Colors.BLUE}ℹ{Colors.ENDC} {msg}")
-
-
-def log_success(msg):
-    """Log success message.
-
-    Args:
-        msg: The message to log.
-    """
-    print(f"{Colors.GREEN}✓{Colors.ENDC} {msg}")
-
-
-def log_warning(msg):
-    """Log warning message.
-
-    Args:
-        msg: The message to log.
-    """
-    print(f"{Colors.YELLOW}⚠{Colors.ENDC} {msg}")
-
-
-def log_error(msg):
-    """Log error message.
-
-    Args:
-        msg: The message to log.
-    """
-    print(f"{Colors.RED}✗{Colors.ENDC} {msg}")
+logger = logging.getLogger(__name__)
 
 
 # --- Helpers ---
@@ -121,11 +60,11 @@ def download_file(url, dest_path):
         True if download succeeded, False otherwise.
     """
     try:
-        log_info(f"Downloading {url}...")
+        logger.info("Downloading %s...", url)
         urllib.request.urlretrieve(url, dest_path)
         return True
     except urllib.error.URLError as e:
-        log_error(f"Failed to download {url}: {e}")
+        logger.error("Failed to download %s: %s", url, e)
         return False
 
 
@@ -214,7 +153,7 @@ def install_openscad(nightly=True, force=False, check_only=False):
     """
     os_name = get_system_platform()
     if os_name == "unknown":
-        log_error("Unsupported platform")
+        logger.error("Unsupported platform")
         return False
 
     target_version = get_openscad_version(nightly, os_name)
@@ -222,19 +161,19 @@ def install_openscad(nightly=True, force=False, check_only=False):
 
     if check_only:
         if current_version == target_version:
-            log_success(f"OpenSCAD: Up to date ({target_version})")
+            logger.info("OpenSCAD: Up to date (%s)", target_version)
             return True
-        log_warning(f"OpenSCAD: Update available ({current_version or 'none'} -> {target_version})")
+        logger.warning("OpenSCAD: Update available (%s -> %s)", current_version or "none", target_version)
         return False
 
     if current_version == target_version and not force:
-        log_success(f"OpenSCAD is up to date ({target_version})")
+        logger.info("OpenSCAD is up to date (%s)", target_version)
         return True
 
-    log_info(f"Installing OpenSCAD {target_version} ({'Nightly' if nightly else 'Stable'})...")
+    logger.info("Installing OpenSCAD %s (%s)...", target_version, "Nightly" if nightly else "Stable")
 
     if INSTALL_DIR.exists():
-        log_info("Cleaning old installation...")
+        logger.info("Cleaning old installation...")
         shutil.rmtree(INSTALL_DIR)
 
     INSTALL_DIR.mkdir(parents=True, exist_ok=True)
@@ -263,7 +202,7 @@ def install_openscad_windows(version, nightly):
     if not download_file(url, zip_path):
         return False
 
-    log_info("Extracting...")
+    logger.info("Extracting...")
     try:
         with zipfile.ZipFile(zip_path, "r") as zip_ref:
             # Extract to a temp dir first to handle the top-level folder
@@ -285,10 +224,10 @@ def install_openscad_windows(version, nightly):
             shutil.rmtree(temp_extract)
 
         zip_path.unlink()
-        log_success(f"OpenSCAD {version} installed successfully!")
+        logger.info("OpenSCAD %s installed successfully!", version)
         return True
     except Exception as e:  # pylint: disable=broad-exception-caught
-        log_error(f"Extraction failed: {e}")
+        logger.error("Extraction failed: %s", e)
         return False
 
 
@@ -326,7 +265,7 @@ def install_openscad_linux(version, nightly):
         # Fallback if symlinks not supported (rare on Linux)
         pass
 
-    log_success(f"OpenSCAD {version} installed successfully!")
+    logger.info("OpenSCAD %s installed successfully!", version)
     return True
 
 
@@ -373,30 +312,30 @@ def install_library(dep, force=False):
     current_version = get_installed_lib_version(lib_path, name)
 
     if current_version == version and not force:
-        log_success(f"{name}: Up to date ({version})")
+        logger.info("%s: Up to date (%s)", name, version)
         return True
 
     if current_version:
-        log_info(f"Updating {name} from {current_version} to {version}...")
+        logger.info("Updating %s from %s to %s...", name, current_version, version)
     else:
-        log_info(f"Installing {name} {version}...")
+        logger.info("Installing %s %s...", name, version)
 
     if source == "github":
         url = f"https://github.com/{repo}/archive/{version}.tar.gz"
     else:
-        log_error(f"Unknown source type: {source}")
+        logger.error("Unknown source type: %s", source)
         return False
 
     temp_file = SCRIPT_DIR / f"{name}-{version}.tar.gz"
     try:
-        log_info(f"Downloading {url}...")
+        logger.info("Downloading %s...", url)
         urllib.request.urlretrieve(url, temp_file)
 
         if lib_path.exists():
             shutil.rmtree(lib_path)
         lib_path.mkdir(parents=True, exist_ok=True)
 
-        log_info("Extracting...")
+        logger.info("Extracting...")
         with tarfile.open(temp_file, "r:gz") as tar:
             members = []
             for member in tar.getmembers():
@@ -411,11 +350,11 @@ def install_library(dep, force=False):
 
         temp_file.unlink()
         (lib_path / ".version").write_text(version, encoding="utf-8")
-        log_success(f"{name} installed successfully!")
+        logger.info("%s installed successfully!", name)
         return True
 
     except Exception as e:  # pylint: disable=broad-exception-caught
-        log_error(f"Failed to install {name}: {e}")
+        logger.error("Failed to install %s: %s", name, e)
         if temp_file.exists():
             temp_file.unlink()
         return False
@@ -432,14 +371,14 @@ def install_libraries(force=False, check_only=False):
         True if all libraries processed successfully, False otherwise.
     """
     if not DEPENDENCIES_FILE.exists():
-        log_error(f"Dependencies file not found: {DEPENDENCIES_FILE}")
+        logger.error("Dependencies file not found: %s", DEPENDENCIES_FILE)
         return False
 
     try:
         with open(DEPENDENCIES_FILE, "r", encoding="utf-8") as f:
             data = json.load(f)
     except json.JSONDecodeError as e:
-        log_error(f"Invalid JSON in dependencies file: {e}")
+        logger.error("Invalid JSON in dependencies file: %s", e)
         return False
 
     dependencies = data.get("dependencies", [])
@@ -450,17 +389,19 @@ def install_libraries(force=False, check_only=False):
     for dep in dependencies:
         missing = [f for f in required_fields if f not in dep]
         if missing:
-            log_error(f"Dependency missing required fields: {missing}")
+            logger.error("Dependency missing required fields: %s", missing)
             return False
 
     for dep in dependencies:
         if check_only:
             current = get_installed_lib_version(LIBRARIES_DIR / dep["name"], dep["name"])
             if current != dep["version"]:
-                log_warning(f"{dep['name']}: Update available ({current or 'not installed'} -> {dep['version']})")
+                logger.warning(
+                    "%s: Update available (%s -> %s)", dep["name"], current or "not installed", dep["version"]
+                )
                 success = False
             else:
-                log_success(f"{dep['name']}: Up to date")
+                logger.info("%s: Up to date", dep["name"])
         else:
             if not install_library(dep, force=force):
                 success = False
@@ -496,7 +437,7 @@ def main():
         if not install_openscad(nightly=args.nightly, force=args.force, check_only=args.check):
             success = False
             if not args.check:
-                log_error("OpenSCAD installation failed. Aborting.")
+                logger.error("OpenSCAD installation failed. Aborting.")
                 sys.exit(1)
 
     # 2. Libraries
