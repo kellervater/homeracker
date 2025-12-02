@@ -5,29 +5,26 @@ Automated installation of OpenSCAD for the HomeRacker workspace (Windows/Linux/m
 ## 📦 Quick Start
 
 ```bash
-# Install or upgrade to latest nightly release (default)
-./cmd/setup/install-openscad.sh
+# Install or upgrade to latest nightly release (default) + dependencies
+python3 cmd/setup/install.py
 
 # Install nightly build (default)
-./cmd/setup/install-openscad.sh --nightly
+python3 cmd/setup/install.py --nightly
 
-# Install dependencies (BOSL2 library) - already done on a fresh install-openscad call
-./cmd/setup/install-dependencies.sh
+# Install stable release
+python3 cmd/setup/install.py --stable
 
 # Check if update is available
-./cmd/setup/install-openscad.sh --check
+python3 cmd/setup/install.py --check
 
 # Run smoke test - validates the current openscad installation against local models
-./cmd/setup/install-openscad.sh --test
-
-# Test specific model files (e.g., after export or during development)
 ./cmd/test/openscad-render.sh models/core/parts/connector.scad
 
 # Run automated test suite (all models in test/ and makerworld/ directories)
 ./cmd/test/test-models.sh
 
 # Force reinstall
-./cmd/setup/install-openscad.sh --force
+python3 cmd/setup/install.py --force
 ```
 
 ## 🤖 Automatic Updates
@@ -41,3 +38,42 @@ Versions are tracked in the scripts and managed by Renovate Bot. When new releas
 - **Platform Support**: Windows, Linux, and macOS (macOS treated as Linux using AppImage - untested)
 - **BOSL2**: Installed to bundled libraries directory
 - **Source**: https://files.openscad.org/
+
+## 📦 Dependency Management
+
+Dependencies are defined in `cmd/setup/dependencies.json`. The installer supports both Git commit hashes (SHAs) and SemVer tags.
+
+### Configuration Format (`dependencies.json`)
+
+```json
+{
+  "dependencies": [
+    {
+      "name": "BOSL2",
+      "repository": "BelfrySCAD/BOSL2",
+      "version": "266792b2a4bbf7514e73225dfadb92da95f2afe1",
+      "source": "github"
+    },
+    {
+      "name": "homeracker",
+      "repository": "kellervater/homeracker",
+      "version": "v1.1.0",
+      "source": "github"
+    }
+  ]
+}
+```
+
+### Renovate Integration
+
+To enable Renovate to update these dependencies, extend the configuration from this repository in your `renovate.json`:
+
+> **Note**: Use `github>...` for external repositories. Internally, this repository uses `local>...`.
+
+```json
+{
+  "extends": [
+    "github>kellervater/homeracker:renovate-dependencies.json"
+  ]
+}
+```

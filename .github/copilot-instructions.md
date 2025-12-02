@@ -5,8 +5,10 @@ HomeRacker is a modular 3D-printable rack-building system. Core components use p
 
 ## Tools & Structure
 - **Languages**: OpenSCAD (.scad), Python, Bash
+- **Preferred Tooling**: GitHub MCP Server, Context7 MCP Server
 - **Key Dirs**: `/models/` (SCAD files), `/bin/` (tools), `/scripts/` (Fusion 360 automation)
 - **HomeRacker Standards**: 15mm base unit, 4mm lock pins, 2mm walls, 0.2mm tolerance. See `README.md` for details.
+- **Contribution Guide**: See `CONTRIBUTING.md` for setup and workflow instructions.
 
 ## Core Principles
 - **Test-Driven Development**: NO change without a test. EVERY change MUST be tested before completion. No exceptions for "simple" changes.
