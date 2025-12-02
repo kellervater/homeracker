@@ -26,8 +26,7 @@ jobs:
 
       - name: Install OpenSCAD
         run: |
-          chmod +x cmd/setup/install-openscad.sh
-          ./cmd/setup/install-openscad.sh --nightly
+          python3 cmd/setup/install.py --nightly
 
       - name: Make scripts executable
         run: chmod +x cmd/export/export-core-models.sh .githooks/makerworld-export
