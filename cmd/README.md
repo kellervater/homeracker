@@ -68,6 +68,8 @@ Dependencies are defined in `cmd/setup/dependencies.json`. The installer support
 
 To enable Renovate to update these dependencies, extend the configuration from this repository in your `renovate.json`:
 
+> **Note**: Use `github>...` for external repositories. Internally, this repository uses `local>...`.
+
 ```json
 {
   "extends": [
