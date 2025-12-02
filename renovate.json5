@@ -19,9 +19,9 @@
     {
       "customType": "regex",
       // Track OpenSCAD nightly Windows version - extracts from Windows .zip filenames
-      "managerFilePatterns": ["/^cmd/setup/install-openscad\\.sh$/"],
+      "managerFilePatterns": ["/^cmd/setup/install\\.py$/"],
       "matchStrings": [
-        "OPENSCAD_NIGHTLY_VERSION_WINDOWS=\"(?<currentValue>[^\"]+)\""
+        "OPENSCAD_NIGHTLY_VERSION_WINDOWS = \"(?<currentValue>[^\"]+)\""
       ],
       "datasourceTemplate": "custom.openscad-snapshots",
       "depNameTemplate": "OpenSCAD-Windows",
@@ -31,9 +31,9 @@
     {
       "customType": "regex",
       // Track OpenSCAD nightly Linux version - extracts from Linux .AppImage filenames
-      "managerFilePatterns": ["/^cmd/setup/install-openscad\\.sh$/"],
+      "managerFilePatterns": ["/^cmd/setup/install\\.py$/"],
       "matchStrings": [
-        "OPENSCAD_NIGHTLY_VERSION_LINUX=\"(?<currentValue>[^\"]+)\""
+        "OPENSCAD_NIGHTLY_VERSION_LINUX = \"(?<currentValue>[^\"]+)\""
       ],
       "datasourceTemplate": "custom.openscad-snapshots",
       "depNameTemplate": "OpenSCAD-Linux",
@@ -43,9 +43,9 @@
     {
       "customType": "regex",
       // Track OpenSCAD stable version in install script
-      "managerFilePatterns": ["/^cmd/setup/install-openscad\\.sh$/"],
+      "managerFilePatterns": ["/^cmd/setup/install\\.py$/"],
       "matchStrings": [
-        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\nOPENSCAD_STABLE_VERSION=\"(?<currentValue>.*?)\""
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\nOPENSCAD_STABLE_VERSION = \"(?<currentValue>.*?)\""
       ],
       "datasourceTemplate": "github-releases",
       "versioningTemplate": "loose"
