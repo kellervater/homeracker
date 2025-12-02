@@ -8,7 +8,8 @@
         "\"repository\":\\s*\"(?<depName>[^\"]+)\",\\s*\"version\":\\s*\"(?<currentDigest>[a-f0-9]{40})\""
       ],
       "currentValueTemplate": "master",
-      "depNameTemplate": "https://github.com/{{depName}}.git",
+      "depNameTemplate": "{{depName}}",
+      "packageNameTemplate": "https://github.com/{{depName}}.git",
       "datasourceTemplate": "git-refs",
       "versioningTemplate": "git"
     },

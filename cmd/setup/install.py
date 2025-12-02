@@ -72,22 +72,38 @@ if os.name == "nt":
 
 
 def log_info(msg):
-    """Log info message"""
+    """Log info message.
+
+    Args:
+        msg: The message to log.
+    """
     print(f"{Colors.BLUE}ℹ{Colors.ENDC} {msg}")
 
 
 def log_success(msg):
-    """Log success message"""
+    """Log success message.
+
+    Args:
+        msg: The message to log.
+    """
     print(f"{Colors.GREEN}✓{Colors.ENDC} {msg}")
 
 
 def log_warning(msg):
-    """Log warning message"""
+    """Log warning message.
+
+    Args:
+        msg: The message to log.
+    """
     print(f"{Colors.YELLOW}⚠{Colors.ENDC} {msg}")
 
 
 def log_error(msg):
-    """Log error message"""
+    """Log error message.
+
+    Args:
+        msg: The message to log.
+    """
     print(f"{Colors.RED}✗{Colors.ENDC} {msg}")
 
 
@@ -95,7 +111,15 @@ def log_error(msg):
 
 
 def download_file(url, dest_path):
-    """Download a file from URL to dest_path"""
+    """Download a file from URL to dest_path.
+
+    Args:
+        url: The URL to download from.
+        dest_path: The destination path to save the file.
+
+    Returns:
+        True if download succeeded, False otherwise.
+    """
     try:
         log_info(f"Downloading {url}...")
         urllib.request.urlretrieve(url, dest_path)
@@ -106,7 +130,11 @@ def download_file(url, dest_path):
 
 
 def get_system_platform():
-    """Get system platform (windows, linux, unknown)"""
+    """Get system platform (windows, linux, unknown).
+
+    Returns:
+        String representing the platform ('windows', 'linux', or 'unknown').
+    """
     system = platform.system().lower()
     if system == "windows":
         return "windows"
@@ -118,7 +146,15 @@ def get_system_platform():
 
 
 def get_openscad_version(nightly=True, os_name="linux"):
-    """Get target OpenSCAD version"""
+    """Get target OpenSCAD version.
+
+    Args:
+        nightly: Whether to use nightly build.
+        os_name: Operating system name.
+
+    Returns:
+        Version string.
+    """
     if not nightly:
         return OPENSCAD_STABLE_VERSION
 
@@ -128,7 +164,14 @@ def get_openscad_version(nightly=True, os_name="linux"):
 
 
 def get_installed_openscad_version(os_name):
-    """Get currently installed OpenSCAD version"""
+    """Get currently installed OpenSCAD version.
+
+    Args:
+        os_name: Operating system name.
+
+    Returns:
+        Version string if installed, None otherwise.
+    """
     if os_name == "windows":
         exe = INSTALL_DIR / "openscad.exe"
     else:
@@ -159,7 +202,16 @@ def get_installed_openscad_version(os_name):
 
 
 def install_openscad(nightly=True, force=False, check_only=False):
-    """Install OpenSCAD binary"""
+    """Install OpenSCAD binary.
+
+    Args:
+        nightly: Whether to install nightly build.
+        force: Force reinstall even if version matches.
+        check_only: Only check installation status.
+
+    Returns:
+        True if successful or up to date, False otherwise.
+    """
     os_name = get_system_platform()
     if os_name == "unknown":
         log_error("Unsupported platform")
@@ -186,8 +238,6 @@ def install_openscad(nightly=True, force=False, check_only=False):
         shutil.rmtree(INSTALL_DIR)
 
     INSTALL_DIR.mkdir(parents=True, exist_ok=True)
-    # LIBRARIES_DIR.mkdir(parents=True, exist_ok=True)
-    # Don't create this yet, let the zip extraction handle it or create later
 
     if os_name == "windows":
         return install_openscad_windows(target_version, nightly)
@@ -195,7 +245,15 @@ def install_openscad(nightly=True, force=False, check_only=False):
 
 
 def install_openscad_windows(version, nightly):
-    """Install OpenSCAD on Windows"""
+    """Install OpenSCAD on Windows.
+
+    Args:
+        version: Version string to install.
+        nightly: Whether it is a nightly build.
+
+    Returns:
+        True if successful, False otherwise.
+    """
     if nightly:
         url = f"https://files.openscad.org/snapshots/OpenSCAD-{version}-x86-64.zip"
     else:
@@ -235,7 +293,15 @@ def install_openscad_windows(version, nightly):
 
 
 def install_openscad_linux(version, nightly):
-    """Install OpenSCAD on Linux"""
+    """Install OpenSCAD on Linux.
+
+    Args:
+        version: Version string to install.
+        nightly: Whether it is a nightly build.
+
+    Returns:
+        True if successful, False otherwise.
+    """
     if nightly:
         url = f"https://files.openscad.org/snapshots/OpenSCAD-{version}-x86_64.AppImage"
     else:
@@ -268,7 +334,15 @@ def install_openscad_linux(version, nightly):
 
 
 def get_installed_lib_version(lib_path, name):
-    """Get installed library version"""
+    """Get installed library version.
+
+    Args:
+        lib_path: Path to the library directory.
+        name: Name of the library.
+
+    Returns:
+        Version string if found, None otherwise.
+    """
     version_file = lib_path / ".version"
     if version_file.exists():
         return version_file.read_text(encoding="utf-8").strip()
@@ -281,7 +355,15 @@ def get_installed_lib_version(lib_path, name):
 
 
 def install_library(dep, force=False):
-    """Install a single library"""
+    """Install a single library.
+
+    Args:
+        dep: Dependency dictionary.
+        force: Force reinstall.
+
+    Returns:
+        True if successful, False otherwise.
+    """
     name = dep["name"]
     repo = dep["repository"]
     version = dep["version"]
@@ -322,6 +404,9 @@ def install_library(dep, force=False):
                 if len(p.parts) > 1:
                     member.name = str(Path(*p.parts[1:]))
                     members.append(member)
+                elif len(p.parts) == 1:
+                    # Include root-level files as-is
+                    members.append(member)
             tar.extractall(path=lib_path, members=members, filter="data")
 
         temp_file.unlink()
@@ -337,16 +422,36 @@ def install_library(dep, force=False):
 
 
 def install_libraries(force=False, check_only=False):
-    """Install all libraries"""
+    """Install all libraries.
+
+    Args:
+        force: Force reinstall.
+        check_only: Only check status.
+
+    Returns:
+        True if all libraries processed successfully, False otherwise.
+    """
     if not DEPENDENCIES_FILE.exists():
         log_error(f"Dependencies file not found: {DEPENDENCIES_FILE}")
         return False
 
-    with open(DEPENDENCIES_FILE, "r", encoding="utf-8") as f:
-        data = json.load(f)
+    try:
+        with open(DEPENDENCIES_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except json.JSONDecodeError as e:
+        log_error(f"Invalid JSON in dependencies file: {e}")
+        return False
 
     dependencies = data.get("dependencies", [])
     success = True
+
+    # Validate required fields in each dependency
+    required_fields = ["name", "repository", "version"]
+    for dep in dependencies:
+        missing = [f for f in required_fields if f not in dep]
+        if missing:
+            log_error(f"Dependency missing required fields: {missing}")
+            return False
 
     for dep in dependencies:
         if check_only:
@@ -367,7 +472,13 @@ def install_libraries(force=False, check_only=False):
 
 
 def main():
-    """Main entry point"""
+    """Main entry point.
+
+    Parses command-line arguments and executes OpenSCAD and/or library installation.
+
+    Returns:
+        Exits with code 0 on success, 1 on failure.
+    """
     parser = argparse.ArgumentParser(description="HomeRacker Setup (OpenSCAD + Libraries)")
     parser.add_argument("--check", action="store_true", help="Check installation status only")
     parser.add_argument("--force", action="store_true", help="Force reinstall")
