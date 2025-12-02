@@ -7,7 +7,8 @@ on:
       - 'models/**/*.scad'
       - '.github/workflows/validate-models.yml'
       - 'cmd/setup/install-openscad.sh'
-      - 'cmd/setup/install-dependencies.sh'
+      - 'cmd/setup/install_dependencies.py'
+      - 'cmd/setup/dependencies.json'
       - 'cmd/test/openscad-render.sh'
 
 jobs:

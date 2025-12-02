@@ -161,8 +161,7 @@ install_openscad() {
 
     # Install dependencies (BOSL2)
     log_info "Installing dependencies..."
-    chmod +x "${SCRIPT_DIR}/install-dependencies.sh"
-    "${SCRIPT_DIR}/install-dependencies.sh"
+    python3 "${SCRIPT_DIR}/install_dependencies.py"
 }
 
 # Install OpenSCAD on Linux

@@ -11,7 +11,7 @@ cd homeracker
 
 # Install OpenSCAD (Windows/Linux/macOS)
 ./cmd/setup/install-openscad.sh
-./cmd/setup/install-dependencies.sh
+python3 cmd/setup/install_dependencies.py
 # Optional (VSCode Integration)
 ./cmd/setup/install-vscode-openscad.sh
 
