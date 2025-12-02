@@ -11,8 +11,8 @@ Automated installation of OpenSCAD for the HomeRacker workspace (Windows/Linux/m
 # Install nightly build (default)
 ./cmd/setup/install-openscad.sh --nightly
 
-# Install dependencies (BOSL2 library) - already done on a fresh install-openscad call
-./cmd/setup/install-dependencies.sh
+# Install dependencies (BOSL2 library)
+python3 cmd/setup/install_dependencies.py
 
 # Check if update is available
 ./cmd/setup/install-openscad.sh --check
@@ -41,3 +41,59 @@ Versions are tracked in the scripts and managed by Renovate Bot. When new releas
 - **Platform Support**: Windows, Linux, and macOS (macOS treated as Linux using AppImage - untested)
 - **BOSL2**: Installed to bundled libraries directory
 - **Source**: https://files.openscad.org/
+
+## 📦 Dependency Management
+
+Dependencies are defined in `cmd/setup/dependencies.json`. The installer supports both Git commit hashes (SHAs) and SemVer tags.
+
+### Configuration Format (`dependencies.json`)
+
+```json
+{
+  "dependencies": [
+    {
+      "name": "BOSL2",
+      "repository": "BelfrySCAD/BOSL2",
+      "version": "266792b2a4bbf7514e73225dfadb92da95f2afe1",
+      "source": "github"
+    },
+    {
+      "name": "homeracker",
+      "repository": "kellervater/homeracker",
+      "version": "v1.1.0",
+      "source": "github"
+    }
+  ]
+}
+```
+
+### Renovate Integration
+
+To enable Renovate to update these dependencies, add the following `customManagers` to your `renovate.json`:
+
+```json
+{
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["^cmd/setup/dependencies\\.json$"],
+      "matchStrings": [
+        "\"repository\":\\s*\"(?<depName>[^\"]+)\",\\s*\"version\":\\s*\"(?<currentDigest>[a-f0-9]{40})\""
+      ],
+      "currentValueTemplate": "master",
+      "depNameTemplate": "https://github.com/{{depName}}.git",
+      "datasourceTemplate": "git-refs",
+      "versioningTemplate": "git"
+    },
+    {
+      "customType": "regex",
+      "fileMatch": ["^cmd/setup/dependencies\\.json$"],
+      "matchStrings": [
+        "\"repository\":\\s*\"(?<depName>[^\"]+)\",\\s*\"version\":\\s*\"(?<currentValue>v?\\d+\\.\\d+\\.\\d+)\""
+      ],
+      "datasourceTemplate": "github-tags",
+      "versioningTemplate": "semver"
+    }
+  ]
+}
+```
