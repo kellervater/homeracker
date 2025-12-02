@@ -51,16 +51,25 @@
     },
     {
       "customType": "regex",
-      // Track dependencies in dependencies.json
+      // Track dependencies in dependencies.json (Commit Hashes)
       "managerFilePatterns": ["/^cmd/setup/dependencies\\.json$/"],
       "matchStrings": [
-        "\"repository\":\\s*\"(?<depName>[^\"]+)\",\\s*\"version\":\\s*\"(?<currentDigest>[^\"]+)\""
+        "\"repository\":\\s*\"(?<depName>[^\"]+)\",\\s*\"version\":\\s*\"(?<currentDigest>[a-f0-9]{40})\""
       ],
-      "matchStringsStrategy": "any",
       "currentValueTemplate": "master",
       "depNameTemplate": "https://github.com/{{depName}}.git",
       "datasourceTemplate": "git-refs",
       "versioningTemplate": "git"
+    },
+    {
+      "customType": "regex",
+      // Track dependencies in dependencies.json (SemVer Tags)
+      "managerFilePatterns": ["/^cmd/setup/dependencies\\.json$/"],
+      "matchStrings": [
+        "\"repository\":\\s*\"(?<depName>[^\"]+)\",\\s*\"version\":\\s*\"(?<currentValue>v?\\d+\\.\\d+\\.\\d+)\""
+      ],
+      "datasourceTemplate": "github-tags",
+      "versioningTemplate": "semver"
     }
   ],
   // Custom datasource for OpenSCAD nightly snapshots
