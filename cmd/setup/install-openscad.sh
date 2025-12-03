@@ -253,7 +253,7 @@ install_openscad_windows() {
 
 # Run smoke test
 smoke_test() {
-    "${SCRIPT_DIR}/openscad-render.sh"
+    "${SCRIPT_DIR}/../test/openscad-render.sh"
 }
 
 # Main function
