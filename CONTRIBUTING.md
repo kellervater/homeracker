@@ -48,7 +48,7 @@ Now pre-commit will automatically run on `git commit`. To manually run hooks on 
 pre-commit run --all-files
 ```
 
-The hooks can be looked up in [here](.pre-commit-config.yaml)
+The hooks can be found here: [.pre-commit-config.yaml](.pre-commit-config.yaml)
 
 ## 📐 HomeRacker Standards
 
