@@ -1,5 +1,27 @@
 # Changelog
 
+## [1.2.1](https://github.com/kellervater/homeracker/compare/v1.2.0...v1.2.1) (2025-12-06)
+
+
+### 🐛 Bug Fixes
+
+* path for openscad-render.sh ([#108](https://github.com/kellervater/homeracker/issues/108)) ([aea790c](https://github.com/kellervater/homeracker/commit/aea790ca856dfee800c1368a178959c7a3900f26))
+* set executable bit on scripts for pre-commit. ([#111](https://github.com/kellervater/homeracker/issues/111)) ([9549aca](https://github.com/kellervater/homeracker/commit/9549aca0daad4b070909e1faebf2a87d51cd10ff))
+
+
+### 📦 Dependencies
+
+* update belfryscad/bosl2 digest to 44e0c4e ([#114](https://github.com/kellervater/homeracker/issues/114)) ([e0c01ba](https://github.com/kellervater/homeracker/commit/e0c01ba6b7228fac4c63e640e96d4b1e68c1c531))
+* update belfryscad/bosl2 digest to b47d5eb ([#119](https://github.com/kellervater/homeracker/issues/119)) ([eb4c13a](https://github.com/kellervater/homeracker/commit/eb4c13a09fb68a8201c8a54a52fa638275dbd4ef))
+* update camunda/infra-global-github-actions digest to 302d4ca ([#115](https://github.com/kellervater/homeracker/issues/115)) ([0ee258f](https://github.com/kellervater/homeracker/commit/0ee258fbb28ddd1fa27c91a8259a0163f4d38f26))
+* update camunda/infra-global-github-actions digest to c779482 ([#118](https://github.com/kellervater/homeracker/issues/118)) ([eb8c84a](https://github.com/kellervater/homeracker/commit/eb8c84a869fc55421634b262764fe19a1a8b978b))
+* update openscad nightly ([#116](https://github.com/kellervater/homeracker/issues/116)) ([37a4b3b](https://github.com/kellervater/homeracker/commit/37a4b3ba708977c27d1686f12c27919e1fd64e8e))
+
+
+### 🔄 CI/CD
+
+* **pre-commit:** enforce conventional commits ([#112](https://github.com/kellervater/homeracker/issues/112)) ([c3ec5ef](https://github.com/kellervater/homeracker/commit/c3ec5ef9a860c5514b654aecda61f1e6bcffad5b))
+
 ## [1.2.0](https://github.com/kellervater/homeracker/compare/v1.1.0...v1.2.0) (2025-11-30)
 
 
