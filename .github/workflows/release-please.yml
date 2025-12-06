@@ -20,6 +20,6 @@ jobs:
           private-key: ${{ secrets.RELEASES_APP_PRIVATE_KEY }}
 
       - name: Handle Release Creation
-        uses: camunda/infra-global-github-actions/teams/infra/pull-request/release@302d4ca985bde9b91189c1b17dac416669feb65b
+        uses: camunda/infra-global-github-actions/teams/infra/pull-request/release@c7794826624039d8cb9ddeaa38c9dfb2781e34ba
         with:
           github-token: ${{ steps.app-token.outputs.token }}
