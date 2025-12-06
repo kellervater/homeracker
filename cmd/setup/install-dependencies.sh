@@ -14,7 +14,7 @@
 set -euo pipefail
 
 # renovate: datasource=github-commits depName=BelfrySCAD/BOSL2 versioning=loose
-BOSL2_VERSION="44e0c4e3da5c86ec6888333d9c5b3b8910ef00fd"
+BOSL2_VERSION="b47d5eb66c687824e8b80718159e56437b08a4f0"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORKSPACE_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
