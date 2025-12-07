@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.3.1](https://github.com/kellervater/homeracker/compare/homeracker-v1.3.0...homeracker-v1.3.1) (2025-12-07)
+
+
+### 📦 Dependencies
+
+* update belfryscad/bosl2 digest to b47d5eb ([#122](https://github.com/kellervater/homeracker/issues/122)) ([6d63741](https://github.com/kellervater/homeracker/commit/6d637414d855b4aff31c760fb5627feb256111d4))
+* update dependency python to 3.14 ([#128](https://github.com/kellervater/homeracker/issues/128)) ([a26eace](https://github.com/kellervater/homeracker/commit/a26eace0949c2188bedcacb7bf1beb8793160e12))
+* update github actions to v6 (major) ([#129](https://github.com/kellervater/homeracker/issues/129)) ([0462e90](https://github.com/kellervater/homeracker/commit/0462e90ad284e5c138e7acf234ffa9f5f605f470))
+* update openscad nightly ([#124](https://github.com/kellervater/homeracker/issues/124)) ([b12fc92](https://github.com/kellervater/homeracker/commit/b12fc92673c85ecd519e5875aed2c68d55a3a2ad))
+
+
+### 🔄 CI/CD
+
+* **renovate:** group GHA prs ([9824210](https://github.com/kellervater/homeracker/commit/9824210fcd2746ef4c4a186e024ff130591725db))
+
+
+### ♻️ Code Refactoring
+
+* uppercase all constants with backward compatibility ([#130](https://github.com/kellervater/homeracker/issues/130)) ([9076d73](https://github.com/kellervater/homeracker/commit/9076d7303361758cdb3b575f80d578212dcccdda))
+
 ## [1.3.0](https://github.com/kellervater/homeracker/compare/homeracker-v1.2.0...homeracker-v1.3.0) (2025-12-07)
 
 
