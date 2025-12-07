@@ -5,3 +5,9 @@ bin/openscad/
 bin/openscad-nightly/
 renovate_cache/
 renovate_base/
+
+# Python
+__pycache__/
+*.py[cod]
+cmd/scadm/dist/
+cmd/scadm/*.egg-info/

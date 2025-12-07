@@ -5,8 +5,14 @@ HomeRacker is a modular 3D-printable rack-building system. Core components use p
 
 ## Tools & Structure
 - **Languages**: OpenSCAD (.scad), Python, Bash
+- **Preferred Tooling**: GitHub MCP Server, Context7 MCP Server
 - **Key Dirs**: `/models/` (SCAD files), `/bin/` (tools), `/scripts/` (Fusion 360 automation)
 - **HomeRacker Standards**: 15mm base unit, 4mm lock pins, 2mm walls, 0.2mm tolerance. See `README.md` for details.
+- **Contribution Guide**: See `CONTRIBUTING.md` for setup and workflow instructions.
+- **Dependency Manager**: Use `scadm` to install OpenSCAD and libraries
+  - Install: `scadm` (installs OpenSCAD + libraries from `scadm.json`)
+  - Config: `scadm.json` in project root defines library dependencies
+  - Help: `scadm -h` for usage info
 
 ## Core Principles
 - **Test-Driven Development**: NO change without a test. EVERY change MUST be tested before completion. No exceptions for "simple" changes.
@@ -26,7 +32,8 @@ HomeRacker is a modular 3D-printable rack-building system. Core components use p
 3. **Ask before proceeding** if requirements conflict with best practices
 4. **Provide outline** before implementation for confirmation
 5. **Make the change** and immediately test it - do NOT announce completion before testing
-6. **On errors**: Step back, check docs, ask user if stuck—don't iterate blindly
+6. **Run pre-commit hooks** to catch formatting/linting issues before commit. Fix any issues found (no ignores allowed).
+7. **On errors**: Step back, check docs, ask user if stuck—don't iterate blindly
 
 ## OpenSCAD Guidelines
 - Use BOSL2 for complex geometry
@@ -46,5 +53,9 @@ HomeRacker is a modular 3D-printable rack-building system. Core components use p
 - Add inline comments only for complex regex patterns or non-obvious logic
 
 ## Renovate Guidelines
+- **Version Pinning**: MANDATORY for all dependencies (Renovate manages updates)
+  - Pin exact versions, never use version ranges or `latest`
+  - New pinning patterns: Research Renovate docs first to ensure proper tracking
+  - Examples: Docker tags, Python packages, GitHub Actions, OpenSCAD versions
 - **Testing**: Run `cmd/test/test-renovate-local.sh` to verify config changes
 - **Important**: Changes MUST be pushed to the current branch before running the test (script runs in Docker context)

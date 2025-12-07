@@ -24,10 +24,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y xvfb libglu1-mesa libfuse2 libegl1 libxcb-cursor0
 
-      - name: Install OpenSCAD
+      - name: Install OpenSCAD and dependencies
         run: |
-          chmod +x cmd/setup/install-openscad.sh
-          ./cmd/setup/install-openscad.sh --nightly
+          pip install -e cmd/scadm
+          scadm
 
       - name: Make scripts executable
         run: chmod +x cmd/export/export-core-models.sh .githooks/makerworld-export

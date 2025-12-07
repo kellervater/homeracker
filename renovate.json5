@@ -3,6 +3,7 @@
   "extends": [
     "config:recommended",
     ":enablePreCommit",
+    "local>kellervater/homeracker:renovate-dependencies.json"
   ],
   // Ignore any repository config presets
   "ignorePresets": [":all"],
@@ -18,9 +19,9 @@
     {
       "customType": "regex",
       // Track OpenSCAD nightly Windows version - extracts from Windows .zip filenames
-      "managerFilePatterns": ["/^cmd/setup/install-openscad\\.sh$/"],
+      "managerFilePatterns": ["/^cmd/scadm/scadm/constants\\.py$/"],
       "matchStrings": [
-        "OPENSCAD_NIGHTLY_VERSION_WINDOWS=\"(?<currentValue>[^\"]+)\""
+        "OPENSCAD_NIGHTLY_VERSION_WINDOWS = \"(?<currentValue>[^\"]+)\""
       ],
       "datasourceTemplate": "custom.openscad-snapshots",
       "depNameTemplate": "OpenSCAD-Windows",
@@ -30,9 +31,9 @@
     {
       "customType": "regex",
       // Track OpenSCAD nightly Linux version - extracts from Linux .AppImage filenames
-      "managerFilePatterns": ["/^cmd/setup/install-openscad\\.sh$/"],
+      "managerFilePatterns": ["/^cmd/scadm/scadm/constants\\.py$/"],
       "matchStrings": [
-        "OPENSCAD_NIGHTLY_VERSION_LINUX=\"(?<currentValue>[^\"]+)\""
+        "OPENSCAD_NIGHTLY_VERSION_LINUX = \"(?<currentValue>[^\"]+)\""
       ],
       "datasourceTemplate": "custom.openscad-snapshots",
       "depNameTemplate": "OpenSCAD-Linux",
@@ -41,26 +42,13 @@
     },
     {
       "customType": "regex",
-      // Track OpenSCAD stable version in install script
-      "managerFilePatterns": ["/^cmd/setup/install-openscad\\.sh$/"],
+      // Track OpenSCAD stable version in constants
+      "managerFilePatterns": ["/^cmd/scadm/scadm/constants\\.py$/"],
       "matchStrings": [
-        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\nOPENSCAD_STABLE_VERSION=\"(?<currentValue>.*?)\""
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\nOPENSCAD_STABLE_VERSION = \"(?<currentValue>.*?)\""
       ],
       "datasourceTemplate": "github-releases",
       "versioningTemplate": "loose"
-    },
-    {
-      "customType": "regex",
-      // Track BOSL2 commit hash in dependencies script
-      "managerFilePatterns": ["/^cmd/setup/install-dependencies\\.sh$/"],
-      "matchStrings": [
-        "BOSL2_VERSION=\"(?<currentDigest>.*?)\""
-      ],
-      "currentValueTemplate": "master",
-      "datasourceTemplate": "git-refs",
-      "depNameTemplate": "BelfrySCAD/BOSL2",
-      "packageNameTemplate": "https://github.com/BelfrySCAD/BOSL2.git",
-      "versioningTemplate": "git"
     }
   ],
   // Custom datasource for OpenSCAD nightly snapshots
