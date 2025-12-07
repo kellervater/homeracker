@@ -7,7 +7,7 @@
 - 🚀 **Install OpenSCAD**: Automatically downloads and installs OpenSCAD (nightly or stable builds)
 - 📦 **Manage Libraries**: Install OpenSCAD libraries (BOSL2, MCAD, custom libraries) from GitHub
 - 🔄 **Version Tracking**: Keeps dependencies in sync with your project
-- 📋 **Simple Config**: Define dependencies in a single `dependencies.json` file
+- 📋 **Simple Config**: Define dependencies in a single `scadm.json` file
 
 ## Installation
 
@@ -37,7 +37,7 @@ pip install scadm
 ### 2. Install OpenSCAD and dependencies
 
 ```bash
-scadm install
+scadm
 ```
 
 This will:
@@ -49,8 +49,8 @@ This will:
 ### Install everything (OpenSCAD + libraries)
 
 ```bash
-scadm install        # Install nightly build (default - RECOMMENDED)
-scadm install --stable   # Install stable release (2021.01)
+scadm                # Install nightly build (default - RECOMMENDED)
+scadm --stable       # Install stable release (2021.01)
 ```
 
 > [!NOTE]
@@ -59,25 +59,25 @@ scadm install --stable   # Install stable release (2021.01)
 ### Check installation status
 
 ```bash
-scadm check
+scadm --check
 ```
 
 ### Force reinstall
 
 ```bash
-scadm install --force
+scadm --force
 ```
 
 ### Install only OpenSCAD
 
 ```bash
-scadm install --openscad-only
+scadm --openscad-only
 ```
 
 ### Install only libraries
 
 ```bash
-scadm install --libs-only
+scadm --libs-only
 ```
 
 ## Configuration
@@ -111,7 +111,7 @@ scadm install --libs-only
 
 ## Directory Structure
 
-After running `scadm install`, your project will have:
+After running `scadm`, your project will have:
 
 ```
 your-project/
