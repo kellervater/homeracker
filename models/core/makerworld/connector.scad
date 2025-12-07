@@ -18,36 +18,52 @@ is_foot = false; // [true,false]
 optimal_orientation = true; // [true,false]
 
 /* [Hidden] */
-tolerance = 0.2;
-printing_layer_width = 0.4;
-printing_layer_height = 0.2;
-base_unit = 15;
-base_strength = 2;
-base_chamfer = 1;
-lockpin_hole_chamfer = 0.8;
-lockpin_hole_side_length = 4;
-lockpin_hole_side_length_dimension = [lockpin_hole_side_length, lockpin_hole_side_length];
+TOLERANCE = 0.2;
+PRINTING_LAYER_WIDTH = 0.4;
+PRINTING_LAYER_HEIGHT = 0.2;
+BASE_UNIT = 15;
+BASE_STRENGTH = 2;
+BASE_CHAMFER = 1;
+LOCKPIN_HOLE_CHAMFER = 0.8;
+LOCKPIN_HOLE_SIDE_LENGTH = 4;
+LOCKPIN_HOLE_SIDE_LENGTH_DIMENSION = [LOCKPIN_HOLE_SIDE_LENGTH, LOCKPIN_HOLE_SIDE_LENGTH];
 HR_YELLOW = "#f7b600";
 HR_BLUE = "#0056b3";
 HR_RED = "#c41e3a";
 HR_GREEN = "#2d7a2e";
 HR_CHARCOAL = "#333333";
 HR_WHITE = "#f0f0f0";
+STD_UNIT_HEIGHT = 44.45;
+STD_UNIT_DEPTH = 482.6;
+STD_WIDTH_10INCH = 254;
+STD_WIDTH_19INCH = 482.6;
+STD_MOUNT_SURFACE_WIDTH = 15.875;
+STD_RACK_BORE_DISTANCE_Z = 15.875;
+STD_RACK_BORE_DISTANCE_MARGIN_Z = 6.35;
+tolerance = TOLERANCE;
+printing_layer_width = PRINTING_LAYER_WIDTH;
+printing_layer_height = PRINTING_LAYER_HEIGHT;
+base_unit = BASE_UNIT;
+base_strength = BASE_STRENGTH;
+base_chamfer = BASE_CHAMFER;
+lockpin_hole_chamfer = LOCKPIN_HOLE_CHAMFER;
+lockpin_hole_side_length = LOCKPIN_HOLE_SIDE_LENGTH;
+lockpin_hole_side_length_dimension = LOCKPIN_HOLE_SIDE_LENGTH_DIMENSION;
 
 module support(units=3, x_holes=false) {
-    support_dimensions = [base_unit, base_unit*units, base_unit];
+    support_dimensions = [BASE_UNIT, BASE_UNIT*units, BASE_UNIT];
 
     difference() {
 
         color("darkslategray")
-        cuboid(support_dimensions, chamfer=base_chamfer);
+        cuboid(support_dimensions, chamfer=BASE_CHAMFER);
 
-        ycopies(spacing=base_unit, n=units) {
+        ycopies(spacing=BASE_UNIT, n=units) {
 
             color("red") lock_pin_hole();
         }
         if (x_holes) {
-            ycopies(spacing=base_unit, n=units) {
+            ycopies(spacing=BASE_UNIT, n=units) {
 
                 color("red") rotate([0,90,0]) lock_pin_hole();
             }
@@ -56,20 +72,20 @@ module support(units=3, x_holes=false) {
 }
 
 module lock_pin_hole() {
-    lock_pin_center_side = lockpin_hole_side_length + printing_layer_width*2;
+    lock_pin_center_side = LOCKPIN_HOLE_SIDE_LENGTH + PRINTING_LAYER_WIDTH*2;
     lock_pin_center_dimension = [lock_pin_center_side, lock_pin_center_side];
 
-    lock_pin_outer_side = lockpin_hole_side_length + lockpin_hole_chamfer*2;
+    lock_pin_outer_side = LOCKPIN_HOLE_SIDE_LENGTH + LOCKPIN_HOLE_CHAMFER*2;
     lock_pin_outer_dimension = [lock_pin_outer_side, lock_pin_outer_side];
 
-    lock_pin_prismoid_inner_length = base_unit/2 - lockpin_hole_chamfer;
-    lock_pin_prismoid_outer_length = lockpin_hole_chamfer;
+    lock_pin_prismoid_inner_length = BASE_UNIT/2 - LOCKPIN_HOLE_CHAMFER;
+    lock_pin_prismoid_outer_length = LOCKPIN_HOLE_CHAMFER;
 
     module hole_half() {
         union() {
-            prismoid(size1=lock_pin_center_dimension, size2=lockpin_hole_side_length_dimension, h=lock_pin_prismoid_inner_length);
+            prismoid(size1=lock_pin_center_dimension, size2=LOCKPIN_HOLE_SIDE_LENGTH_DIMENSION, h=lock_pin_prismoid_inner_length);
             translate([0, 0, lock_pin_prismoid_inner_length]) {
-                prismoid(size1=lockpin_hole_side_length_dimension, size2=lock_pin_outer_dimension, h=lock_pin_prismoid_outer_length);
+                prismoid(size1=LOCKPIN_HOLE_SIDE_LENGTH_DIMENSION, size2=lock_pin_outer_dimension, h=lock_pin_prismoid_outer_length);
             }
         }
     }
@@ -81,9 +97,9 @@ module lock_pin_hole() {
     }
 }
 
-connector_outer_side_length = base_unit + base_strength*2 + tolerance;
-arm_side_length_inner = connector_outer_side_length - base_strength*2;
-core_to_arm_translation = base_unit;
+connector_outer_side_length = BASE_UNIT + BASE_STRENGTH*2 + TOLERANCE;
+arm_side_length_inner = connector_outer_side_length - BASE_STRENGTH*2;
+core_to_arm_translation = BASE_UNIT;
 CONNECTOR_CONFIGS = [
 
     [
@@ -180,37 +196,37 @@ module connector_raw(config, is_foot=false) {
 
 module connectorArmOuter(is_foot=false) {
 
-  arm_dimensions_outer = [connector_outer_side_length, connector_outer_side_length, base_unit];
-  arm_side_length_inner = connector_outer_side_length - base_strength*2;
-  arm_dimensions_inner = [arm_side_length_inner, arm_side_length_inner, base_unit];
+  arm_dimensions_outer = [connector_outer_side_length, connector_outer_side_length, BASE_UNIT];
+  arm_side_length_inner = connector_outer_side_length - BASE_STRENGTH*2;
+  arm_dimensions_inner = [arm_side_length_inner, arm_side_length_inner, BASE_UNIT];
 
   difference() {
-    color(HR_YELLOW) cuboid(arm_dimensions_outer, chamfer=base_chamfer,except=BOTTOM);
+    color(HR_YELLOW) cuboid(arm_dimensions_outer, chamfer=BASE_CHAMFER,except=BOTTOM);
     if(!is_foot){
-      color(HR_RED) rotate([90, 0, 0]) cuboid([lockpin_hole_side_length, lockpin_hole_side_length, connector_outer_side_length], chamfer=-lockpin_hole_chamfer);
-      color(HR_RED) rotate([90, 0, 90]) cuboid([lockpin_hole_side_length, lockpin_hole_side_length, connector_outer_side_length], chamfer=-lockpin_hole_chamfer);
+      color(HR_RED) rotate([90, 0, 0]) cuboid([LOCKPIN_HOLE_SIDE_LENGTH, LOCKPIN_HOLE_SIDE_LENGTH, connector_outer_side_length], chamfer=-LOCKPIN_HOLE_CHAMFER);
+      color(HR_RED) rotate([90, 0, 90]) cuboid([LOCKPIN_HOLE_SIDE_LENGTH, LOCKPIN_HOLE_SIDE_LENGTH, connector_outer_side_length], chamfer=-LOCKPIN_HOLE_CHAMFER);
     }
   }
 }
 
 module connectorArmInner() {
 
-  arm_dimensions_inner = [arm_side_length_inner, arm_side_length_inner, base_unit];
+  arm_dimensions_inner = [arm_side_length_inner, arm_side_length_inner, BASE_UNIT];
   color(HR_GREEN)
-  cuboid(arm_dimensions_inner, chamfer=base_chamfer,edges=BOTTOM);
+  cuboid(arm_dimensions_inner, chamfer=BASE_CHAMFER,edges=BOTTOM);
 }
 
 module connectorCore() {
   core_dimensions = [connector_outer_side_length, connector_outer_side_length, connector_outer_side_length];
   color(HR_BLUE)
-  cuboid(core_dimensions, chamfer=base_chamfer);
+  cuboid(core_dimensions, chamfer=BASE_CHAMFER);
 }
 
 module print_interface_3d() {
 
-  side_length = base_unit - tolerance/2 - base_strength/2;
+  side_length = BASE_UNIT - TOLERANCE/2 - BASE_STRENGTH/2;
 
-  translation = connector_outer_side_length/2 - base_chamfer;
+  translation = connector_outer_side_length/2 - BASE_CHAMFER;
   points = [
     [0, 0, 0],
     [side_length, 0, 0],
@@ -231,9 +247,9 @@ module print_interface_3d() {
 }
 
 module print_interface_base() {
-  base_height = base_unit * 3;
+  base_height = BASE_UNIT * 3;
   side_length = connector_outer_side_length *2;
-  chamfer = base_chamfer * 3;
+  chamfer = BASE_CHAMFER * 3;
 
   color(HR_CHARCOAL)
 
@@ -243,7 +259,7 @@ module print_interface_base() {
 
 module pull_through_hole(axis="none", is_foot=false) {
 
-  hole_length = base_unit * 3;
+  hole_length = BASE_UNIT * 3;
   hole_dimensions = [hole_length, arm_side_length_inner, arm_side_length_inner];
 
   color(HR_WHITE)
@@ -258,17 +274,17 @@ module pull_through_hole(axis="none", is_foot=false) {
   }
 }
 
-lockpin_chamfer = printing_layer_width;
-lockpin_width_outer = lockpin_hole_side_length;
-lockpin_width_inner = lockpin_hole_side_length + printing_layer_width * 2;
-lockpin_height = lockpin_width_outer - tolerance;
-lockpin_prismoid_length = (base_unit - base_strength) / 2;
-lockpin_endpart_length = base_strength + base_strength / 2 + tolerance;
-grip_width = lockpin_width_outer + base_strength*2;
-grip_thickness_inner = printing_layer_width*2;
-grip_thickness_outer = base_strength / 2;
-grip_distance = base_strength / 2;
-grip_base_length = grip_thickness_inner + grip_thickness_outer + grip_distance + lockpin_chamfer + tolerance/2;
+lockpin_chamfer = PRINTING_LAYER_WIDTH;
+lockpin_width_outer = LOCKPIN_HOLE_SIDE_LENGTH;
+lockpin_width_inner = LOCKPIN_HOLE_SIDE_LENGTH + PRINTING_LAYER_WIDTH * 2;
+lockpin_height = lockpin_width_outer - TOLERANCE;
+lockpin_prismoid_length = (BASE_UNIT - BASE_STRENGTH) / 2;
+lockpin_endpart_length = BASE_STRENGTH + BASE_STRENGTH / 2 + TOLERANCE;
+grip_width = lockpin_width_outer + BASE_STRENGTH*2;
+grip_thickness_inner = PRINTING_LAYER_WIDTH*2;
+grip_thickness_outer = BASE_STRENGTH / 2;
+grip_distance = BASE_STRENGTH / 2;
+grip_base_length = grip_thickness_inner + grip_thickness_outer + grip_distance + lockpin_chamfer + TOLERANCE/2;
 module lockpin(grip_type = "standard") {
   rotate([90,0,0])
   difference() {
@@ -295,7 +311,7 @@ module grip(grip_type = "standard") {
     grip_outer_dimensions = [grip_width, lockpin_height, grip_thickness_outer];
     grip_inner_dimensions = [grip_width, lockpin_height, grip_thickness_inner];
 
-    base_translation = lockpin_prismoid_length + lockpin_endpart_length - lockpin_chamfer - tolerance/2;
+    base_translation = lockpin_prismoid_length + lockpin_endpart_length - lockpin_chamfer - TOLERANCE/2;
 
     union() {
 
@@ -326,7 +342,7 @@ module end_part_half(front = false) {
   lockpin_fillet_front = lockpin_width_outer / 3;
   lockpin_endpart_dimension = [lockpin_width_outer, lockpin_height, lockpin_endpart_length];
 
-  translate([0, 0, lockpin_prismoid_length + lockpin_endpart_length / 2 - tolerance/2])
+  translate([0, 0, lockpin_prismoid_length + lockpin_endpart_length / 2 - TOLERANCE/2])
   color(HR_BLUE)
 
   intersection() {
@@ -343,7 +359,7 @@ module tension_shape() {
 module tension_shape_half() {
   lockpin_inner_dimension = [lockpin_width_inner, lockpin_height];
   lockpin_outer_dimension = [lockpin_width_outer, lockpin_height];
-  lockpin_fillet_sides = base_unit;
+  lockpin_fillet_sides = BASE_UNIT;
 
   prismoid(lockpin_inner_dimension, lockpin_outer_dimension, height=lockpin_prismoid_length, chamfer=lockpin_chamfer);
 }
@@ -355,8 +371,8 @@ module tension_hole(){
 
 module tension_hole_half(){
   lockpin_tension_angle = 86.5;
-  lockpin_tension_hole_width_inner = printing_layer_width * 4;
-  lockpin_tension_hole_height = base_unit / 2;
+  lockpin_tension_hole_width_inner = PRINTING_LAYER_WIDTH * 4;
+  lockpin_tension_hole_height = BASE_UNIT / 2;
   lockpin_tension_hole_inner_dimension = [lockpin_tension_hole_width_inner, lockpin_height];
   prismoid(size1=lockpin_tension_hole_inner_dimension, height=lockpin_tension_hole_height, xang=lockpin_tension_angle, yang=90);
 }

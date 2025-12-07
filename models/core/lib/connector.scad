@@ -29,10 +29,10 @@
 include <BOSL2/std.scad>
 include <constants.scad>
 
-connector_outer_side_length = base_unit + base_strength*2 + tolerance;
-arm_side_length_inner = connector_outer_side_length - base_strength*2;
+connector_outer_side_length = BASE_UNIT + BASE_STRENGTH*2 + TOLERANCE;
+arm_side_length_inner = connector_outer_side_length - BASE_STRENGTH*2;
 
-core_to_arm_translation = base_unit;
+core_to_arm_translation = BASE_UNIT;
 
 // Connector arm configuration lookup table
 // Format: [dimensions][ways-1] = [+z, -z, +x, -x, +y, -y]
@@ -179,16 +179,16 @@ module connector_raw(config, is_foot=false) {
   */
 module connectorArmOuter(is_foot=false) {
 
-  arm_dimensions_outer = [connector_outer_side_length, connector_outer_side_length, base_unit];
-  arm_side_length_inner = connector_outer_side_length - base_strength*2;
-  arm_dimensions_inner = [arm_side_length_inner, arm_side_length_inner, base_unit];
+  arm_dimensions_outer = [connector_outer_side_length, connector_outer_side_length, BASE_UNIT];
+  arm_side_length_inner = connector_outer_side_length - BASE_STRENGTH*2;
+  arm_dimensions_inner = [arm_side_length_inner, arm_side_length_inner, BASE_UNIT];
 
   // outer cuboid
   difference() {
-    color(HR_YELLOW) cuboid(arm_dimensions_outer, chamfer=base_chamfer,except=BOTTOM);
+    color(HR_YELLOW) cuboid(arm_dimensions_outer, chamfer=BASE_CHAMFER,except=BOTTOM);
     if(!is_foot){
-      color(HR_RED) rotate([90, 0, 0]) cuboid([lockpin_hole_side_length, lockpin_hole_side_length, connector_outer_side_length], chamfer=-lockpin_hole_chamfer);
-      color(HR_RED) rotate([90, 0, 90]) cuboid([lockpin_hole_side_length, lockpin_hole_side_length, connector_outer_side_length], chamfer=-lockpin_hole_chamfer);
+      color(HR_RED) rotate([90, 0, 0]) cuboid([LOCKPIN_HOLE_SIDE_LENGTH, LOCKPIN_HOLE_SIDE_LENGTH, connector_outer_side_length], chamfer=-LOCKPIN_HOLE_CHAMFER);
+      color(HR_RED) rotate([90, 0, 90]) cuboid([LOCKPIN_HOLE_SIDE_LENGTH, LOCKPIN_HOLE_SIDE_LENGTH, connector_outer_side_length], chamfer=-LOCKPIN_HOLE_CHAMFER);
     }
   }
 }
@@ -200,9 +200,9 @@ module connectorArmOuter(is_foot=false) {
   */
 module connectorArmInner() {
 
-  arm_dimensions_inner = [arm_side_length_inner, arm_side_length_inner, base_unit];
+  arm_dimensions_inner = [arm_side_length_inner, arm_side_length_inner, BASE_UNIT];
   color(HR_GREEN)
-  cuboid(arm_dimensions_inner, chamfer=base_chamfer,edges=BOTTOM);
+  cuboid(arm_dimensions_inner, chamfer=BASE_CHAMFER,edges=BOTTOM);
 }
 
 /** * Connector Core Module
@@ -213,7 +213,7 @@ module connectorArmInner() {
 module connectorCore() {
   core_dimensions = [connector_outer_side_length, connector_outer_side_length, connector_outer_side_length];
   color(HR_BLUE)
-  cuboid(core_dimensions, chamfer=base_chamfer);
+  cuboid(core_dimensions, chamfer=BASE_CHAMFER);
 }
 
 /** * 3D Print Interface Module
@@ -223,9 +223,9 @@ module connectorCore() {
 module print_interface_3d() {
   // Create a tetrahedron by defining 4 vertices
   // Right angle at origin, edges along +X, +Y, +Z axes
-  side_length = base_unit - tolerance/2 - base_strength/2;
+  side_length = BASE_UNIT - TOLERANCE/2 - BASE_STRENGTH/2;
   // Position tetrahedron at chamfered corner: from center to outer edge, minus chamfer offset
-  translation = connector_outer_side_length/2 - base_chamfer;
+  translation = connector_outer_side_length/2 - BASE_CHAMFER;
   points = [
     [0, 0, 0],              // Origin (right angle corner)
     [side_length, 0, 0],      // Along X axis
@@ -251,9 +251,9 @@ module print_interface_3d() {
   * Used for most connector configurations (1-3 way connectors and 2D3W).
   */
 module print_interface_base() {
-  base_height = base_unit * 3;
+  base_height = BASE_UNIT * 3;
   side_length = connector_outer_side_length *2;
-  chamfer = base_chamfer * 3;
+  chamfer = BASE_CHAMFER * 3;
 
   // Position the base below the connector core
   //translate([0, 0, -base_height/2 - connector_outer_side_length/2])
@@ -269,7 +269,7 @@ module print_interface_base() {
   */
 module pull_through_hole(axis="none", is_foot=false) {
   // Determine hole orientation and dimensions based on axis
-  hole_length = base_unit * 3;
+  hole_length = BASE_UNIT * 3;
   hole_dimensions = [hole_length, arm_side_length_inner, arm_side_length_inner];
 
   color(HR_WHITE)

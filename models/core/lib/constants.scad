@@ -24,23 +24,22 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-// Tolerance for fitting parts together
-tolerance = 0.2; // in mm
+// Fitting tolerance between mating parts
+TOLERANCE = 0.2; // in mm
 
-// Base printing parameters
-printing_layer_width = 0.4; // in mm
-printing_layer_height = 0.2; // in mm
+// Default 3D printing parameters
+PRINTING_LAYER_WIDTH = 0.4; // in mm
+PRINTING_LAYER_HEIGHT = 0.2; // in mm
 
-// HR Base Measurements
-base_unit = 15; // Base unit for all core measurements in mm
-base_strength = 2; // Wall thickness in mm
-base_chamfer = 1; // Chamfer size in mm
+// HomeRacker base measurements
+BASE_UNIT = 15; // Base unit for all core measurements in mm
+BASE_STRENGTH = 2; // Wall thickness in mm
+BASE_CHAMFER = 1; // Chamfer size in mm
 
-// Lock Pin Holes
-lockpin_hole_chamfer = 0.8; // Chamfer size in mm
-lockpin_hole_side_length = 4;
-lockpin_hole_side_length_dimension = [lockpin_hole_side_length, lockpin_hole_side_length];
-
+// Lock pin hole dimensions
+LOCKPIN_HOLE_CHAMFER = 0.8; // Chamfer size in mm
+LOCKPIN_HOLE_SIDE_LENGTH = 4; // Square hole side length in mm
+LOCKPIN_HOLE_SIDE_LENGTH_DIMENSION = [LOCKPIN_HOLE_SIDE_LENGTH, LOCKPIN_HOLE_SIDE_LENGTH];
 
 // HomeRacker Colors
 HR_YELLOW = "#f7b600";
@@ -49,3 +48,25 @@ HR_RED = "#c41e3a";
 HR_GREEN = "#2d7a2e";
 HR_CHARCOAL = "#333333";
 HR_WHITE = "#f0f0f0";
+
+// Standard rackmount measurements
+STD_UNIT_HEIGHT = 44.45;  // Height of one rack unit (1U = 44.45mm)
+STD_UNIT_DEPTH = 482.6;   // Standard rackmount depth (19" = 482.6mm)
+STD_WIDTH_10INCH = 254;   // 10" width in mm
+STD_WIDTH_19INCH = 482.6; // 19" width in mm
+STD_MOUNT_SURFACE_WIDTH = 15.875; // Mounting surface width in mm
+
+STD_RACK_BORE_DISTANCE_Z = 15.875;          // Vertical distance between mounting holes in mm
+STD_RACK_BORE_DISTANCE_MARGIN_Z = 6.35;     // Top/bottom margin to first/last mounting hole in mm
+
+// DEPRECATED: Legacy lowercase constants (will be removed in future versions)
+// Use uppercase constants above instead
+tolerance = TOLERANCE;
+printing_layer_width = PRINTING_LAYER_WIDTH;
+printing_layer_height = PRINTING_LAYER_HEIGHT;
+base_unit = BASE_UNIT;
+base_strength = BASE_STRENGTH;
+base_chamfer = BASE_CHAMFER;
+lockpin_hole_chamfer = LOCKPIN_HOLE_CHAMFER;
+lockpin_hole_side_length = LOCKPIN_HOLE_SIDE_LENGTH;
+lockpin_hole_side_length_dimension = LOCKPIN_HOLE_SIDE_LENGTH_DIMENSION;

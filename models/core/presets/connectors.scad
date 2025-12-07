@@ -9,7 +9,7 @@ include <../main.scad>
 /* [Hidden] */
 $fn = 100;
 // Spacing between connectors (mm)
-spacing = base_unit*3 + base_strength; // [20:5:40]
+spacing = BASE_UNIT*3 + BASE_STRENGTH; // [20:5:40]
 
 // Grid layout helper
 module grid_position(row, col) {

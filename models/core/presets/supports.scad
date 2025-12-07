@@ -9,7 +9,7 @@ include <../main.scad>
 /* [Hidden] */
 $fn = 100;
 // Spacing between supports (mm)
-spacing = base_unit + base_strength; // Distance along x-axis
+spacing = BASE_UNIT + BASE_STRENGTH; // Distance along x-axis
 
 // Linear layout helper
 module linear_position(index) {
