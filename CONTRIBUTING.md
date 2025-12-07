@@ -13,7 +13,7 @@ cd homeracker
 pip install -e cmd/scadm
 
 # Install OpenSCAD (Windows/Linux/macOS) + Dependencies
-scadm install
+scadm
 
 # Optional (VSCode Integration)
 ./cmd/setup/install-vscode-openscad.sh

@@ -27,7 +27,7 @@ jobs:
       - name: Install OpenSCAD and dependencies
         run: |
           pip install -e cmd/scadm
-          scadm install
+          scadm
 
       - name: Make scripts executable
         run: chmod +x cmd/export/export-core-models.sh .githooks/makerworld-export

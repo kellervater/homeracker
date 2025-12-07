@@ -10,7 +10,7 @@ HomeRacker is a modular 3D-printable rack-building system. Core components use p
 - **HomeRacker Standards**: 15mm base unit, 4mm lock pins, 2mm walls, 0.2mm tolerance. See `README.md` for details.
 - **Contribution Guide**: See `CONTRIBUTING.md` for setup and workflow instructions.
 - **Dependency Manager**: Use `scadm` to install OpenSCAD and libraries
-  - Install: `scadm install` (installs OpenSCAD + libraries from `scadm.json`)
+  - Install: `scadm` (installs OpenSCAD + libraries from `scadm.json`)
   - Config: `scadm.json` in project root defines library dependencies
   - Help: `scadm -h` for usage info
 

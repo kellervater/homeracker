@@ -26,11 +26,11 @@ The parametric models are available in the [HomeRacker GitHub Repository](https:
 - [❓ Why the name?](#-why-the-name)
 - [📜 Licensing](#-licensing)
 - [🤝 Contributing](CONTRIBUTING.md)
+- [🛠️ Developer Tools](#%EF%B8%8F-developer-tools)
 - [🚀 Releases](#-releases)
 - [🧪 Tests](#-tests)
   - [⚠️ Disclaimer](#%EF%B8%8F-disclaimer)
   - [🔬 How I tested](#-how-i-tested)
-- [📋 Todos](#-todos)
 
 # 🔧 Use Cases
 I created HomeRacker because I was dissatisfied with the existing solutions available online.
@@ -220,6 +220,23 @@ These licenses apply to the `HomeRacker - Core` system and customizable rackmoun
 > Other models I publish may have more restrictive licenses. This will be stated clearly on Makerworld.
 
 HomeRacker is an unregistered trademark of Patrick Pötz (), first used publicly on 12.04.2025.
+
+# 🛠️ Developer Tools
+
+HomeRacker includes custom tooling to streamline development:
+
+- **[scadm](cmd/scadm/README.md)** - OpenSCAD + library dependency manager
+  - Zero-dependency Python package for installing OpenSCAD (nightly/stable) and libraries
+  - Cross-platform: Windows, Linux, macOS (might work, dunno)
+  - Install: `pip install scadm` → `scadm`
+  - Manages dependencies from `scadm.json`
+
+- **[Renovate Preset](renovate-dependencies.json)** - Automated dependency updates
+  - Tracks OpenSCAD versions, GitHub releases, and Python packages
+  - Custom rules for this project's specific needs
+  - Extend in your project: `"extends": ["github>kellervater/homeracker:renovate-dependencies"]`
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for setup instructions.
 
 # 🚀 Releases
 

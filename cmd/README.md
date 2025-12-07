@@ -11,7 +11,7 @@ For installation, use the **scadm** package (see `cmd/scadm/` or install via `pi
 pip install -e cmd/scadm
 
 # Install OpenSCAD + dependencies from scadm.json
-scadm install
+scadm
 
 # Check if updates are available
 scadm --check
