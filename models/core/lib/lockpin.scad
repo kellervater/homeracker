@@ -27,18 +27,18 @@ include <BOSL2/std.scad>
 include <constants.scad>
 
 // Lock Pin Dimensions
-lockpin_chamfer = printing_layer_width;
-lockpin_width_outer = lockpin_hole_side_length;
-lockpin_width_inner = lockpin_hole_side_length + printing_layer_width * 2;
-lockpin_height = lockpin_width_outer - tolerance;
-lockpin_prismoid_length = (base_unit - base_strength) / 2;
-lockpin_endpart_length = base_strength + base_strength / 2 + tolerance;
-grip_width = lockpin_width_outer + base_strength*2;
-grip_thickness_inner = printing_layer_width*2;
-grip_thickness_outer = base_strength / 2;
-grip_distance = base_strength / 2;
+lockpin_chamfer = PRINTING_LAYER_WIDTH;
+lockpin_width_outer = LOCKPIN_HOLE_SIDE_LENGTH;
+lockpin_width_inner = LOCKPIN_HOLE_SIDE_LENGTH + PRINTING_LAYER_WIDTH * 2;
+lockpin_height = lockpin_width_outer - TOLERANCE;
+lockpin_prismoid_length = (BASE_UNIT - BASE_STRENGTH) / 2;
+lockpin_endpart_length = BASE_STRENGTH + BASE_STRENGTH / 2 + TOLERANCE;
+grip_width = lockpin_width_outer + BASE_STRENGTH*2;
+grip_thickness_inner = PRINTING_LAYER_WIDTH*2;
+grip_thickness_outer = BASE_STRENGTH / 2;
+grip_distance = BASE_STRENGTH / 2;
 // we add lockpin_chamfer to cover the existing chamfer on the end part
-grip_base_length = grip_thickness_inner + grip_thickness_outer + grip_distance + lockpin_chamfer + tolerance/2;
+grip_base_length = grip_thickness_inner + grip_thickness_outer + grip_distance + lockpin_chamfer + TOLERANCE/2;
 
 /**
  * 📐 lockpin module
@@ -91,7 +91,7 @@ module grip(grip_type = "standard") {
     grip_outer_dimensions = [grip_width, lockpin_height, grip_thickness_outer];
     grip_inner_dimensions = [grip_width, lockpin_height, grip_thickness_inner];
 
-    base_translation = lockpin_prismoid_length + lockpin_endpart_length - lockpin_chamfer - tolerance/2;
+    base_translation = lockpin_prismoid_length + lockpin_endpart_length - lockpin_chamfer - TOLERANCE/2;
 
     union() {
       // Base part of the grip
@@ -135,7 +135,7 @@ module end_part_half(front = false) {
   lockpin_fillet_front = lockpin_width_outer / 3;
   lockpin_endpart_dimension = [lockpin_width_outer, lockpin_height, lockpin_endpart_length]; // cubic
 
-  translate([0, 0, lockpin_prismoid_length + lockpin_endpart_length / 2 - tolerance/2])
+  translate([0, 0, lockpin_prismoid_length + lockpin_endpart_length / 2 - TOLERANCE/2])
   color(HR_BLUE)
   // Since it's not possible to have both chamfer and fillet on the same edges,
   // we use an intersection of two shapes to achieve the desired effect.
@@ -166,7 +166,7 @@ module tension_shape() {
 module tension_shape_half() {
   lockpin_inner_dimension = [lockpin_width_inner, lockpin_height]; // planar
   lockpin_outer_dimension = [lockpin_width_outer, lockpin_height]; // planar
-  lockpin_fillet_sides = base_unit;
+  lockpin_fillet_sides = BASE_UNIT;
 
   prismoid(lockpin_inner_dimension, lockpin_outer_dimension, height=lockpin_prismoid_length, chamfer=lockpin_chamfer);
 }
@@ -189,8 +189,8 @@ module tension_hole(){
  */
 module tension_hole_half(){
   lockpin_tension_angle = 86.5; // in degrees
-  lockpin_tension_hole_width_inner = printing_layer_width * 4; // widest/middle point of the tension hole
-  lockpin_tension_hole_height = base_unit / 2;
+  lockpin_tension_hole_width_inner = PRINTING_LAYER_WIDTH * 4; // widest/middle point of the tension hole
+  lockpin_tension_hole_height = BASE_UNIT / 2;
   lockpin_tension_hole_inner_dimension = [lockpin_tension_hole_width_inner, lockpin_height]; // planar
   prismoid(size1=lockpin_tension_hole_inner_dimension, height=lockpin_tension_hole_height, xang=lockpin_tension_angle, yang=90);
 }

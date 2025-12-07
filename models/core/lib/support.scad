@@ -45,20 +45,20 @@ include <constants.scad>
  *   Example: support(units=5, x_holes=true);
  */
 module support(units=3, x_holes=false) {
-    support_dimensions = [base_unit, base_unit*units, base_unit]; // support dimensions (multi-unit)
+    support_dimensions = [BASE_UNIT, BASE_UNIT*units, BASE_UNIT]; // support dimensions (multi-unit)
 
     difference() {
         // Single support block
         color("darkslategray")
-        cuboid(support_dimensions, chamfer=base_chamfer);
+        cuboid(support_dimensions, chamfer=BASE_CHAMFER);
 
         // Create a lock pin hole for each unit of length
-        ycopies(spacing=base_unit, n=units) {
+        ycopies(spacing=BASE_UNIT, n=units) {
             // the color is for testing purposes only when someone wants to visualize the hole
             color("red") lock_pin_hole();
         }
         if (x_holes) {
-            ycopies(spacing=base_unit, n=units) {
+            ycopies(spacing=BASE_UNIT, n=units) {
                 // the color is for testing purposes only when someone wants to visualize the hole
                 color("red") rotate([0,90,0]) lock_pin_hole();
             }
@@ -75,21 +75,21 @@ module support(units=3, x_holes=false) {
  * This ensures printability and mechanical strength while maintaining standard HomeRacker tolerances.
  */
 module lock_pin_hole() {
-    lock_pin_center_side = lockpin_hole_side_length + printing_layer_width*2;
+    lock_pin_center_side = LOCKPIN_HOLE_SIDE_LENGTH + PRINTING_LAYER_WIDTH*2;
     lock_pin_center_dimension = [lock_pin_center_side, lock_pin_center_side];
 
-    lock_pin_outer_side = lockpin_hole_side_length + lockpin_hole_chamfer*2;
+    lock_pin_outer_side = LOCKPIN_HOLE_SIDE_LENGTH + LOCKPIN_HOLE_CHAMFER*2;
     lock_pin_outer_dimension = [lock_pin_outer_side, lock_pin_outer_side];
 
-    lock_pin_prismoid_inner_length = base_unit/2 - lockpin_hole_chamfer;
-    lock_pin_prismoid_outer_length = lockpin_hole_chamfer;
+    lock_pin_prismoid_inner_length = BASE_UNIT/2 - LOCKPIN_HOLE_CHAMFER;
+    lock_pin_prismoid_outer_length = LOCKPIN_HOLE_CHAMFER;
 
     // Define one half of the hole shape in a module
     module hole_half() {
         union() {
-            prismoid(size1=lock_pin_center_dimension, size2=lockpin_hole_side_length_dimension, h=lock_pin_prismoid_inner_length);
+            prismoid(size1=lock_pin_center_dimension, size2=LOCKPIN_HOLE_SIDE_LENGTH_DIMENSION, h=lock_pin_prismoid_inner_length);
             translate([0, 0, lock_pin_prismoid_inner_length]) {
-                prismoid(size1=lockpin_hole_side_length_dimension, size2=lock_pin_outer_dimension, h=lock_pin_prismoid_outer_length);
+                prismoid(size1=LOCKPIN_HOLE_SIDE_LENGTH_DIMENSION, size2=lock_pin_outer_dimension, h=lock_pin_prismoid_outer_length);
             }
         }
     }

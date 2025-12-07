@@ -12,7 +12,7 @@ grid = 5; // Total number of lock pins to create
 $fn = 100;
 
 // Grid configuration
-spacing = [ grip_width + printing_layer_width * 2, base_unit + base_strength * 2 + tolerance + printing_layer_width  * 2 + grip_base_length];
+spacing = [ grip_width + PRINTING_LAYER_WIDTH * 2, BASE_UNIT + BASE_STRENGTH * 2 + TOLERANCE + PRINTING_LAYER_WIDTH  * 2 + grip_base_length];
 
 module lockpins_grid(grid=10, grip_type="standard") {
     grid_copies(spacing, n=grid) {
