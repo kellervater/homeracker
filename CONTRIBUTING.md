@@ -9,8 +9,11 @@ Thanks for your interest in contributing! Even getting this far is already worth
 git clone https://github.com/kellervater/homeracker.git
 cd homeracker
 
+# Install scadm package (openscad dependency manager)
+pip install -e cmd/scadm
+
 # Install OpenSCAD (Windows/Linux/macOS) + Dependencies
-python3 cmd/setup/install.py
+scadm install
 
 # Optional (VSCode Integration)
 ./cmd/setup/install-vscode-openscad.sh

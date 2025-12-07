@@ -6,8 +6,8 @@ on:
     paths:
       - 'models/**/*.scad'
       - '.github/workflows/validate-models.yml'
-      - 'cmd/setup/install.py'
-      - 'cmd/setup/dependencies.json'
+      - 'cmd/scadm/**'
+      - 'scadm.json'
       - 'cmd/test/openscad-render.sh'
 
 jobs:
@@ -27,7 +27,8 @@ jobs:
 
       - name: Install OpenSCAD and dependencies
         run: |
-          python3 cmd/setup/install.py --nightly
+          pip install -e cmd/scadm
+          scadm install
 
       - name: Validate models
         run: |

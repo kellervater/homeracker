@@ -1,0 +1,161 @@
+# scadm - OpenSCAD Dependency Manager
+
+**scadm** is a lightweight, python-based dependency manager for OpenSCAD projects. It simplifies installing OpenSCAD (nightly or stable) and managing library dependencies through a simple `scadm.json` file.
+
+## Features
+
+- 🚀 **Install OpenSCAD**: Automatically downloads and installs OpenSCAD (nightly or stable builds)
+- 📦 **Manage Libraries**: Install OpenSCAD libraries (BOSL2, MCAD, custom libraries) from GitHub
+- 🔄 **Version Tracking**: Keeps dependencies in sync with your project
+- 📋 **Simple Config**: Define dependencies in a single `dependencies.json` file
+
+## Installation
+
+**Requirements:** Python 3.11 or newer
+
+```bash
+pip install scadm
+```
+
+## Quick Start
+
+### 1. Create `scadm.json` in your project root
+
+```json
+{
+  "dependencies": [
+    {
+      "name": "BOSL2",
+      "repository": "BelfrySCAD/BOSL2",
+      "version": "266792b2a4bbf7514e73225dfadb92da95f2afe1",
+      "source": "github"
+    }
+  ]
+}
+```
+
+### 2. Install OpenSCAD and dependencies
+
+```bash
+scadm install
+```
+
+This will:
+- Download and install OpenSCAD to `bin/openscad/`
+- Install all libraries defined in `scadm.json` to `bin/openscad/libraries/`
+
+## Usage
+
+### Install everything (OpenSCAD + libraries)
+
+```bash
+scadm install        # Install nightly build (default - RECOMMENDED)
+scadm install --stable   # Install stable release (2021.01)
+```
+
+> [!NOTE]
+> Nightly builds are installed by default since the stable release (2021.01) is outdated and missing modern features. All nightly versions pass rendering tests before being published to ensure quality.
+
+### Check installation status
+
+```bash
+scadm check
+```
+
+### Force reinstall
+
+```bash
+scadm install --force
+```
+
+### Install only OpenSCAD
+
+```bash
+scadm install --openscad-only
+```
+
+### Install only libraries
+
+```bash
+scadm install --libs-only
+```
+
+## Configuration
+
+### `scadm.json` Schema
+
+```json
+{
+  "dependencies": [
+    {
+      "name": "BOSL2",
+      "repository": "BelfrySCAD/BOSL2",
+      "version": "266792b2a4bbf7514e73225dfadb92da95f2afe1",
+      "source": "github"
+    },
+    {
+      "name": "homeracker",
+      "repository": "kellervater/homeracker",
+      "version": "v1.2.3",
+      "source": "github"
+    }
+  ]
+}
+```
+
+**Fields:**
+- `name`: Library name (creates `bin/openscad/libraries/{name}/`)
+- `repository`: GitHub repository in `owner/repo` format
+- `version`: Git tag, commit SHA, or branch name
+- `source`: Currently only `"github"` is supported
+
+## Directory Structure
+
+After running `scadm install`, your project will have:
+
+```
+your-project/
+├── scadm.json
+├── models/
+│   └── your_model.scad
+└── bin/openscad/
+    ├── openscad.exe (or openscad appimage)
+    └── libraries/
+        ├── BOSL2/
+        └── homeracker/
+```
+
+## Use in OpenSCAD Files
+
+```openscad
+include <BOSL2/std.scad>
+include <homeracker/core/lib/connector.scad>
+
+// Your code here
+```
+
+## Renovate Integration
+
+Keep your `scadm.json` dependencies automatically updated with [Renovate](https://docs.renovatebot.com/):
+
+Add this preset to your `renovate.json`:
+
+```json
+{
+  "extends": [
+    "github>kellervater/homeracker:renovate-dependencies"
+  ]
+}
+```
+
+This preset enables automatic updates for:
+- Git commit SHAs (for tracking main/master branches)
+- Semantic version tags (v1.2.3)
+
+## License
+
+MIT
+
+## Contributing
+
+Issues and pull requests are welcome at [kellervater/homeracker](https://github.com/kellervater/homeracker).

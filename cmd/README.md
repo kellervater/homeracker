@@ -1,49 +1,37 @@
-# 🔧 OpenSCAD Installation Scripts
+# 🔧 OpenSCAD Installation and Testing
 
-Automated installation of OpenSCAD for the HomeRacker workspace (Windows/Linux/macOS).
+This directory contains testing scripts for OpenSCAD models.
+
+For installation, use the **scadm** package (see `cmd/scadm/` or install via `pip install scadm`).
 
 ## 📦 Quick Start
 
 ```bash
-# Install or upgrade to latest nightly release (default) + dependencies
-python3 cmd/setup/install.py
+# Install scadm (if not already installed)
+pip install -e cmd/scadm
 
-# Install nightly build (default)
-python3 cmd/setup/install.py --nightly
+# Install OpenSCAD + dependencies from scadm.json
+scadm install
 
-# Install stable release
-python3 cmd/setup/install.py --stable
-
-# Check if update is available
-python3 cmd/setup/install.py --check
+# Check if updates are available
+scadm --check
 
 # Run smoke test - validates the current openscad installation against local models
 ./cmd/test/openscad-render.sh models/core/parts/connector.scad
 
 # Run automated test suite (all models in test/ and makerworld/ directories)
 ./cmd/test/test-models.sh
-
-# Force reinstall
-python3 cmd/setup/install.py --force
 ```
 
 ## 🤖 Automatic Updates
 
-Versions are tracked in the scripts and managed by Renovate Bot. When new releases are available, Renovate creates a PR to update the versions. After merging, run the install scripts to upgrade.
-
-## 📝 Notes
-
-- **Default**: Nightly snapshots - latest features and fixes
-- **Stable**: Release 2021.01 - use `--stable` flag for BOSL2 compatibility
-- **Platform Support**: Windows, Linux, and macOS (macOS treated as Linux using AppImage - untested)
-- **BOSL2**: Installed to bundled libraries directory
-- **Source**: https://files.openscad.org/
+OpenSCAD versions are managed by Renovate Bot in `cmd/scadm/scadm/constants.py`. When new releases are available, Renovate creates a PR to update the versions.
 
 ## 📦 Dependency Management
 
-Dependencies are defined in `cmd/setup/dependencies.json`. The installer supports both Git commit hashes (SHAs) and SemVer tags.
+Dependencies are defined in `scadm.json` at the repository root. The installer supports both Git commit hashes (SHAs) and SemVer tags.
 
-### Configuration Format (`dependencies.json`)
+### Configuration Format (`scadm.json`)
 
 ```json
 {

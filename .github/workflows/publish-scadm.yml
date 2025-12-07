@@ -1,0 +1,50 @@
+name: Publish scadm to PyPI
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (build but do not publish)'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  id-token: write  # Required for PyPI trusted publishing
+
+jobs:
+  publish:
+    # Only publish scadm releases (tagged as scadm-v*)
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.event.release.tag_name, 'scadm-v')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install build tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install build twine
+
+      - name: Build package
+        working-directory: cmd/scadm
+        run: python -m build
+
+      - name: Check package
+        working-directory: cmd/scadm
+        run: twine check dist/*
+
+      - name: Publish to PyPI
+        if: ${{ !inputs.dry_run }}
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: cmd/scadm/dist/
+          print-hash: true

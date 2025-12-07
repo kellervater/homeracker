@@ -1,12 +1,5 @@
-#!/usr/bin/env python3
-"""
-HomeRacker Setup Script
+"""Core installer functionality for OpenSCAD and libraries."""
 
-Installs OpenSCAD (Nightly/Stable) and required libraries (BOSL2, etc.).
-Replaces install-openscad.sh and install_dependencies.py.
-"""
-
-import argparse
 import json
 import logging
 import os
@@ -15,41 +8,64 @@ import re
 import shutil
 import stat
 import subprocess
-import sys
 import tarfile
-import urllib.request
 import urllib.error
+import urllib.request
 import zipfile
 from pathlib import Path
+from typing import Optional
 
-# --- Configuration ---
-
-# renovate: datasource=github-releases depName=openscad/openscad
-OPENSCAD_STABLE_VERSION = "2021.01"
-
-# renovate: datasource=custom.openscad-snapshots depName=OpenSCAD versioning=loose
-OPENSCAD_NIGHTLY_VERSION_WINDOWS = "2025.11.29"
-# renovate: datasource=custom.openscad-snapshots depName=OpenSCAD versioning=loose
-OPENSCAD_NIGHTLY_VERSION_LINUX = "2025.11.29.ai29571"
-
-# Constants
-SCRIPT_DIR = Path(__file__).parent.resolve()
-WORKSPACE_ROOT = SCRIPT_DIR.parent.parent
-DEPENDENCIES_FILE = SCRIPT_DIR / "dependencies.json"
-INSTALL_DIR = WORKSPACE_ROOT / "bin" / "openscad"
-LIBRARIES_DIR = INSTALL_DIR / "libraries"
-
-
-# --- Logging ---
-logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s", handlers=[logging.StreamHandler()])
+from scadm.constants import (
+    OPENSCAD_NIGHTLY_VERSION_LINUX,
+    OPENSCAD_NIGHTLY_VERSION_WINDOWS,
+    OPENSCAD_STABLE_VERSION,
+)
 
 logger = logging.getLogger(__name__)
 
 
-# --- Helpers ---
+def get_workspace_root(start_path: Optional[Path] = None) -> Path:
+    """Find workspace root by looking for scadm.json.
+
+    Args:
+        start_path: Starting directory (defaults to current working directory).
+
+    Returns:
+        Path to workspace root.
+
+    Raises:
+        FileNotFoundError: If scadm.json not found in any parent directory.
+    """
+    if start_path is None:
+        start_path = Path.cwd()
+
+    current = start_path.resolve()
+    while current != current.parent:
+        if (current / "scadm.json").exists():
+            return current
+        current = current.parent
+
+    raise FileNotFoundError("scadm.json not found in any parent directory")
 
 
-def download_file(url, dest_path):
+def get_install_paths(workspace_root: Optional[Path] = None):
+    """Get installation directory paths.
+
+    Args:
+        workspace_root: Workspace root directory (auto-detected if None).
+
+    Returns:
+        Tuple of (install_dir, libraries_dir).
+    """
+    if workspace_root is None:
+        workspace_root = get_workspace_root()
+
+    install_dir = workspace_root / "bin" / "openscad"
+    libraries_dir = install_dir / "libraries"
+    return install_dir, libraries_dir
+
+
+def download_file(url: str, dest_path: Path) -> bool:
     """Download a file from URL to dest_path.
 
     Args:
@@ -68,7 +84,7 @@ def download_file(url, dest_path):
         return False
 
 
-def get_system_platform():
+def get_system_platform() -> str:
     """Get system platform (windows, linux, unknown).
 
     Returns:
@@ -77,14 +93,12 @@ def get_system_platform():
     system = platform.system().lower()
     if system == "windows":
         return "windows"
-    if system == "linux":
-        return "linux"
-    if system == "darwin":
-        return "linux"  # Treat macOS as Linux (AppImage) for now
+    if system in ("linux", "darwin"):
+        return "linux"  # Treat macOS as Linux (AppImage)
     return "unknown"
 
 
-def get_openscad_version(nightly=True, os_name="linux"):
+def get_openscad_version(nightly: bool = True, os_name: str = "linux") -> str:
     """Get target OpenSCAD version.
 
     Args:
@@ -102,51 +116,131 @@ def get_openscad_version(nightly=True, os_name="linux"):
     return OPENSCAD_NIGHTLY_VERSION_LINUX
 
 
-def get_installed_openscad_version(os_name):
+def get_installed_openscad_version(install_dir: Path, os_name: str) -> Optional[str]:
     """Get currently installed OpenSCAD version.
 
     Args:
+        install_dir: OpenSCAD installation directory.
         os_name: Operating system name.
 
     Returns:
         Version string if installed, None otherwise.
     """
     if os_name == "windows":
-        exe = INSTALL_DIR / "openscad.exe"
+        exe = install_dir / "openscad.exe"
     else:
-        exe = INSTALL_DIR / "openscad"  # Symlink or script
+        exe = install_dir / "openscad"  # symlink to AppImage
         if not exe.exists():
-            exe = INSTALL_DIR / "OpenSCAD.AppImage"
+            exe = install_dir / "OpenSCAD.AppImage"
 
     if not exe.exists():
         return None
 
-    # Try to run it to get version
     try:
-        # On Windows, we might need to be careful with path
         cmd = [str(exe), "--version"]
         result = subprocess.run(cmd, capture_output=True, text=True, check=False)
-        # OpenSCAD prints version to stderr usually
         output = result.stderr + result.stdout
-        # Parse "OpenSCAD version 2024.03.17"
         match = re.search(r"OpenSCAD version ([^\s]+)", output)
         if match:
             return match.group(1)
-    except Exception:  # pylint: disable=broad-exception-caught
-        pass
+    except (OSError, subprocess.SubprocessError) as e:
+        # Executable exists but can't run (permissions, missing libs, etc.) - treat as not installed
+        logger.debug("Failed to get OpenSCAD version: %s", e)
     return None
 
 
-# --- OpenSCAD Installation ---
+def install_openscad_windows(install_dir: Path, version: str, nightly: bool) -> bool:
+    """Install OpenSCAD on Windows.
+
+    Args:
+        install_dir: Installation directory.
+        version: Version string to install.
+        nightly: Whether it is a nightly build.
+
+    Returns:
+        True if successful, False otherwise.
+    """
+    if nightly:
+        url = f"https://files.openscad.org/snapshots/OpenSCAD-{version}-x86-64.zip"
+    else:
+        url = f"https://files.openscad.org/OpenSCAD-{version}-x86-64.zip"
+
+    zip_path = install_dir / f"openscad-{version}.zip"
+    if not download_file(url, zip_path):
+        return False
+
+    logger.info("Extracting...")
+    try:
+        with zipfile.ZipFile(zip_path, "r") as zip_ref:
+            temp_extract = install_dir / "temp_extract"
+            zip_ref.extractall(temp_extract)
+
+            content = list(temp_extract.iterdir())
+            if len(content) == 1 and content[0].is_dir():
+                source_dir = content[0]
+            else:
+                source_dir = temp_extract
+
+            for item in source_dir.iterdir():
+                shutil.move(str(item), str(install_dir))
+
+            shutil.rmtree(temp_extract)
+
+        zip_path.unlink()
+        logger.info("OpenSCAD %s installed successfully!", version)
+        return True
+    except (zipfile.BadZipFile, OSError, shutil.Error) as e:
+        logger.error("Extraction failed: %s", e)
+        return False
 
 
-def install_openscad(nightly=True, force=False, check_only=False):
+def install_openscad_linux(install_dir: Path, version: str, nightly: bool) -> bool:
+    """Install OpenSCAD on Linux.
+
+    Args:
+        install_dir: Installation directory.
+        version: Version string to install.
+        nightly: Whether it is a nightly build.
+
+    Returns:
+        True if successful, False otherwise.
+    """
+    if nightly:
+        url = f"https://files.openscad.org/snapshots/OpenSCAD-{version}-x86_64.AppImage"
+    else:
+        url = f"https://files.openscad.org/OpenSCAD-{version}-x86_64.AppImage"
+
+    appimage_path = install_dir / "OpenSCAD.AppImage"
+    if not download_file(url, appimage_path):
+        return False
+
+    st_mode = os.stat(appimage_path).st_mode
+    os.chmod(appimage_path, st_mode | stat.S_IEXEC)
+
+    symlink_path = install_dir / "openscad"
+    if symlink_path.exists():
+        symlink_path.unlink()
+
+    try:
+        os.symlink("OpenSCAD.AppImage", symlink_path)
+    except OSError as e:
+        # Symlink creation can fail on some filesystems (FAT32, Windows without dev mode) - not critical
+        logger.debug("Could not create symlink (using .AppImage directly): %s", e)
+
+    logger.info("OpenSCAD %s installed successfully!", version)
+    return True
+
+
+def install_openscad(
+    nightly: bool = True, force: bool = False, check_only: bool = False, workspace_root: Optional[Path] = None
+) -> bool:
     """Install OpenSCAD binary.
 
     Args:
         nightly: Whether to install nightly build.
         force: Force reinstall even if version matches.
         check_only: Only check installation status.
+        workspace_root: Workspace root directory (auto-detected if None).
 
     Returns:
         True if successful or up to date, False otherwise.
@@ -156,8 +250,9 @@ def install_openscad(nightly=True, force=False, check_only=False):
         logger.error("Unsupported platform")
         return False
 
+    install_dir, _ = get_install_paths(workspace_root)
     target_version = get_openscad_version(nightly, os_name)
-    current_version = get_installed_openscad_version(os_name)
+    current_version = get_installed_openscad_version(install_dir, os_name)
 
     if check_only:
         if current_version == target_version:
@@ -172,112 +267,22 @@ def install_openscad(nightly=True, force=False, check_only=False):
 
     logger.info("Installing OpenSCAD %s (%s)...", target_version, "Nightly" if nightly else "Stable")
 
-    if INSTALL_DIR.exists():
+    if install_dir.exists():
         logger.info("Cleaning old installation...")
-        shutil.rmtree(INSTALL_DIR)
+        shutil.rmtree(install_dir)
 
-    INSTALL_DIR.mkdir(parents=True, exist_ok=True)
+    install_dir.mkdir(parents=True, exist_ok=True)
 
     if os_name == "windows":
-        return install_openscad_windows(target_version, nightly)
-    return install_openscad_linux(target_version, nightly)
+        return install_openscad_windows(install_dir, target_version, nightly)
+    return install_openscad_linux(install_dir, target_version, nightly)
 
 
-def install_openscad_windows(version, nightly):
-    """Install OpenSCAD on Windows.
-
-    Args:
-        version: Version string to install.
-        nightly: Whether it is a nightly build.
-
-    Returns:
-        True if successful, False otherwise.
-    """
-    if nightly:
-        url = f"https://files.openscad.org/snapshots/OpenSCAD-{version}-x86-64.zip"
-    else:
-        url = f"https://files.openscad.org/OpenSCAD-{version}-x86-64.zip"
-
-    zip_path = INSTALL_DIR / f"openscad-{version}.zip"
-    if not download_file(url, zip_path):
-        return False
-
-    logger.info("Extracting...")
-    try:
-        with zipfile.ZipFile(zip_path, "r") as zip_ref:
-            # Extract to a temp dir first to handle the top-level folder
-            temp_extract = INSTALL_DIR / "temp_extract"
-            zip_ref.extractall(temp_extract)
-
-            # Find the top level folder
-            content = list(temp_extract.iterdir())
-            if len(content) == 1 and content[0].is_dir():
-                source_dir = content[0]
-            else:
-                source_dir = temp_extract  # No top level folder?
-
-            # Move contents to INSTALL_DIR
-            for item in source_dir.iterdir():
-                shutil.move(str(item), str(INSTALL_DIR))
-
-            # Cleanup
-            shutil.rmtree(temp_extract)
-
-        zip_path.unlink()
-        logger.info("OpenSCAD %s installed successfully!", version)
-        return True
-    except Exception as e:  # pylint: disable=broad-exception-caught
-        logger.error("Extraction failed: %s", e)
-        return False
-
-
-def install_openscad_linux(version, nightly):
-    """Install OpenSCAD on Linux.
-
-    Args:
-        version: Version string to install.
-        nightly: Whether it is a nightly build.
-
-    Returns:
-        True if successful, False otherwise.
-    """
-    if nightly:
-        url = f"https://files.openscad.org/snapshots/OpenSCAD-{version}-x86_64.AppImage"
-    else:
-        url = f"https://files.openscad.org/OpenSCAD-{version}-x86_64.AppImage"
-
-    appimage_path = INSTALL_DIR / "OpenSCAD.AppImage"
-    if not download_file(url, appimage_path):
-        return False
-
-    # Make executable
-    st_mode = os.stat(appimage_path).st_mode
-    os.chmod(appimage_path, st_mode | stat.S_IEXEC)
-
-    # Create symlink 'openscad' -> 'OpenSCAD.AppImage'
-    symlink_path = INSTALL_DIR / "openscad"
-    if symlink_path.exists():
-        symlink_path.unlink()
-
-    try:
-        os.symlink("OpenSCAD.AppImage", symlink_path)
-    except OSError:
-        # Fallback if symlinks not supported (rare on Linux)
-        pass
-
-    logger.info("OpenSCAD %s installed successfully!", version)
-    return True
-
-
-# --- Library Installation ---
-
-
-def get_installed_lib_version(lib_path, name):
+def get_installed_lib_version(lib_path: Path) -> Optional[str]:
     """Get installed library version.
 
     Args:
         lib_path: Path to the library directory.
-        name: Name of the library.
 
     Returns:
         Version string if found, None otherwise.
@@ -285,19 +290,15 @@ def get_installed_lib_version(lib_path, name):
     version_file = lib_path / ".version"
     if version_file.exists():
         return version_file.read_text(encoding="utf-8").strip()
-
-    legacy_file = lib_path / f".{name.lower()}-version"
-    if legacy_file.exists():
-        return legacy_file.read_text(encoding="utf-8").strip()
-
     return None
 
 
-def install_library(dep, force=False):
+def install_library(dep: dict, libraries_dir: Path, force: bool = False) -> bool:
     """Install a single library.
 
     Args:
         dep: Dependency dictionary.
+        libraries_dir: Directory where libraries are installed.
         force: Force reinstall.
 
     Returns:
@@ -308,8 +309,8 @@ def install_library(dep, force=False):
     version = dep["version"]
     source = dep.get("source", "github")
 
-    lib_path = LIBRARIES_DIR / name
-    current_version = get_installed_lib_version(lib_path, name)
+    lib_path = libraries_dir / name
+    current_version = get_installed_lib_version(lib_path)
 
     if current_version == version and not force:
         logger.info("%s: Up to date (%s)", name, version)
@@ -326,7 +327,7 @@ def install_library(dep, force=False):
         logger.error("Unknown source type: %s", source)
         return False
 
-    temp_file = SCRIPT_DIR / f"{name}-{version}.tar.gz"
+    temp_file = Path.cwd() / f"{name}-{version}.tar.gz"
     try:
         logger.info("Downloading %s...", url)
         urllib.request.urlretrieve(url, temp_file)
@@ -344,7 +345,6 @@ def install_library(dep, force=False):
                     member.name = str(Path(*p.parts[1:]))
                     members.append(member)
                 elif len(p.parts) == 1:
-                    # Include root-level files as-is
                     members.append(member)
             tar.extractall(path=lib_path, members=members, filter="data")
 
@@ -353,29 +353,34 @@ def install_library(dep, force=False):
         logger.info("%s installed successfully!", name)
         return True
 
-    except Exception as e:  # pylint: disable=broad-exception-caught
+    except (urllib.error.URLError, tarfile.TarError, OSError, shutil.Error) as e:
         logger.error("Failed to install %s: %s", name, e)
         if temp_file.exists():
             temp_file.unlink()
         return False
 
 
-def install_libraries(force=False, check_only=False):
+def install_libraries(force: bool = False, check_only: bool = False, workspace_root: Optional[Path] = None) -> bool:
     """Install all libraries.
 
     Args:
         force: Force reinstall.
         check_only: Only check status.
+        workspace_root: Workspace root directory (auto-detected if None).
 
     Returns:
         True if all libraries processed successfully, False otherwise.
     """
-    if not DEPENDENCIES_FILE.exists():
-        logger.error("Dependencies file not found: %s", DEPENDENCIES_FILE)
+    if workspace_root is None:
+        workspace_root = get_workspace_root()
+
+    dependencies_file = workspace_root / "scadm.json"
+    if not dependencies_file.exists():
+        logger.error("Dependencies file not found: %s", dependencies_file)
         return False
 
     try:
-        with open(DEPENDENCIES_FILE, "r", encoding="utf-8") as f:
+        with open(dependencies_file, "r", encoding="utf-8") as f:
             data = json.load(f)
     except json.JSONDecodeError as e:
         logger.error("Invalid JSON in dependencies file: %s", e)
@@ -384,7 +389,6 @@ def install_libraries(force=False, check_only=False):
     dependencies = data.get("dependencies", [])
     success = True
 
-    # Validate required fields in each dependency
     required_fields = ["name", "repository", "version"]
     for dep in dependencies:
         missing = [f for f in required_fields if f not in dep]
@@ -392,9 +396,12 @@ def install_libraries(force=False, check_only=False):
             logger.error("Dependency missing required fields: %s", missing)
             return False
 
+    _, libraries_dir = get_install_paths(workspace_root)
+    libraries_dir.mkdir(parents=True, exist_ok=True)
+
     for dep in dependencies:
         if check_only:
-            current = get_installed_lib_version(LIBRARIES_DIR / dep["name"], dep["name"])
+            current = get_installed_lib_version(libraries_dir / dep["name"])
             if current != dep["version"]:
                 logger.warning(
                     "%s: Update available (%s -> %s)", dep["name"], current or "not installed", dep["version"]
@@ -403,53 +410,7 @@ def install_libraries(force=False, check_only=False):
             else:
                 logger.info("%s: Up to date", dep["name"])
         else:
-            if not install_library(dep, force=force):
+            if not install_library(dep, libraries_dir, force=force):
                 success = False
 
     return success
-
-
-# --- Main ---
-
-
-def main():
-    """Main entry point.
-
-    Parses command-line arguments and executes OpenSCAD and/or library installation.
-
-    Returns:
-        Exits with code 0 on success, 1 on failure.
-    """
-    parser = argparse.ArgumentParser(description="HomeRacker Setup (OpenSCAD + Libraries)")
-    parser.add_argument("--check", action="store_true", help="Check installation status only")
-    parser.add_argument("--force", action="store_true", help="Force reinstall")
-    parser.add_argument("--nightly", action="store_true", default=True, help="Install nightly build (default)")
-    parser.add_argument("--stable", action="store_false", dest="nightly", help="Install stable release")
-    parser.add_argument("--openscad-only", action="store_true", help="Install only OpenSCAD binary")
-    parser.add_argument("--libs-only", action="store_true", help="Install only libraries")
-
-    args = parser.parse_args()
-
-    success = True
-
-    # 1. OpenSCAD
-    if not args.libs_only:
-        if not install_openscad(nightly=args.nightly, force=args.force, check_only=args.check):
-            success = False
-            if not args.check:
-                logger.error("OpenSCAD installation failed. Aborting.")
-                sys.exit(1)
-
-    # 2. Libraries
-    if not args.openscad_only:
-        # Ensure LIBRARIES_DIR exists (it might have been wiped if we reinstalled OpenSCAD)
-        LIBRARIES_DIR.mkdir(parents=True, exist_ok=True)
-
-        if not install_libraries(force=args.force, check_only=args.check):
-            success = False
-
-    sys.exit(0 if success else 1)
-
-
-if __name__ == "__main__":
-    main()

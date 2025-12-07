@@ -3,7 +3,7 @@
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": ["^cmd/setup/dependencies\\.json$"],
+      "fileMatch": ["^scadm\\.json$"],
       "matchStrings": [
         "\"repository\":\\s*\"(?<depName>[^\"]+)\",\\s*\"version\":\\s*\"(?<currentDigest>[a-f0-9]{40})\""
       ],
@@ -15,7 +15,7 @@
     },
     {
       "customType": "regex",
-      "fileMatch": ["^cmd/setup/dependencies\\.json$"],
+      "fileMatch": ["^scadm\\.json$"],
       "matchStrings": [
         "\"repository\":\\s*\"(?<depName>[^\"]+)\",\\s*\"version\":\\s*\"(?<currentValue>v?\\d+\\.\\d+\\.\\d+)\""
       ],

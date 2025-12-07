@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "scadm"
+version = "0.1.0"
+description = "OpenSCAD dependency manager - Install OpenSCAD and manage library dependencies"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [
+    {name = "Patrick Pötz", email = "kellervater@gmail.com"}
+]
+keywords = ["openscad", "dependency-manager", "3d-modeling", "scad", "libraries"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Build Tools",
+    "Topic :: Utilities",
+]
+
+[project.urls]
+Homepage = "https://github.com/kellervater/homeracker"
+Repository = "https://github.com/kellervater/homeracker"
+Documentation = "https://github.com/kellervater/homeracker/tree/main/cmd/scadm"
+Issues = "https://github.com/kellervater/homeracker/issues"
+Changelog = "https://github.com/kellervater/homeracker/blob/main/cmd/scadm/CHANGELOG.md"
+
+[project.scripts]
+scadm = "scadm.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["scadm*"]
+
+[tool.setuptools.package-data]
+scadm = ["py.typed"]
