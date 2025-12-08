@@ -82,16 +82,26 @@ scadm install --libs-only
 
 ### Configure VS Code extensions
 
+These are opinionated QoL improvements to install nifty VSCode extensions which improve DevEx.
+
 ```bash
 scadm vscode --openscad   # Install and configure OpenSCAD extension
+scadm vscode --python     # Install and configure Python extension
 ```
 
-This will:
+**OpenSCAD extension** will:
 - Install the `Leathong.openscad-language-support` extension
 - Configure VS Code settings with correct OpenSCAD paths
 - Merge with existing settings (preserves unrelated configurations)
 
+**Python extension** will:
+- Install the `ms-python.python` extension
+- Configure default interpreter path to `${workspaceFolder}/.venv` (eliminates need to manually source venv when opening project)
+
 > [!NOTE]
+> Settings are opinionated defaults designed to streamline development experience. They're configured in `.vscode/settings.json` (workspace-level), not globally.
+
+> [!IMPORTANT]
 > Requires VS Code CLI (`code` command) to be available in PATH. If not found, you'll receive installation instructions.
 
 ## Configuration
