@@ -15,8 +15,10 @@ pip install -e cmd/scadm
 # Install OpenSCAD (Windows/Linux/macOS) + Dependencies
 scadm install
 
-# Optional (VSCode Integration)
-scadm vscode --openscad
+# Optional (Opinionated VSCode Integration)
+# see cmd/scadm/README.md for details
+scadm vscode --openscad   # For OpenSCAD development
+scadm vscode --python     # Install and configure Python extension
 
 # Verify installation
 ./cmd/test/openscad-render.sh
@@ -43,6 +45,10 @@ pip install pre-commit
 
 # Install the git hooks
 pre-commit install --install-hooks -t commit-msg -t pre-commit
+
+# Optional: Skip manual venv activation in VS Code each time you open a terminal
+# Run `scadm vscode --python` to auto-configure the Python interpreter
+# (see Quick Start section above)
 ```
 
 Now pre-commit will automatically run on `git commit`. To manually run hooks on all files:

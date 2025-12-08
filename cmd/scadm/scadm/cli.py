@@ -5,7 +5,7 @@ import logging
 import sys
 
 from scadm.installer import install_libraries, install_openscad
-from scadm.vscode import setup_openscad_extension
+from scadm.vscode import setup_openscad_extension, setup_python_extension
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s", handlers=[logging.StreamHandler()])
 logger = logging.getLogger(__name__)
@@ -37,6 +37,7 @@ def main():
     # VSCode command
     vscode_parser = subparsers.add_parser("vscode", help="Configure VS Code extensions")
     vscode_parser.add_argument("--openscad", action="store_true", help="Install and configure OpenSCAD extension")
+    vscode_parser.add_argument("--python", action="store_true", help="Install and configure Python extension")
 
     args = parser.parse_args()
 
@@ -49,6 +50,9 @@ def main():
     if args.command == "vscode":
         if args.openscad:
             success = setup_openscad_extension()
+            sys.exit(0 if success else 1)
+        elif args.python:
+            success = setup_python_extension()
             sys.exit(0 if success else 1)
         else:
             vscode_parser.print_help()

@@ -5,36 +5,111 @@ import logging
 import platform
 import shutil
 import subprocess
+from enum import Enum
 from pathlib import Path
 
 from scadm.installer import get_install_paths, get_workspace_root
 
 logger = logging.getLogger(__name__)
 
-EXTENSION_OPENSCAD = "Leathong.openscad-language-support"
+
+class Extension(Enum):
+    """VS Code extension identifiers with their settings configurations."""
+
+    OPENSCAD = "Leathong.openscad-language-support"
+    PYTHON = "ms-python.python"
+
+    def get_name(self) -> str:
+        """Get human-readable extension name.
+
+        Returns:
+            Title-cased name of the extension.
+        """
+        return self.name.title()
+
+    def get_id(self) -> str:
+        """Get extension ID.
+
+        Returns:
+            The VS Code extension identifier.
+        """
+        return self.value
+
+    def get_settings(self, workspace_root: Path) -> dict:
+        """Get VS Code settings for this extension.
+
+        Args:
+            workspace_root: Workspace root directory.
+
+        Returns:
+            Dictionary of settings to merge into settings.json.
+        """
+        if self == Extension.OPENSCAD:
+            return _get_openscad_settings(workspace_root)
+        if self == Extension.PYTHON:
+            return _get_python_settings()
+        return {}
 
 
-def install_extension(extension_id: str) -> bool:
+def _get_openscad_settings(workspace_root: Path) -> dict:
+    """Get OpenSCAD extension settings.
+
+    Args:
+        workspace_root: Workspace root directory.
+
+    Returns:
+        Dictionary of OpenSCAD settings.
+    """
+    install_dir, libraries_dir = get_install_paths(workspace_root)
+
+    system = platform.system()
+    if system == "Windows":
+        openscad_path = str(install_dir / "openscad.exe").replace("/", "\\")
+        search_paths = str(libraries_dir).replace("/", "\\")
+    else:
+        openscad_path = str(workspace_root / "cmd" / "linux" / "openscad-wrapper.sh")
+        search_paths = str(libraries_dir)
+
+    return {
+        "files.associations": {"*.scad": "scad"},
+        "files.eol": "\n",
+        "scad-lsp.launchPath": openscad_path,
+        "scad-lsp.searchPaths": search_paths,
+    }
+
+
+def _get_python_settings() -> dict:
+    """Get Python extension settings.
+
+    Returns:
+        Dictionary of Python settings.
+    """
+    return {
+        "python.defaultInterpreterPath": "${workspaceFolder}/.venv",
+    }
+
+
+def install_extension(extension: Extension) -> bool:
     """Install a VS Code extension.
 
     Args:
-        extension_id: The extension identifier (e.g., 'publisher.extension').
+        extension: The extension to install.
 
     Returns:
         True if installation succeeded, False otherwise.
     """
     try:
-        logger.info("Installing extension %s...", extension_id)
+        logger.info("Installing extension %s...", extension.get_id())
         # Use shell=True on Windows to properly find code.cmd
         use_shell = platform.system() == "Windows"
         subprocess.run(
-            ["code", "--install-extension", extension_id, "--force"],
+            ["code", "--install-extension", extension.get_id(), "--force"],
             check=True,
             capture_output=True,
             text=True,
             shell=use_shell,
         )
-        logger.info("Extension %s installed", extension_id)
+        logger.info("Extension %s installed", extension.get_id())
         return True
     except FileNotFoundError:
         logger.warning("VS Code CLI 'code' command not found")
@@ -42,40 +117,16 @@ def install_extension(extension_id: str) -> bool:
         logger.warning("Make sure to enable 'Add to PATH' during installation")
         return False
     except subprocess.CalledProcessError as e:
-        logger.error("Failed to install extension %s: %s", extension_id, e.stderr)
+        logger.error("Failed to install extension %s: %s", extension.get_id(), e.stderr)
         return False
 
 
-def get_openscad_paths(workspace_root: Path) -> tuple[str, str]:
-    """Get OpenSCAD executable and library paths for VS Code config.
-
-    Args:
-        workspace_root: Workspace root directory.
-
-    Returns:
-        Tuple of (openscad_path, search_paths) formatted for VS Code settings.
-    """
-    install_dir, libraries_dir = get_install_paths(workspace_root)
-
-    system = platform.system()
-    if system == "Windows":
-        # Convert to Windows paths with single backslashes (JSON will handle escaping)
-        openscad_path = str(install_dir / "openscad.exe").replace("/", "\\")
-        search_paths = str(libraries_dir).replace("/", "\\")
-    else:
-        # Linux/macOS: use wrapper script
-        openscad_path = str(workspace_root / "cmd" / "linux" / "openscad-wrapper.sh")
-        search_paths = str(libraries_dir)
-
-    return openscad_path, search_paths
-
-
-def update_vscode_settings(workspace_root: Path, openscad: bool = False) -> bool:
+def update_vscode_settings(workspace_root: Path, extension: Extension) -> bool:
     """Update VS Code settings.json with extension configuration.
 
     Args:
         workspace_root: Workspace root directory.
-        openscad: Whether to configure OpenSCAD settings.
+        extension: Extension to configure settings for.
 
     Returns:
         True if settings were updated successfully, False otherwise.
@@ -92,16 +143,15 @@ def update_vscode_settings(workspace_root: Path, openscad: bool = False) -> bool
         except json.JSONDecodeError:
             logger.warning("Invalid JSON in settings.json, will overwrite")
 
-    # Update OpenSCAD settings
-    if openscad:
-        openscad_path, search_paths = get_openscad_paths(workspace_root)
-        # Deep merge for files.associations
-        if "files.associations" not in settings or not isinstance(settings["files.associations"], dict):
-            settings["files.associations"] = {}
-        settings["files.associations"]["*.scad"] = "scad"
-        settings["files.eol"] = "\n"
-        settings["scad-lsp.launchPath"] = openscad_path
-        settings["scad-lsp.searchPaths"] = search_paths
+    # Get extension-specific settings
+    new_settings = extension.get_settings(workspace_root)
+
+    # Deep merge settings
+    for key, value in new_settings.items():
+        if isinstance(value, dict) and key in settings and isinstance(settings[key], dict):
+            settings[key].update(value)
+        else:
+            settings[key] = value
 
     # Write settings
     vscode_dir.mkdir(parents=True, exist_ok=True)
@@ -115,33 +165,50 @@ def update_vscode_settings(workspace_root: Path, openscad: bool = False) -> bool
         return False
 
 
-def setup_openscad_extension() -> bool:
-    """Install and configure OpenSCAD extension for VS Code.
+def _setup_extension(extension: Extension) -> bool:
+    """Install and configure a VS Code extension.
+
+    Args:
+        extension: Extension to install and configure.
 
     Returns:
         True if setup succeeded, False otherwise.
     """
-    # Check VS Code is installed
     if not shutil.which("code"):
         logger.warning("VS Code CLI 'code' command not found")
         logger.warning("Install VS Code from: https://code.visualstudio.com/download")
         logger.warning("Make sure to enable 'Add to PATH' during installation")
         return False
 
-    # Get workspace root
     try:
         workspace_root = get_workspace_root()
     except FileNotFoundError as e:
         logger.error("%s", e)
         return False
 
-    # Install extension
-    if not install_extension(EXTENSION_OPENSCAD):
+    if not install_extension(extension):
         return False
 
-    # Update settings
-    if not update_vscode_settings(workspace_root, openscad=True):
+    if not update_vscode_settings(workspace_root, extension):
         return False
 
-    logger.info("VS Code configured for OpenSCAD")
+    logger.info("VS Code configured for %s", extension.get_name())
     return True
+
+
+def setup_openscad_extension() -> bool:
+    """Install and configure OpenSCAD extension for VS Code.
+
+    Returns:
+        True if setup succeeded, False otherwise.
+    """
+    return _setup_extension(Extension.OPENSCAD)
+
+
+def setup_python_extension() -> bool:
+    """Install and configure Python extension for VS Code.
+
+    Returns:
+        True if setup succeeded, False otherwise.
+    """
+    return _setup_extension(Extension.PYTHON)
