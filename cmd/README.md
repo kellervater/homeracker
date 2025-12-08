@@ -11,10 +11,10 @@ For installation, use the **scadm** package (see `cmd/scadm/` or install via `pi
 pip install -e cmd/scadm
 
 # Install OpenSCAD + dependencies from scadm.json
-scadm
+scadm install
 
 # Check if updates are available
-scadm --check
+scadm install --check
 
 # Run smoke test - validates the current openscad installation against local models
 ./cmd/test/openscad-render.sh models/core/parts/connector.scad
