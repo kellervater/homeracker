@@ -28,7 +28,7 @@ jobs:
       - name: Install OpenSCAD and dependencies
         run: |
           pip install -e cmd/scadm
-          scadm
+          scadm install
 
       - name: Validate models
         run: |

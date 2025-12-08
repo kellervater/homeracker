@@ -37,7 +37,7 @@ pip install scadm
 ### 2. Install OpenSCAD and dependencies
 
 ```bash
-scadm
+scadm install
 ```
 
 This will:
@@ -49,8 +49,8 @@ This will:
 ### Install everything (OpenSCAD + libraries)
 
 ```bash
-scadm                # Install nightly build (default - RECOMMENDED)
-scadm --stable       # Install stable release (2021.01)
+scadm install                # Install nightly build (default - RECOMMENDED)
+scadm install --stable       # Install stable release (2021.01)
 ```
 
 > [!NOTE]
@@ -59,26 +59,40 @@ scadm --stable       # Install stable release (2021.01)
 ### Check installation status
 
 ```bash
-scadm --check
+scadm install --check
 ```
 
 ### Force reinstall
 
 ```bash
-scadm --force
+scadm install --force
 ```
 
 ### Install only OpenSCAD
 
 ```bash
-scadm --openscad-only
+scadm install --openscad-only
 ```
 
 ### Install only libraries
 
 ```bash
-scadm --libs-only
+scadm install --libs-only
 ```
+
+### Configure VS Code extensions
+
+```bash
+scadm vscode --openscad   # Install and configure OpenSCAD extension
+```
+
+This will:
+- Install the `Leathong.openscad-language-support` extension
+- Configure VS Code settings with correct OpenSCAD paths
+- Merge with existing settings (preserves unrelated configurations)
+
+> [!NOTE]
+> Requires VS Code CLI (`code` command) to be available in PATH. If not found, you'll receive installation instructions.
 
 ## Configuration
 

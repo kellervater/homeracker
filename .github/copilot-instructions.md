@@ -32,8 +32,9 @@ HomeRacker is a modular 3D-printable rack-building system. Core components use p
 3. **Ask before proceeding** if requirements conflict with best practices
 4. **Provide outline** before implementation for confirmation
 5. **Make the change** and immediately test it - do NOT announce completion before testing
-6. **Run pre-commit hooks** to catch formatting/linting issues before commit. Fix any issues found (no ignores allowed).
-7. **On errors**: Step back, check docs, ask user if stuck—don't iterate blindly
+6. **Update** existing README.md files (project root, module-specific) and CONTRIBUTING.md and create new ones where applicable
+7. **Run pre-commit hooks** to catch formatting/linting issues before commit. Fix any issues found (no ignores allowed).
+8. **On errors**: Step back, check docs, ask user if stuck—don't iterate blindly
 
 ## OpenSCAD Guidelines
 - Use BOSL2 for complex geometry
