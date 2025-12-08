@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.4.0](https://github.com/kellervater/homeracker/compare/homeracker-v1.3.1...homeracker-v1.4.0) (2025-12-08)
+
+
+### ✨ Features
+
+* **scadm:** add Python extension support to vscode command ([#133](https://github.com/kellervater/homeracker/issues/133)) ([0bee683](https://github.com/kellervater/homeracker/commit/0bee683232593428290fe116fd7af9ce2c732816))
+* **scadm:** add vscode command for extension management ([#131](https://github.com/kellervater/homeracker/issues/131)) ([573c9dd](https://github.com/kellervater/homeracker/commit/573c9ddbbe420c0bd4f1631e240a54e9bac5d5d3))
+
+
+### 📦 Dependencies
+
+* update pre-commit hooks ([#134](https://github.com/kellervater/homeracker/issues/134)) ([e18d974](https://github.com/kellervater/homeracker/commit/e18d9743e5ca4f4ebfc14039208648d71195361a))
+
 ## [1.3.1](https://github.com/kellervater/homeracker/compare/homeracker-v1.3.0...homeracker-v1.3.1) (2025-12-07)
 
 
