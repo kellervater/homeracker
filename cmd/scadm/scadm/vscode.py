@@ -95,14 +95,13 @@ def update_vscode_settings(workspace_root: Path, openscad: bool = False) -> bool
     # Update OpenSCAD settings
     if openscad:
         openscad_path, search_paths = get_openscad_paths(workspace_root)
-        settings.update(
-            {
-                "scad-lsp.launchPath": openscad_path,
-                "scad-lsp.searchPaths": search_paths,
-                "files.associations": {"*.scad": "scad"},
-                "files.eol": "\n",
-            }
-        )
+        # Deep merge for files.associations
+        if "files.associations" not in settings or not isinstance(settings["files.associations"], dict):
+            settings["files.associations"] = {}
+        settings["files.associations"]["*.scad"] = "scad"
+        settings["files.eol"] = "\n"
+        settings["scad-lsp.launchPath"] = openscad_path
+        settings["scad-lsp.searchPaths"] = search_paths
 
     # Write settings
     vscode_dir.mkdir(parents=True, exist_ok=True)

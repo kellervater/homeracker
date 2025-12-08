@@ -25,7 +25,11 @@ def main():
     install_parser.add_argument("--check", action="store_true", help="Check installation status only")
     install_parser.add_argument("--force", action="store_true", help="Force reinstall")
     install_parser.add_argument(
-        "--stable", action="store_false", dest="nightly", help="Install stable release (2021.01) instead of nightly"
+        "--stable",
+        action="store_false",
+        dest="nightly",
+        default=True,
+        help="Install stable release (2021.01) instead of nightly",
     )
     install_parser.add_argument("--openscad-only", action="store_true", help="Install only OpenSCAD binary")
     install_parser.add_argument("--libs-only", action="store_true", help="Install only libraries")
@@ -48,14 +52,10 @@ def main():
             sys.exit(0 if success else 1)
         else:
             vscode_parser.print_help()
-            sys.exit(1)
+            sys.exit(0)
 
     # Handle install command
     if args.command == "install":
-        # Set default to nightly (True) unless --stable was specified
-        if not hasattr(args, "nightly"):
-            args.nightly = True
-
         success = True
 
         try:
