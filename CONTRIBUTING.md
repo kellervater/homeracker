@@ -18,7 +18,7 @@ scadm install
 # Optional (Opinionated VSCode Integration)
 # see cmd/scadm/README.md for details
 scadm vscode --openscad   # For OpenSCAD development
-scadm vscode --python     # installs python extension
+scadm vscode --python     # Install and configure Python extension
 
 # Verify installation
 ./cmd/test/openscad-render.sh
