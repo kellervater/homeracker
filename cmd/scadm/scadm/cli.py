@@ -11,6 +11,12 @@ from scadm.vscode import setup_openscad_extension, setup_python_extension
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s", handlers=[logging.StreamHandler()])
 logger = logging.getLogger(__name__)
 
+# Get version from package metadata
+try:
+    __version__ = version("scadm")
+except PackageNotFoundError:
+    __version__ = "unknown"
+
 
 def main():
     """Main CLI entry point."""
@@ -19,16 +25,10 @@ def main():
         description="OpenSCAD Dependency Manager - Install OpenSCAD and manage library dependencies",
     )
 
-    # Add version flag
-    try:
-        scadm_version = version("scadm")
-    except PackageNotFoundError:
-        scadm_version = "unknown"
-
     parser.add_argument(
         "--version",
         action="version",
-        version=f"%(prog)s {scadm_version}",
+        version=f"%(prog)s {__version__}",
     )
 
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
