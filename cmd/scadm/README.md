@@ -46,6 +46,12 @@ This will:
 
 ## Usage
 
+### Check version
+
+```bash
+scadm --version
+```
+
 ### Install everything (OpenSCAD + libraries)
 
 ```bash
