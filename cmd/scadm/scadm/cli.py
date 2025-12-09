@@ -26,9 +26,11 @@ def main():
     )
 
     parser.add_argument(
+        "-v",
         "--version",
         action="version",
         version=f"%(prog)s {__version__}",
+        help="Show the currently installed version of scadm",
     )
 
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
