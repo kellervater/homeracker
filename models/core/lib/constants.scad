@@ -24,6 +24,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+// Prevent OpenSCAD Z-fighting
+EPSILON = 0.001;
+
 // Fitting tolerance between mating parts
 TOLERANCE = 0.2; // in mm
 
