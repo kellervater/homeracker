@@ -18,7 +18,7 @@ is_foot = false; // [true,false]
 optimal_orientation = true; // [true,false]
 
 /* [Hidden] */
-EPSILON = 0.001;
+EPSILON = $preview ? 0.01 : 0.00001;
 TOLERANCE = 0.2;
 PRINTING_LAYER_WIDTH = 0.4;
 PRINTING_LAYER_HEIGHT = 0.2;
