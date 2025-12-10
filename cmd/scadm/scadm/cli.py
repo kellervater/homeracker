@@ -3,6 +3,7 @@
 import argparse
 import logging
 import sys
+from importlib.metadata import version, PackageNotFoundError
 
 from scadm.installer import install_libraries, install_openscad
 from scadm.vscode import setup_openscad_extension, setup_python_extension
@@ -10,12 +11,26 @@ from scadm.vscode import setup_openscad_extension, setup_python_extension
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s", handlers=[logging.StreamHandler()])
 logger = logging.getLogger(__name__)
 
+# Get version from package metadata
+try:
+    __version__ = version("scadm")
+except PackageNotFoundError:
+    __version__ = "unknown"
+
 
 def main():
     """Main CLI entry point."""
     parser = argparse.ArgumentParser(
         prog="scadm",
         description="OpenSCAD Dependency Manager - Install OpenSCAD and manage library dependencies",
+    )
+
+    parser.add_argument(
+        "-v",
+        "--version",
+        action="version",
+        version=f"%(prog)s {__version__}",
+        help="Show the currently installed version of scadm",
     )
 
     subparsers = parser.add_subparsers(dest="command", help="Available commands")

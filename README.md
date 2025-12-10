@@ -287,8 +287,8 @@ E.g.: you could print a connector in ABS, a support in PLA Matte and a Lock Pin 
 > 🛠️ **Btw:** I am not affiliated with Bambu in any way besides uploading my models to MakerWorld and occasionally making use of their Exclusive Model program. But they don't pay me for naming their products anywhere else (I wish 😉).
 
 # Logo
-I asked ChatGPT to create a logo, and I think it turned out great — so we’ll stick with it for now. This logo will also be used as an overlay image for the thumbnails of all my 3D models that are compatible with HomeRacker.
-
+This logo will also be used as an overlay image for the thumbnails of all my 3D models that are compatible with HomeRacker.
 I encourage you to do the same if you create models for HomeRacker. That way, it’ll be immediately visible to users that a model is designed to be mounted on a HomeRacker system.
+I also svg'ed this logo [here](img/homeracker_logo.svg) and [here](img/homeracker_logo_single_color.svg).
 
 ![HomeRacker Logo](./img/homeracker_logo.png)
