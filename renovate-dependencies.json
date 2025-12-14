@@ -17,6 +17,16 @@
       "customType": "regex",
       "fileMatch": ["^scadm\\.json$"],
       "matchStrings": [
+        "\"repository\":\\s*\"kellervater/homeracker\",\\s*\"version\":\\s*\"(?<currentValue>homeracker-v\\d+\\.\\d+\\.\\d+)\""
+      ],
+      "datasourceTemplate": "github-tags",
+      "depNameTemplate": "kellervater/homeracker",
+      "versioningTemplate": "regex:^homeracker-v(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$"
+    },
+    {
+      "customType": "regex",
+      "fileMatch": ["^scadm\\.json$"],
+      "matchStrings": [
         "\"repository\":\\s*\"(?<depName>[^\"]+)\",\\s*\"version\":\\s*\"(?<currentValue>v?\\d+\\.\\d+\\.\\d+)\""
       ],
       "datasourceTemplate": "github-tags",

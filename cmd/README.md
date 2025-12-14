@@ -45,7 +45,13 @@ Dependencies are defined in `scadm.json` at the repository root. The installer s
     {
       "name": "homeracker",
       "repository": "kellervater/homeracker",
-      "version": "v1.1.0",
+      "version": "homeracker-v1.3.1",
+      "source": "github"
+    },
+    {
+      "name": "example",
+      "repository": "example/repo",
+      "version": "v1.2.3",
       "source": "github"
     }
   ]
@@ -65,3 +71,8 @@ To enable Renovate to update these dependencies, extend the configuration from t
   ]
 }
 ```
+
+The preset supports:
+- Git commit hashes (40-character hex strings)
+- HomeRacker tags (`homeracker-vX.Y.Z` for `kellervater/homeracker`)
+- SemVer tags (`vX.Y.Z` or `X.Y.Z` for other repositories)
