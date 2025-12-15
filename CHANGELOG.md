@@ -1,5 +1,37 @@
 # Changelog
 
+## [1.5.0](https://github.com/kellervater/homeracker/compare/homeracker-v1.4.0...homeracker-v1.5.0) (2025-12-15)
+
+
+### ✨ Features
+
+* **img:** added HomeRacker Logo svgs ([4f264a9](https://github.com/kellervater/homeracker/commit/4f264a9f3896206b0cd6e1778304710921764948))
+* **scadm:** add --version flag ([#140](https://github.com/kellervater/homeracker/issues/140)) ([5a7d98c](https://github.com/kellervater/homeracker/commit/5a7d98cfd33c36f9d6e1df95181c42c5c6195b2f))
+
+
+### 🐛 Bug Fixes
+
+* **core:** improve print orientation for bed slingers. ([#144](https://github.com/kellervater/homeracker/issues/144)) ([e2177c9](https://github.com/kellervater/homeracker/commit/e2177c9099224fcdb8dd55217180ecae1813d06e))
+* **renovate:** add custom manager for homeracker-vX.Y.Z tags in scadm.json ([#155](https://github.com/kellervater/homeracker/issues/155)) ([8155b0f](https://github.com/kellervater/homeracker/commit/8155b0fc4052376a1fc71080075968b74883be8c))
+
+
+### 📦 Dependencies
+
+* update actions/upload-artifact action to v6 ([#150](https://github.com/kellervater/homeracker/issues/150)) ([96584a7](https://github.com/kellervater/homeracker/commit/96584a7d4334131d5976ff8568da9e49635ae40e))
+* update belfryscad/bosl2 digest to 7c6b1da ([#151](https://github.com/kellervater/homeracker/issues/151)) ([13ea9ad](https://github.com/kellervater/homeracker/commit/13ea9ad77a6fbc5ec30240231bc05a96f26bec19))
+* update belfryscad/bosl2 digest to 961ed6d ([#146](https://github.com/kellervater/homeracker/issues/146)) ([c0687da](https://github.com/kellervater/homeracker/commit/c0687da15d64b59bedc0d07cca2a9727f009c6ed))
+* update camunda/infra-global-github-actions digest to 1f5a9ae ([#147](https://github.com/kellervater/homeracker/issues/147)) ([0fcea2e](https://github.com/kellervater/homeracker/commit/0fcea2e0c2d97c69cb2695ad4a26862cdcebd86e))
+* update camunda/infra-global-github-actions digest to 39cfd35 ([#153](https://github.com/kellervater/homeracker/issues/153)) ([2c32c2a](https://github.com/kellervater/homeracker/commit/2c32c2adf3f13127df96846ebfd52edbf22f021e))
+* update openscad nightly ([#148](https://github.com/kellervater/homeracker/issues/148)) ([29756dd](https://github.com/kellervater/homeracker/commit/29756ddfd902c61add8094f56d17e8b709789eda))
+* update pre-commit hook renovatebot/pre-commit-hooks to v42.52.2 ([#149](https://github.com/kellervater/homeracker/issues/149)) ([2e860d9](https://github.com/kellervater/homeracker/commit/2e860d95f4f9ea19556a13d06e45731d77c8f3d9))
+* update pre-commit hook renovatebot/pre-commit-hooks to v42.52.6 ([#152](https://github.com/kellervater/homeracker/issues/152)) ([4865ab4](https://github.com/kellervater/homeracker/commit/4865ab4d94a00480748720f689d76bc6f3a9d1cb))
+* update pre-commit hook renovatebot/pre-commit-hooks to v42.52.8 ([#156](https://github.com/kellervater/homeracker/issues/156)) ([8fbe3af](https://github.com/kellervater/homeracker/commit/8fbe3af2ec4b697a1016c874ea95805b317ad54a))
+
+
+### 📚 Documentation
+
+* **img:** svg logo links ([3ddbd86](https://github.com/kellervater/homeracker/commit/3ddbd86a0823531e71b7642893b88962b2d80bdb))
+
 ## [1.4.0](https://github.com/kellervater/homeracker/compare/homeracker-v1.3.1...homeracker-v1.4.0) (2025-12-08)
 
 
