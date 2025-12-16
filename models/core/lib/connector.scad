@@ -121,7 +121,7 @@ module connector(dimensions=3, directions=6, pull_through_axis="none", is_foot=f
           pull_through_hole(pull_through_axis, is_foot);
         }
       } else if (valid_directions == 4 && valid_dimensions == 2) {
-        rotation = optimal_orientation ? [0,-135,45] : [0,0,0];
+        rotation = optimal_orientation ? [0,-135,0] : [0,0,0];
         rotate(rotation)
         difference() {
           connector_raw(config, is_foot);
@@ -130,7 +130,7 @@ module connector(dimensions=3, directions=6, pull_through_axis="none", is_foot=f
 
       } else {
         // All other cases: simple flat base with chamfered edge
-        rotation = optimal_orientation ? [90,-45,-45] : [0,0,0];
+        rotation = optimal_orientation ? [90,-45,0] : [0,0,0];
         rotate(rotation)
         difference() {
           intersection() {
