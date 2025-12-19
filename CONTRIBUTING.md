@@ -124,10 +124,10 @@ This project uses [Conventional Commits](https://www.conventionalcommits.org/) f
 | `feat:` | New feature | **minor** (0.x.0) |
 | `fix:` | Bug fix | **patch** (0.0.x) |
 | `feat!:` or `fix!:` | Breaking change | **major** (x.0.0) |
-| `docs:` | Documentation only | none |
-| `chore:` | Maintenance tasks | none |
-| `refactor:` | Code restructuring | none |
-| `test:` | Adding tests | none |
+| `docs:` | Documentation only | **patch** (0.0.x) |
+| `chore:` | Maintenance tasks | **patch** (0.0.x) |
+| `refactor:` | Code restructuring | **patch** (0.0.x) |
+| `test:` | Adding tests | **patch** (0.0.x) |
 
 ### Examples
 
