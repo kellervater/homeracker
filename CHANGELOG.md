@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.5.1](https://github.com/kellervater/homeracker/compare/homeracker-v1.5.0...homeracker-v1.5.1) (2025-12-20)
+
+
+### 📦 Dependencies
+
+* update belfryscad/bosl2 digest to 9312b5b ([#158](https://github.com/kellervater/homeracker/issues/158)) ([f123eea](https://github.com/kellervater/homeracker/commit/f123eea015c66f17e413a94abb9d87dcbf6291dd))
+* update camunda/infra-global-github-actions digest to 4b7639e ([#159](https://github.com/kellervater/homeracker/issues/159)) ([2a759cd](https://github.com/kellervater/homeracker/commit/2a759cd557f3c12817ea2cdcb41e9d890c3ebf93))
+* update openscad nightly ([#161](https://github.com/kellervater/homeracker/issues/161)) ([c22aa62](https://github.com/kellervater/homeracker/commit/c22aa62536b6664a6aa112ac5424bc39b5593163))
+* update pre-commit hook renovatebot/pre-commit-hooks to v42.64.1 ([#162](https://github.com/kellervater/homeracker/issues/162)) ([b26dfda](https://github.com/kellervater/homeracker/commit/b26dfda6ac6974b0426f7ef77522dd384e287f79))
+
+
+### 📚 Documentation
+
+* **fix:** conventional commits bump ([62b319b](https://github.com/kellervater/homeracker/commit/62b319bc7870d9c2f8cfe9b0ef14e46ed4c1020f))
+
 ## [1.5.0](https://github.com/kellervater/homeracker/compare/homeracker-v1.4.0...homeracker-v1.5.0) (2025-12-15)
 
 
