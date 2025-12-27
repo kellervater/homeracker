@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.2](https://github.com/kellervater/homeracker/compare/scadm-v0.4.1...scadm-v0.4.2) (2025-12-27)
+
+
+### 📦 Dependencies
+
+* update openscad nightly ([#165](https://github.com/kellervater/homeracker/issues/165)) ([7f8746c](https://github.com/kellervater/homeracker/commit/7f8746c1c923934d4e4eec0a87b140849aa55919))
+* update openscad nightly ([#168](https://github.com/kellervater/homeracker/issues/168)) ([fe441bd](https://github.com/kellervater/homeracker/commit/fe441bd91f4019676d52981e70cb88ca8a09ca56))
+
 ## [0.4.1](https://github.com/kellervater/homeracker/compare/scadm-v0.4.0...scadm-v0.4.1) (2025-12-20)
 
 
