@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.5.2](https://github.com/kellervater/homeracker/compare/homeracker-v1.5.1...homeracker-v1.5.2) (2025-12-27)
+
+
+### 📦 Dependencies
+
+* update camunda/infra-global-github-actions digest to ac7a12d ([#164](https://github.com/kellervater/homeracker/issues/164)) ([60a1514](https://github.com/kellervater/homeracker/commit/60a15146ce7128833b954479e224da9b5e7ec3d7))
+* update openscad nightly ([#165](https://github.com/kellervater/homeracker/issues/165)) ([7f8746c](https://github.com/kellervater/homeracker/commit/7f8746c1c923934d4e4eec0a87b140849aa55919))
+* update openscad nightly ([#168](https://github.com/kellervater/homeracker/issues/168)) ([fe441bd](https://github.com/kellervater/homeracker/commit/fe441bd91f4019676d52981e70cb88ca8a09ca56))
+* update pre-commit hook renovatebot/pre-commit-hooks to v42.66.8 ([#166](https://github.com/kellervater/homeracker/issues/166)) ([56a2669](https://github.com/kellervater/homeracker/commit/56a2669e909af0afd5d43c3c8237c72479b3e366))
+
 ## [1.5.1](https://github.com/kellervater/homeracker/compare/homeracker-v1.5.0...homeracker-v1.5.1) (2025-12-20)
 
 
