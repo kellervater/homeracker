@@ -4,6 +4,6 @@
 OPENSCAD_STABLE_VERSION = "2021.01"
 
 # renovate: datasource=custom.openscad-snapshots depName=OpenSCAD versioning=loose
-OPENSCAD_NIGHTLY_VERSION_WINDOWS = "2025.12.17"
+OPENSCAD_NIGHTLY_VERSION_WINDOWS = "2025.12.23"
 # renovate: datasource=custom.openscad-snapshots depName=OpenSCAD versioning=loose
-OPENSCAD_NIGHTLY_VERSION_LINUX = "2025.12.17.ai30001"
+OPENSCAD_NIGHTLY_VERSION_LINUX = "2025.12.23.ai30148"
