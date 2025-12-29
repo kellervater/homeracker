@@ -8,7 +8,7 @@ include <../main.scad>
 /* [Parameters] */
 
 // Type of grip for the lock pin
-grip_type = "standard"; // ["standard","no_grip"]
+grip_type = "standard"; // ["standard","extended","no_grip"]
 
 // --- Examples ---
 
@@ -18,6 +18,9 @@ grip_type = "standard"; // ["standard","no_grip"]
 // Example 2: Create a lock pin with no grip
 // lockpin(grip_type="no_grip");
 
-// Example 3: Create a lock pin with grip_type as set above
+// Example 3: Create a lock pin with "extended" grip
+// lockpin(grip_type="extended");
+
+// Example 4: Create a lock pin with grip_type as set above
 color(HR_YELLOW)
 lockpin(grip_type=grip_type);
