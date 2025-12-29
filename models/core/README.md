@@ -79,8 +79,6 @@ Junction pieces that join supports in multiple directions.
 - No-grip variant: Smooth design for minimal profile
 - Bidirectional tension hole for secure fit
 
----
-
 ## 📐 Dimensional Standards
 
 - **Base Unit**: 15mm
@@ -89,8 +87,6 @@ Junction pieces that join supports in multiple directions.
 - **Tolerance**: 0.2mm (built into connectors)
 - **Standard Chamfer**: 1mm
 - **Lock Pin Chamfer**: 0.8mm
-
----
 
 ## 📝 License
 
