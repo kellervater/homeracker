@@ -82,31 +82,38 @@ module lockpin(grip_type = "standard") {
  *
  * Creates the grip part of the lock pin.
  * If grip_type is "no_grip", no grip arms are created.
- * If grip_type is "standard", two grip arms are created on both sides.
+ * If grip_type is "standard", a symmetric two-stage grip is created.
+ * If grip_type is "extended", standard grip with an extended outer arm for improved stability.
  * If grip_type is "z_grip", a Z-shaped grip variant is created (not implemented yet).
  */
 module grip(grip_type = "standard") {
   if (grip_type != "no_grip") {
-    grip_base_dimensions = [lockpin_width_outer, lockpin_height, grip_base_length];
-    grip_outer_dimensions = [grip_width, lockpin_height, grip_thickness_outer];
+    // --- Dimensions ----------------------------------------------------------
+    grip_base_dimensions  = [lockpin_width_outer, lockpin_height, grip_base_length];
     grip_inner_dimensions = [grip_width, lockpin_height, grip_thickness_inner];
+    outer_height = grip_type == "extended" ? lockpin_height * 2 : lockpin_height;
+    grip_outer_dimensions = [grip_width, outer_height, grip_thickness_outer];
 
-    base_translation = lockpin_prismoid_length + lockpin_endpart_length - lockpin_chamfer - TOLERANCE/2;
+    // --- Positioning ----------------------------------------------------------
+    base_translation = lockpin_prismoid_length + lockpin_endpart_length - lockpin_chamfer - TOLERANCE / 2;
 
+    // --- Geometry ------------------------------------------------------------
     union() {
       // Base part of the grip
       translate([0, 0, -base_translation - grip_base_length / 2])
-      cuboid(grip_base_dimensions, chamfer=lockpin_chamfer, except=TOP);
+        cuboid(grip_base_dimensions, chamfer=lockpin_chamfer, except=TOP);
 
-      if(grip_type == "standard") {
+      if (grip_type == "standard" || grip_type == "extended") {
+        // Outer grip arm
         translate([0, 0, -base_translation - grip_base_length + grip_thickness_outer / 2])
-        cuboid(grip_outer_dimensions, chamfer=lockpin_chamfer, except=TOP);
-        // Inner part of the grip
-        translate([0, 0, -base_translation - grip_base_length + grip_thickness_outer + grip_thickness_inner / 2 + grip_distance])
-        cuboid(grip_inner_dimensions, chamfer=lockpin_chamfer, except=TOP);
+          cuboid(grip_outer_dimensions, chamfer=lockpin_chamfer, except=TOP);
+        // Inner grip arm
+        translate([0, 0, -base_translation - grip_base_length + 1.5 * grip_thickness_outer + 0.5 * grip_thickness_inner + grip_distance])
+          cuboid(grip_inner_dimensions, chamfer=lockpin_chamfer, except=TOP);
       } else if (grip_type == "z_grip") {
         // TODO: Z-Grip variant has only 1 arm on each side but each arm is thicker
         echo("Z-Grip variant not implemented yet.");
+
       }
     }
   }
