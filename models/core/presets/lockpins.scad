@@ -24,8 +24,5 @@ module lockpins_grid(grid=10, grip_type="standard") {
 // Standard grip grid (50 pins)
 // lockpins_grid(grid=grid, grip_type="standard");
 
-// Extended grip grid (50 pins)
-// lockpins_grid(grid=grid, grip_type="extended");
-
 // Uncomment for no-grip variant:
 lockpins_grid(grid=grid, grip_type="no_grip");

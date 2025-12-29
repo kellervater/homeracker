@@ -13,10 +13,7 @@ grip_type = "standard"; // ["standard","extended","no_grip"]
 // Example 2: Create a lock pin with no grip
 // lockpin(grip_type="no_grip");
 
-// Example 3: Create a lock pin with "extended" grip
-// lockpin(grip_type="extended");
-
-// Example 4: Create a lock pin with grip_type as set above
+// Example 3: Create a lock pin with grip_type as set above
 color(HR_YELLOW)
 lockpin(grip_type=grip_type);
 
@@ -310,31 +307,33 @@ module lockpin(grip_type = "standard") {
 
 module grip(grip_type = "standard") {
   if (grip_type != "no_grip") {
-    grip_base_dimensions  = [lockpin_width_outer, lockpin_height, grip_base_length];
+    grip_base_dimensions = [lockpin_width_outer, lockpin_height, grip_base_length];
+    grip_outer_dimensions = [grip_width, lockpin_height, grip_thickness_outer];
     grip_inner_dimensions = [grip_width, lockpin_height, grip_thickness_inner];
-    outer_height = grip_type == "extended" ? lockpin_height * 2 : lockpin_height;
-    grip_outer_dimensions = [grip_width, outer_height, grip_thickness_outer];
 
-    base_translation = lockpin_prismoid_length + lockpin_endpart_length - lockpin_chamfer - TOLERANCE / 2;
+
+
+    base_translation = lockpin_prismoid_length + lockpin_endpart_length - lockpin_chamfer - TOLERANCE/2;
 
     union() {
+
       translate([0, 0, -base_translation - grip_base_length / 2])
         cuboid(grip_base_dimensions, chamfer=lockpin_chamfer, except=TOP);
 
-      if (grip_type == "standard" || grip_type == "extended") {
+      if(grip_type == "standard") {
         translate([0, 0, -base_translation - grip_base_length + grip_thickness_outer / 2])
           cuboid(grip_outer_dimensions, chamfer=lockpin_chamfer, except=TOP);
-        translate([0, 0, -base_translation - grip_base_length + 1.5 * grip_thickness_outer + 0.5 * grip_thickness_inner + grip_distance])
+
+        translate([0, 0, -base_translation - grip_base_length + grip_thickness_outer + grip_thickness_inner / 2 + grip_distance])
           cuboid(grip_inner_dimensions, chamfer=lockpin_chamfer, except=TOP);
       } else if (grip_type == "z_grip") {
-        // TODO: Z-Grip variant has only 1 arm on each side but each arm is thicker
+
         echo("Z-Grip variant not implemented yet.");
 
       }
     }
   }
 }
-
 
 module end_parts(grip_type = "standard") {
   end_part_half(true);
