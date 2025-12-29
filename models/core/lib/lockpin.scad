@@ -88,7 +88,7 @@ module lockpin(grip_type = "standard") {
  */
 module grip(grip_type = "standard") {
   if (grip_type != "no_grip") {
-    // --- Dimensions ----------------------------------------------------------
+    // Dimensions
     grip_base_dimensions  = [lockpin_width_outer, lockpin_height, grip_base_length];
     grip_inner_dimensions = [grip_width, lockpin_height, grip_thickness_inner];
     outer_height = grip_type == "extended" ? lockpin_height * 2 : lockpin_height;
