@@ -47,7 +47,7 @@ Open any file in `parts/` with OpenSCAD and use the **Customizer** panel to adju
 
 - **`connector.scad`**: Customize dimensions, directions, pull-through axes, feet, and orientation
 - **`support.scad`**: Customize length and hole configurations
-- **`lockpin.scad`**: Customize grip type (standard or no-grip)
+- **`lockpin.scad`**: Customize grip type (standard, extended or no-grip)
 
 ### Exporting Variants
 
@@ -55,7 +55,7 @@ The `presets/` folder contains modules for batch-exporting all logical variants:
 
 - **`connectors.scad`**: Organized collections (standard, feet, pull-through, etc.)
 - **`supports.scad`**: Various support lengths with different hole configurations
-- **`lockpins.scad`**: Standard grip and no-grip variants
+- **`lockpins.scad`**: Standard grip, extended and no-grip variants
 
 ## 🔧 Core Components
 
@@ -75,8 +75,16 @@ Junction pieces that join supports in multiple directions.
 ### 3. **Lock Pins**
 4mm square pins that secure connectors to supports via tension fit.
 - Standard grip: Two grip arms for easy insertion/removal
+- Extended grip: Two grip asymmetric arms with a dominant outer arm providing increased contact area.
 - No-grip variant: Smooth design for minimal profile
 - Bidirectional tension hole for secure fit
+
+#### ⚠️ Printing Notes: `extended` Grip Type
+
+Detailed printing recommendations, including support requirements, alternative orientations, and material guidance, 
+are provided in the separate [PRINTING.md](PRINTING.md) file.
+
+---
 
 ## 📐 Dimensional Standards
 
@@ -86,6 +94,14 @@ Junction pieces that join supports in multiple directions.
 - **Tolerance**: 0.2mm (built into connectors)
 - **Standard Chamfer**: 1mm
 - **Lock Pin Chamfer**: 0.8mm
+
+---
+
+## 🖨️ 3D Printing Guidelines
+
+For details on printing the `extended` grip type and general guidance for HomeRacker Core parts, see [PRINTING.md](PRINTING.md).
+
+---
 
 ## 📝 License
 

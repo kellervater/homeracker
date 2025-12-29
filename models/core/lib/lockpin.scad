@@ -48,6 +48,7 @@ grip_base_length = grip_thickness_inner + grip_thickness_outer + grip_distance +
  * Parameters:
  *   grip_type (string, default="standard"): Type of grip for the lock pin.
  *       - "standard": Two grip arms on both sides.
+ *       - "extended": Standard grip with an extended outer arm for improved stability.
  *       - "no_grip": No grip arms.
  *
  * Produces:
@@ -108,7 +109,7 @@ module grip(grip_type = "standard") {
         translate([0, 0, -base_translation - grip_base_length + grip_thickness_outer / 2])
           cuboid(grip_outer_dimensions, chamfer=lockpin_chamfer, except=TOP);
         // Inner grip arm
-        translate([0, 0, -base_translation - grip_base_length + 1.5 * grip_thickness_outer + 0.5 * grip_thickness_inner + grip_distance])
+        translate([0, 0, -base_translation - grip_base_length + grip_thickness_outer + grip_thickness_inner / 2 + grip_distance])
           cuboid(grip_inner_dimensions, chamfer=lockpin_chamfer, except=TOP);
       } else if (grip_type == "z_grip") {
         // TODO: Z-Grip variant has only 1 arm on each side but each arm is thicker
