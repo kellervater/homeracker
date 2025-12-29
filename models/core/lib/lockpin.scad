@@ -94,7 +94,7 @@ module grip(grip_type = "standard") {
     outer_height = grip_type == "extended" ? lockpin_height * 2 : lockpin_height;
     grip_outer_dimensions = [grip_width, outer_height, grip_thickness_outer];
 
-    // --- Positioning ----------------------------------------------------------
+    // Positioning
     base_translation = lockpin_prismoid_length + lockpin_endpart_length - lockpin_chamfer - TOLERANCE / 2;
 
     // --- Geometry ------------------------------------------------------------
