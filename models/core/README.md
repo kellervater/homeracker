@@ -75,14 +75,9 @@ Junction pieces that join supports in multiple directions.
 ### 3. **Lock Pins**
 4mm square pins that secure connectors to supports via tension fit.
 - Standard grip: Two grip arms for easy insertion/removal
-- Extended grip: Two grip asymmetric arms with a dominant outer arm providing increased contact area.
+- Extended grip: Two asymmetric grip arms with a dominant outer arm.
 - No-grip variant: Smooth design for minimal profile
 - Bidirectional tension hole for secure fit
-
-#### ⚠️ Printing Notes: `extended` Grip Type
-
-Detailed printing recommendations, including support requirements, alternative orientations, and material guidance, 
-are provided in the separate [PRINTING.md](PRINTING.md) file.
 
 ---
 
@@ -94,12 +89,6 @@ are provided in the separate [PRINTING.md](PRINTING.md) file.
 - **Tolerance**: 0.2mm (built into connectors)
 - **Standard Chamfer**: 1mm
 - **Lock Pin Chamfer**: 0.8mm
-
----
-
-## 🖨️ 3D Printing Guidelines
-
-For details on printing the `extended` grip type and general guidance for HomeRacker Core parts, see [PRINTING.md](PRINTING.md).
 
 ---
 
