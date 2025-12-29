@@ -3,7 +3,7 @@ include <BOSL2/std.scad>
 /* [Parameters] */
 
 // Type of grip for the lock pin
-grip_type = "standard"; // ["standard","extended","no_grip"]
+grip_type = "standard"; // ["standard","no_grip"]
 
 // --- Examples ---
 
@@ -311,25 +311,22 @@ module grip(grip_type = "standard") {
     grip_outer_dimensions = [grip_width, lockpin_height, grip_thickness_outer];
     grip_inner_dimensions = [grip_width, lockpin_height, grip_thickness_inner];
 
-
-
     base_translation = lockpin_prismoid_length + lockpin_endpart_length - lockpin_chamfer - TOLERANCE/2;
 
     union() {
 
       translate([0, 0, -base_translation - grip_base_length / 2])
-        cuboid(grip_base_dimensions, chamfer=lockpin_chamfer, except=TOP);
+      cuboid(grip_base_dimensions, chamfer=lockpin_chamfer, except=TOP);
 
       if(grip_type == "standard") {
         translate([0, 0, -base_translation - grip_base_length + grip_thickness_outer / 2])
-          cuboid(grip_outer_dimensions, chamfer=lockpin_chamfer, except=TOP);
+        cuboid(grip_outer_dimensions, chamfer=lockpin_chamfer, except=TOP);
 
         translate([0, 0, -base_translation - grip_base_length + grip_thickness_outer + grip_thickness_inner / 2 + grip_distance])
-          cuboid(grip_inner_dimensions, chamfer=lockpin_chamfer, except=TOP);
+        cuboid(grip_inner_dimensions, chamfer=lockpin_chamfer, except=TOP);
       } else if (grip_type == "z_grip") {
 
         echo("Z-Grip variant not implemented yet.");
-
       }
     }
   }
