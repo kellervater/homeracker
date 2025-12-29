@@ -28,7 +28,7 @@ include <constants.scad>
 
 // Lock Pin Dimensions
 lockpin_chamfer = PRINTING_LAYER_WIDTH;
-lockpin_width_outer = LOCKPIN_HOLE_SIDE_LENGTH * 2;
+lockpin_width_outer = LOCKPIN_HOLE_SIDE_LENGTH;
 lockpin_width_inner = LOCKPIN_HOLE_SIDE_LENGTH + PRINTING_LAYER_WIDTH * 2;
 lockpin_height = lockpin_width_outer - TOLERANCE;
 lockpin_prismoid_length = (BASE_UNIT - BASE_STRENGTH) / 2;
