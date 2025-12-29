@@ -23,6 +23,7 @@ The parametric models are available in the [HomeRacker GitHub Repository](https:
   - [🔗 Connectors](#-connectors)
   - [📏 Lock Pins](#-lock-pins)
   - [🌍 Open Specs](#-open-specs)
+- [💬 Community](#-community)
 - [❓ Why the name?](#-why-the-name)
 - [📜 Licensing](#-licensing)
 - [🤝 Contributing](CONTRIBUTING.md)
@@ -199,6 +200,16 @@ I created `HomeRacker - Core` to be an open spec that any maker can build on, wi
 I encourage you to make your own models based on HomeRacker!
 Let me know, and I’ll feature your work on this page and cross-link it on Makerworld (subject to my "very objective" approval 😄).
 Just [create an issue](https://github.com/kellervater/homeracker/issues/new) if you want to be featured.
+
+# 💬 Community
+
+Got questions? Want to share your builds? Join the HomeRacker community!
+
+- **💬 [Discord](https://discord.gg/b6myzHRxc3)** – Chat with me and other builders, get help, share ideas
+- **🎥 [YouTube](https://www.youtube.com/@kellerlabs)** – Watch build guides, tutorials, and project updates
+- **🖨️ [Makerworld](https://makerworld.com/@kellerlab)** – Grab ready-to-print models and remixes
+
+Whether you're just starting out or have a wild idea for a custom rack, I'd love to hear from you. The HomeRacker community is all about sharing knowledge and helping each other build cool stuff!
 
 # ❓ Why the name?
 
