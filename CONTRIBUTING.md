@@ -4,10 +4,25 @@ Thanks for your interest in contributing! Even getting this far is already worth
 
 ## 🚀 Quick Start
 
+### Pre-commit Hooks (Required)
+
+This repository uses [pre-commit](https://pre-commit.dev/) to enforce code quality checks before commits.
+
+**Prerequisites**: Python 3.x installed on your system
+
 ```bash
 # Clone and setup
 git clone https://github.com/kellervater/homeracker.git
 cd homeracker
+
+# On Debian/Ubuntu systems, you need to install the python3-venv package before next command
+python3 -m venv ~/.venv
+
+# Activate the virtual environment
+# Windows (Git Bash/CMD/PowerShell):
+source ~/.venv/Scripts/activate
+# macOS/Linux:
+source ~/.venv/bin/activate
 
 # Install scadm package (openscad dependency manager)
 pip install -e cmd/scadm
@@ -20,28 +35,14 @@ scadm install
 scadm vscode --openscad   # For OpenSCAD development
 scadm vscode --python     # Install and configure Python extension
 
-# Verify installation
-./cmd/test/openscad-render.sh
-```
-
-### Pre-commit Hooks (Required)
-
-This repository uses [pre-commit](https://pre-commit.dev/) to enforce code quality checks before commits.
-
-**Prerequisites**: Python 3.x installed on your system
-
-```bash
-# Create and activate a virtual environment (recommended)
-python -m venv .venv
-
-# Activate the virtual environment
-# Windows (Git Bash/CMD/PowerShell):
-source .venv/Scripts/activate
-# macOS/Linux:
-source .venv/bin/activate
-
 # Install pre-commit
 pip install pre-commit
+
+# Additional dependencies for OpensCAD and pre-commit (Ubuntu / Debian)
+sudo apt install libopengl0 shellcheck
+
+# Verify installation
+./cmd/test/openscad-render.sh
 
 # Install the git hooks
 pre-commit install --install-hooks -t commit-msg -t pre-commit
