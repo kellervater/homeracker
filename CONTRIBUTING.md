@@ -6,7 +6,7 @@ Thanks for your interest in contributing! Even getting this far is already worth
 
 ### Pre-commit Hooks (Required)
 
-This repository uses [pre-commit](https://pre-commit.dev/) to enforce code quality checks before commits.
+This repository uses [pre-commit](https://pre-commit.com/) to enforce code quality checks before commits.
 
 **Prerequisites**: Python 3.x installed on your system
 
