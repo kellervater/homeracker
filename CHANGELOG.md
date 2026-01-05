@@ -1,5 +1,30 @@
 # Changelog
 
+## [1.6.0](https://github.com/kellervater/homeracker/compare/homeracker-v1.5.2...homeracker-v1.6.0) (2026-01-04)
+
+
+### ✨ Features
+
+* **core:** add extended grip type ([#173](https://github.com/kellervater/homeracker/issues/173)) ([7e4b27a](https://github.com/kellervater/homeracker/commit/7e4b27a5ea451d1894c634b91379e17961355494))
+
+
+### 📦 Dependencies
+
+* update camunda/infra-global-github-actions digest to 084e5ba ([#184](https://github.com/kellervater/homeracker/issues/184)) ([0be0d09](https://github.com/kellervater/homeracker/commit/0be0d090b3cb1859dadf3ea482bbb1ee859e8814))
+* update camunda/infra-global-github-actions digest to 309fedf ([#180](https://github.com/kellervater/homeracker/issues/180)) ([e627303](https://github.com/kellervater/homeracker/commit/e62730314923241746caf83dc3cb863c6208d9d3))
+* update dependency openscad-windows to v2026.01.03 ([#186](https://github.com/kellervater/homeracker/issues/186)) ([fce4a5a](https://github.com/kellervater/homeracker/commit/fce4a5ae4af4324405e63a119a5204fa941819ac))
+* update openscad nightly to v2026 ([#182](https://github.com/kellervater/homeracker/issues/182)) ([45efd5c](https://github.com/kellervater/homeracker/commit/45efd5c58e53859d94c5af7bfe08a8f8bc75003e))
+* update pre-commit hook renovatebot/pre-commit-hooks to v42.70.3 ([#183](https://github.com/kellervater/homeracker/issues/183)) ([b391b09](https://github.com/kellervater/homeracker/commit/b391b09e8792cac893337f6f35e169d134289505))
+* update pre-commit hook renovatebot/pre-commit-hooks to v42.71.0 ([#185](https://github.com/kellervater/homeracker/issues/185)) ([bf326b5](https://github.com/kellervater/homeracker/commit/bf326b5ad0e5e350d9ea24d9fe13f0ac2709569c))
+* update pre-commit hooks ([#181](https://github.com/kellervater/homeracker/issues/181)) ([4748876](https://github.com/kellervater/homeracker/commit/4748876a19e5ff0437b95e4f909528d67167b7d6))
+
+
+### 📚 Documentation
+
+* add Community section to README ([#175](https://github.com/kellervater/homeracker/issues/175)) ([71dbee8](https://github.com/kellervater/homeracker/commit/71dbee8386a1766a161bf7d299dba8ba229d6cd9))
+* pre-commit.dev -&gt; pre-commit.com fixes ([#179](https://github.com/kellervater/homeracker/issues/179)) ([3e61b1a](https://github.com/kellervater/homeracker/commit/3e61b1aa1029c709d934c08362df6e550f75ffc7))
+* updated CONTRIBUTING.md minor inaccuracies ([#178](https://github.com/kellervater/homeracker/issues/178)) ([a45cc3c](https://github.com/kellervater/homeracker/commit/a45cc3c98a2ce2346f5c96cf05779217950214c2))
+
 ## [1.5.2](https://github.com/kellervater/homeracker/compare/homeracker-v1.5.1...homeracker-v1.5.2) (2025-12-28)
 
 
