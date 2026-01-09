@@ -1,6 +1,7 @@
 // Gridfinity - Baseplate
 //
-// This model is part of the HomeRacker - Core system.
+// This file is part of the Gridfinity implementation by KellerLab
+// It contans the baseplate module to create baseplates of arbitrary size
 //
 // MIT License
 // Copyright (c) 2025 Patrick Pötz
@@ -26,18 +27,12 @@
 
 // IMPORTANT
 //
-// The specification has been taken from printables
+// The specification has been taken from Printables
 // grizzie17's specification was the most precise available, specifically regarding the roundings
 // https://www.printables.com/model/417152-gridfinity-specification
 
 include <BOSL2/std.scad>
 include <../../core/lib/constants.scad>
-
-GRID_X = 1;
-GRID_Y = 1;
-
-/* [Hidden] */
-$fn = 100;
 
 // all units in mm
 BOTTOM_LIP_SIDE_LENGTH = 36.3;
@@ -53,28 +48,30 @@ TOP_PART_ROUNDING = 4; // radius
 TOP_PART_HEIGHT = 2.15;
 
 module baseplate_cutout() {
-  color_this(HR_RED)
   prismoid(BOTTOM_LIP_SIDE_LENGTH, MID_PART_SIDE_LENGTH, rounding1=BOTTOM_LIP_ROUNDING, rounding2=MID_PART_ROUNDING, h=BOTTOM_LIP_HEIGHT)
-    attach(TOP,BOTTOM) color_this(HR_YELLOW) cuboid([MID_PART_SIDE_LENGTH, MID_PART_SIDE_LENGTH, MID_PART_HEIGHT], rounding=MID_PART_ROUNDING, except=[BOTTOM,TOP])
-    attach(TOP,BOTTOM) color_this(HR_BLUE) prismoid(MID_PART_SIDE_LENGTH, TOP_PART_SIDE_LENGTH, rounding1=MID_PART_ROUNDING, rounding2=TOP_PART_ROUNDING, h=TOP_PART_HEIGHT);
+    attach(TOP,BOTTOM) cuboid([MID_PART_SIDE_LENGTH, MID_PART_SIDE_LENGTH, MID_PART_HEIGHT], rounding=MID_PART_ROUNDING, except=[BOTTOM,TOP])
+    attach(TOP,BOTTOM) prismoid(MID_PART_SIDE_LENGTH, TOP_PART_SIDE_LENGTH, rounding1=MID_PART_ROUNDING, rounding2=TOP_PART_ROUNDING, h=TOP_PART_HEIGHT);
 }
 
 module baseplate(units_x=1, units_y=1) {
+  assert(is_int(units_x), "units_x must be an integer");
+  assert(is_int(units_y), "units_y must be an integer");
+  assert(units_x >= 1, "units_x must be at least 1");
+  assert(units_y >= 1, "units_y must be at least 1");
   // total height of the baseplate minus two layer heights for better printability. Avoids sharp top edges.
-  BASEPLATE_HEIGHT = BOTTOM_LIP_HEIGHT+MID_PART_HEIGHT+TOP_PART_HEIGHT-PRINTING_LAYER_HEIGHT*2;
-  baseplate_dimensions = [TOP_PART_SIDE_LENGTH*units_x, TOP_PART_SIDE_LENGTH*units_y, BASEPLATE_HEIGHT]; // baseplate dimensions (multi-unit)
-  diff()
-    // Single baseplate block
-    color("lightgray")
-    cuboid(baseplate_dimensions, rounding=TOP_PART_ROUNDING, except=[TOP,BOTTOM])
+  BASEPLATE_HEIGHT = BOTTOM_LIP_HEIGHT+MID_PART_HEIGHT+TOP_PART_HEIGHT-PRINTING_LAYER_HEIGHT*3;
+  baseplate_dimensions = [TOP_PART_SIDE_LENGTH*units_x, TOP_PART_SIDE_LENGTH*units_y, BASEPLATE_HEIGHT];
 
-    // Create a cutout for each unit of length/width
-    attach(BOTTOM,BOTTOM, inside=true) grid_copies(n=[units_x, units_y], spacing=TOP_PART_SIDE_LENGTH) {
-      // the color is for testing purposes only when someone wants to visualize the hole
-      color("red") baseplate_cutout();
-    }
+  // went with difference() instead of diff() to increase performance
+  difference() {
+    // Single baseplate block, anchored to bottom
+    cuboid(baseplate_dimensions, rounding=TOP_PART_ROUNDING, except=[TOP,BOTTOM], anchor=BOTTOM);
 
+    // Grid of cutouts, also anchored to bottom for alignment
+    grid_copies(n=[units_x, units_y], spacing=TOP_PART_SIDE_LENGTH)
+      baseplate_cutout();
+  }
 }
 
 color(HR_YELLOW)
-baseplate(GRID_X, GRID_Y);
+baseplate(grid_x, grid_y);
