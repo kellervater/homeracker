@@ -51,7 +51,7 @@ Open any file in `parts/` with OpenSCAD and use the **Customizer** panel to adju
 
 ### Exporting Variants
 
-The `makerworld/` folder contains pre-configured variants for export as self contained to MakerWorld or other platforms.
+The `makerworld/` folder contains pre-configured variants for export as self-contained files to MakerWorld or other platforms.
 
 ## 🔧 Core Components
 
