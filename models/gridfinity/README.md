@@ -33,10 +33,10 @@ include <gridfinity/lib/baseplate.scad>
 include <gridfinity/lib/binbase.scad>
 
 // Create a 3×2 baseplate
-baseplate(grid_x=3, grid_y=2);
+baseplate(units_x=3, units_y=2);
 
 // Create a 1×2 bin base
-binbase(grid_x=3, grid_y=2);
+binbase(units_x=3, units_y=2);
 
 // This is a nice example as it places the binbase exactly onto the baseplate.
 // Lets you examine tolerances :-D
