@@ -1,6 +1,6 @@
 # HomeRacker Gridfinity
 
-Gridfinity-compatible baseplates and bin bases implemented as reusable openscad modules for anyone to use.
+Gridfinity-compatible baseplates and bin bases implemented as reusable OpenSCAD modules for anyone to use.
 This library is intended to make it easier to integrate Gridfinity interfaces to your models.
 
 If you want to create a Gridfinity compatible shelf or drawer, use the `baseplate` module.
