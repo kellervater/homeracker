@@ -39,7 +39,7 @@ baseplate(grid_x=3, grid_y=2);
 binbase(grid_x=3, grid_y=2);
 
 // This is a nice example as it places the binbase exactly onto the baseplate.
-// Let's you examine tolerances :-D
+// Lets you examine tolerances :-D
 ```
 
 ### Customizing Parts
