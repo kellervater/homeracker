@@ -70,7 +70,6 @@ module binbase(units_x=1, units_y=1) {
   assert(units_y >= 1, "units_y must be at least 1");
   // total height of the binbase minus two layer heights for better printability. Avoids sharp top edges.
   BASEBIN_HEIGHT = BB_BOTTOM_LIP_HEIGHT+BB_MID_PART_HEIGHT+BB_TOP_PART_HEIGHT-PRINTING_LAYER_HEIGHT*3;
-  basebin_dimensions = [BB_TOP_PART_SIDE_LENGTH*units_x, BB_TOP_PART_SIDE_LENGTH*units_y, BASEBIN_HEIGHT];
 
 
   // Grid of cutouts, also anchored to bottom for alignment
