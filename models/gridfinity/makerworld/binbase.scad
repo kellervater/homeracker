@@ -75,7 +75,36 @@ module baseplate(units_x=1, units_y=1) {
   }
 }
 
+GRIDFINITY_BASE_UNIT = 42;
+BB_BOTTOM_LIP_SIDE_LENGTH = 35.8;
+BB_BOTTOM_LIP_ROUNDING = 0.8;
+BB_BOTTOM_LIP_HEIGHT = 0.8;
+BB_MID_PART_SIDE_LENGTH = 37.2;
+BB_MID_PART_ROUNDING = 1.6;
+BB_MID_PART_HEIGHT = 1.8;
+BB_TOP_PART_SIDE_LENGTH = 41.5;
+BB_TOP_PART_ROUNDING = 3.75;
+BB_TOP_PART_HEIGHT = 2.15;
+module binbase_cell() {
+  prismoid(BB_BOTTOM_LIP_SIDE_LENGTH, BB_MID_PART_SIDE_LENGTH, rounding1=BB_BOTTOM_LIP_ROUNDING, rounding2=BB_MID_PART_ROUNDING, h=BB_BOTTOM_LIP_HEIGHT)
+    attach(TOP,BOTTOM) cuboid([BB_MID_PART_SIDE_LENGTH, BB_MID_PART_SIDE_LENGTH, BB_MID_PART_HEIGHT], rounding=BB_MID_PART_ROUNDING, except=[BOTTOM,TOP])
+    attach(TOP,BOTTOM) prismoid(BB_MID_PART_SIDE_LENGTH, BB_TOP_PART_SIDE_LENGTH, rounding1=BB_MID_PART_ROUNDING, rounding2=BB_TOP_PART_ROUNDING, h=BB_TOP_PART_HEIGHT);
+}
+
+module binbase(units_x=1, units_y=1) {
+  assert(is_int(units_x), "units_x must be an integer");
+  assert(is_int(units_y), "units_y must be an integer");
+  assert(units_x >= 1, "units_x must be at least 1");
+  assert(units_y >= 1, "units_y must be at least 1");
+
+  BASEBIN_HEIGHT = BB_BOTTOM_LIP_HEIGHT+BB_MID_PART_HEIGHT+BB_TOP_PART_HEIGHT-PRINTING_LAYER_HEIGHT*3;
+  basebin_dimensions = [BB_TOP_PART_SIDE_LENGTH*units_x, BB_TOP_PART_SIDE_LENGTH*units_y, BASEBIN_HEIGHT];
+
+  grid_copies(n=[units_x, units_y], spacing=GRIDFINITY_BASE_UNIT)
+    binbase_cell();
+}
+
 $fs = $preview ? 0.8 : 0.4;
 $fa = $preview ? 6 : 2;
 color(HR_YELLOW)
-baseplate(grid_x, grid_y);
+binbase(grid_x, grid_y);
