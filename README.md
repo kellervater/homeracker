@@ -223,7 +223,7 @@ So, "HomeRacker" was born—part practical, part tongue-in-cheek. It fits the ho
 >  – Use it for ANY purpose (even commercial), but credit me and share alike!
 
 * Source code: `MIT License` ([LICENSE](https://github.com/kellervater/homeracker/blob/main/LICENSE))
-* 3D models & creative assets (`/models/`): `CC BY 4.0 License` ([/models/LICENSE](https://github.com/kellervater/homeracker/blob/main/models/LICENSE))
+* 3D models & creative assets (`/models/`): `CC BY-SA 4.0 License` ([/models/LICENSE](https://github.com/kellervater/homeracker/blob/main/models/LICENSE))
 
 These licenses apply to the `HomeRacker - Core` system and customizable rackmount ears.
 
