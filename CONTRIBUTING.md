@@ -104,6 +104,9 @@ The hooks can be found here: [.pre-commit-config.yaml](.pre-commit-config.yaml)
 - Test edge cases (min/max parameter values)
 - Export to STL and verify mesh integrity
 
+### MakerWorld Exports
+Files in `models/<model_type>/parts/` are automatically exported on commit. See [cmd/export/README.md](cmd/export/README.md) for details.
+
 ## 📝 Commit Conventions
 
 This project uses [Conventional Commits](https://www.conventionalcommits.org/) for automated changelog generation and semantic versioning.
@@ -194,10 +197,11 @@ Releases are automated using Camunda's GitHub actions from [infra-global-github-
 
 ```
 models/              # OpenSCAD models
+  ├── core/         # Core components (supports, connectors, lock pins)
+  ├── gridfinity/   # Gridfinity-compatible baseplates
   ├── wallmount/    # Wall mounting
   ├── flexmount/    # Flexible mounts
-  ├── gridfinity/   # Gridfinity integration
-  └── core/         # Core components
+  └── rackmount_ears/  # Customizable rack ears
 cmd/                # Command-line utilities (setup, test, lib)
 ```
 

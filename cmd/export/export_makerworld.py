@@ -388,12 +388,17 @@ if __name__ == "__main__":
         print(f"Error: {input_path} not found")
         sys.exit(1)
 
-    # Output to models/core/makerworld/
+    # Output to models/<model_type>/makerworld/
     project_root = input_path
     while project_root.parent != project_root and not (project_root / "models").exists():
         project_root = project_root.parent
 
-    output_path = project_root / "models" / "core" / "makerworld" / input_path.name
+    # Auto-detect model type from input path (e.g., models/core/parts -> core)
+    models_dir = project_root / "models"
+    relative_path = input_path.relative_to(models_dir)
+    model_type = relative_path.parts[0]  # First component is model type (core, gridfinity, etc.)
+
+    output_path = models_dir / model_type / "makerworld" / input_path.name
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
     export_for_makerworld(input_path, output_path)

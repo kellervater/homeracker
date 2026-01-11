@@ -1,7 +1,7 @@
 # HomeRacker Copilot Instructions
 
 ## Project Overview
-HomeRacker is a modular 3D-printable rack-building system. Core components use parametric OpenSCAD models (BOSL2 library). Licensed: MIT (code), CC BY SA 4.0 (models).
+HomeRacker is a modular 3D-printable rack-building system. Core components use parametric OpenSCAD models (BOSL2 library). Licensed: MIT (code), CC BY-SA 4.0 (models).
 
 ## Tools & Structure
 - **Languages**: OpenSCAD (.scad), Python, Bash

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Export all HomeRacker core models for MakerWorld
+# Export all HomeRacker models for MakerWorld
 #
 # Processes configured models/folders, exports each via export_makerworld.py,
 # then validates exports with test-models.sh.
@@ -19,9 +19,10 @@ PROJECT_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 #   - Files: export specific .scad file
 EXPORT_PATHS=(
     "models/core/parts"
+    "models/gridfinity/parts"
 )
 
-echo "Exporting HomeRacker core models for MakerWorld..."
+echo "Exporting HomeRacker models for MakerWorld..."
 
 # Collect all files to export
 FILES_TO_EXPORT=()
