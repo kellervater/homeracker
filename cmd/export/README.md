@@ -43,7 +43,7 @@ This script is opinionated about file structure, following **OpenSCAD Customizer
 ## Example
 
 ```bash
-python cmd/export/export-makerworld.py models/core/parts/connector.scad
+python cmd/export/export_makerworld.py models/core/parts/connector.scad
 # → models/core/makerworld/connector.scad
 
 python cmd/export/export_makerworld.py models/gridfinity/parts/baseplate.scad

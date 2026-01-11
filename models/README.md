@@ -12,10 +12,12 @@ The fundamental HomeRacker building system with modular components:
 See [core/README.md](core/README.md) for details.
 
 ### Gridfinity
-Parametric Gridfinity-compatible baseplates for modular storage:
-- **Baseplates**: Configurable grid dimensions (42mm units)
-- Optimized for 0.4mm nozzle printing
-- Uses adaptive circle resolution for performance
+Gridfinity-compatible components for modular storage integration:
+- **Baseplates**: Mounting surfaces for Gridfinity bins (42mm grid)
+- **Bin Bases**: Foundation for custom Gridfinity-compatible containers
+- Spec-compliant with [grizzie17's Gridfinity specification](https://www.printables.com/model/417152-gridfinity-specification)
+
+See [gridfinity/README.md](gridfinity/README.md) for details.
 
 ### Rackmount Ears
 Fully customizable rackmount ears for standard rack mounting.
