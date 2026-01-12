@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.7.0](https://github.com/kellervater/homeracker/compare/homeracker-v1.6.0...homeracker-v1.7.0) (2026-01-12)
+
+
+### ✨ Features
+
+* **gridfinity:** baseplate & binbase modules ([#187](https://github.com/kellervater/homeracker/issues/187)) ([827c041](https://github.com/kellervater/homeracker/commit/827c041989116eb15a5eed1e6ee8c0365037b0f3))
+
+
+### 📦 Dependencies
+
+* update belfryscad/bosl2 digest to ed3afe3 ([#188](https://github.com/kellervater/homeracker/issues/188)) ([ab4c7c7](https://github.com/kellervater/homeracker/commit/ab4c7c71ebacf24a18737acfdc579bdc5ae1a4db))
+* update camunda/infra-global-github-actions digest to a708558 ([#189](https://github.com/kellervater/homeracker/issues/189)) ([b674105](https://github.com/kellervater/homeracker/commit/b6741058e993a9339e55cd43f1b3b15fea641f53))
+* update pre-commit hook renovatebot/pre-commit-hooks to v42.76.4 ([#190](https://github.com/kellervater/homeracker/issues/190)) ([8417370](https://github.com/kellervater/homeracker/commit/8417370c3f9a8645f475bd4ae8bbff5bb15ffe26))
+* update pre-commit hook renovatebot/pre-commit-hooks to v42.76.5 ([#192](https://github.com/kellervater/homeracker/issues/192)) ([859dfd6](https://github.com/kellervater/homeracker/commit/859dfd62cfa6b475130568274b051cbf55157aa7))
+* update pre-commit hook renovatebot/pre-commit-hooks to v42.78.0 ([#193](https://github.com/kellervater/homeracker/issues/193)) ([92db61f](https://github.com/kellervater/homeracker/commit/92db61f778b6ac51ca16ca33321850b6718fa1fe))
+* update pre-commit hook renovatebot/pre-commit-hooks to v42.78.1 ([#194](https://github.com/kellervater/homeracker/issues/194)) ([a217589](https://github.com/kellervater/homeracker/commit/a2175890a86c2bf8d3e12063cfb2eb96f1cbf9f7))
+
 ## [1.6.0](https://github.com/kellervater/homeracker/compare/homeracker-v1.5.2...homeracker-v1.6.0) (2026-01-04)
 
 
