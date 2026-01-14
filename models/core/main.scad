@@ -30,3 +30,4 @@
 include <lib/support.scad>
 include <lib/connector.scad>
 include <lib/lockpin.scad>
+include <lib/panel.scad>
