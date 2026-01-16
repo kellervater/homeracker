@@ -6,7 +6,7 @@ HomeRacker is a fully modular 3D-printable rack-building system for virtually an
 
 You can find all parametric and non-parametric models, as well as the `.f3d` files (like the `HomeRacker - Core`), on [Makerworld](https://makerworld.com/en/@kellerlab).
 
-The parametric models are available in the [HomeRacker GitHub Repository](https://github.com/kellervater/homeracker/tree/main/models).
+The parametric models are available in the [HomeRacker GitHub Repository](https://github.com/kellerlabs/homeracker/tree/main/models).
 
 > 💡 **Note**
 > The basic HomeRacker system is also referred to as `HomeRacker - Core`. Free for everyone to use, remix, and reshare.
@@ -54,7 +54,7 @@ Aside from the basic [building blocks](#-tech-specs), the rack above also contai
   * [Raspi 5 Mount Kit](https://makerworld.com/en/models/1324096-pi-5-snapcase-for-homeracker#profileId-1360937):
     * Vertical Mount Adapter for HomeRacker
     * Front panel for 10" racks
-  * Rackmount ears for the switch. These are fully customizable rackmount ears I created as an [OpenSCAD file](https://github.com/kellervater/homeracker/blob/main/models/rackmount_ears/rackmount_ears.scad). You can customize it directly [here](https://makerworld.com/en/models/1259227-fully-customizable-rackmount-ears#profileId-1283271).
+  * Rackmount ears for the switch. These are fully customizable rackmount ears I created as an [OpenSCAD file](https://github.com/kellerlabs/homeracker/blob/main/models/rackmount_ears/rackmount_ears.scad). You can customize it directly [here](https://makerworld.com/en/models/1259227-fully-customizable-rackmount-ears#profileId-1283271).
   * [HomeRacker Airflow Kit](https://makerworld.com/en/models/1353730-modular-10-server-rack#profileId-1396904) (currently part of the 10" rack model), which consists of:
     * Front/back panels
     * Side panels
@@ -199,7 +199,7 @@ I created `HomeRacker - Core` to be an open spec that any maker can build on, wi
 
 I encourage you to make your own models based on HomeRacker!
 Let me know, and I’ll feature your work on this page and cross-link it on Makerworld (subject to my "very objective" approval 😄).
-Just [create an issue](https://github.com/kellervater/homeracker/issues/new) if you want to be featured.
+Just [create an issue](https://github.com/kellerlabs/homeracker/issues/new) if you want to be featured.
 
 # 💬 Community
 
@@ -222,8 +222,8 @@ So, "HomeRacker" was born—part practical, part tongue-in-cheek. It fits the ho
 > 💡 **tl;dr**
 >  – Use it for ANY purpose (even commercial), but credit me and share alike!
 
-* Source code: `MIT License` ([LICENSE](https://github.com/kellervater/homeracker/blob/main/LICENSE))
-* 3D models & creative assets (`/models/`): `CC BY-SA 4.0 License` ([/models/LICENSE](https://github.com/kellervater/homeracker/blob/main/models/LICENSE))
+* Source code: `MIT License` ([LICENSE](https://github.com/kellerlabs/homeracker/blob/main/LICENSE))
+* 3D models & creative assets (`/models/`): `CC BY-SA 4.0 License` ([/models/LICENSE](https://github.com/kellerlabs/homeracker/blob/main/models/LICENSE))
 
 These licenses apply to the `HomeRacker - Core` system and customizable rackmount ears.
 
@@ -245,7 +245,7 @@ HomeRacker includes custom tooling to streamline development:
 - **[Renovate Preset](renovate-dependencies.json)** - Automated dependency updates
   - Tracks OpenSCAD versions, GitHub releases, and Python packages
   - Custom rules for this project's specific needs
-  - Extend in your project: `"extends": ["github>kellervater/homeracker:renovate-dependencies"]`
+  - Extend in your project: `"extends": ["github>kellerlabs/homeracker:renovate-dependencies"]`
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for setup instructions.
 

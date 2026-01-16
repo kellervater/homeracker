@@ -44,7 +44,7 @@ Dependencies are defined in `scadm.json` at the repository root. The installer s
     },
     {
       "name": "homeracker",
-      "repository": "kellervater/homeracker",
+      "repository": "kellerlabs/homeracker",
       "version": "homeracker-v1.3.1",
       "source": "github"
     },
@@ -67,7 +67,7 @@ To enable Renovate to update these dependencies, extend the configuration from t
 ```json
 {
   "extends": [
-    "github>kellervater/homeracker:renovate-dependencies.json"
+    "github>kellerlabs/homeracker:renovate-dependencies.json"
   ]
 }
 ```

@@ -25,11 +25,11 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/kellervater/homeracker"
-Repository = "https://github.com/kellervater/homeracker"
-Documentation = "https://github.com/kellervater/homeracker/tree/main/cmd/scadm"
-Issues = "https://github.com/kellervater/homeracker/issues"
-Changelog = "https://github.com/kellervater/homeracker/blob/main/cmd/scadm/CHANGELOG.md"
+Homepage = "https://github.com/kellerlabs/homeracker"
+Repository = "https://github.com/kellerlabs/homeracker"
+Documentation = "https://github.com/kellerlabs/homeracker/tree/main/cmd/scadm"
+Issues = "https://github.com/kellerlabs/homeracker/issues"
+Changelog = "https://github.com/kellerlabs/homeracker/blob/main/cmd/scadm/CHANGELOG.md"
 
 [project.scripts]
 scadm = "scadm.cli:main"

@@ -12,7 +12,7 @@ This repository uses [pre-commit](https://pre-commit.com/) to enforce code quali
 
 ```bash
 # Clone and setup
-git clone https://github.com/kellervater/homeracker.git
+git clone https://github.com/kellerlabs/homeracker.git
 cd homeracker
 
 # On Debian/Ubuntu systems, you need to install the python3-venv package before next command
@@ -207,8 +207,8 @@ cmd/                # Command-line utilities (setup, test, lib)
 
 ## 💬 Getting Help
 
-- [Open an issue](https://github.com/kellervater/homeracker/issues) for bugs/features
-- [Start a discussion](https://github.com/kellervater/homeracker/discussions) for questions
+- [Open an issue](https://github.com/kellerlabs/homeracker/issues) for bugs/features
+- [Start a discussion](https://github.com/kellerlabs/homeracker/discussions) for questions
 - See [scadm documentation](cmd/scadm/README.md) for dependency manager details
 
 ## 🔔 Discord Integration
