@@ -74,5 +74,5 @@ To enable Renovate to update these dependencies, extend the configuration from t
 
 The preset supports:
 - Git commit hashes (40-character hex strings)
-- HomeRacker tags (`homeracker-vX.Y.Z` for `kellervater/homeracker`)
+- HomeRacker tags (`homeracker-vX.Y.Z` for `kellerlabs/homeracker`)
 - SemVer tags (`vX.Y.Z` or `X.Y.Z` for other repositories)
