@@ -3,7 +3,7 @@
   "extends": [
     "config:recommended",
     ":enablePreCommit",
-    "local>kellervater/homeracker:renovate-dependencies.json"
+    "local>kellerlabs/homeracker:renovate-dependencies.json"
   ],
   // Ignore any repository config presets
   "ignorePresets": [":all"],

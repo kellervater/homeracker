@@ -95,5 +95,5 @@ Junction pieces that join supports in multiple directions.
 
 ## 🔗 Resources
 
-- [Main Repository](https://github.com/kellervater/homeracker)
+- [Main Repository](https://github.com/kellerlabs/homeracker)
 - [BOSL2 Library Documentation](https://github.com/BelfrySCAD/BOSL2/wiki)

@@ -125,7 +125,7 @@ scadm vscode --python     # Install and configure Python extension
     },
     {
       "name": "homeracker",
-      "repository": "kellervater/homeracker",
+      "repository": "kellerlabs/homeracker",
       "version": "v1.2.3",
       "source": "github"
     }
@@ -173,7 +173,7 @@ Add this preset to your `renovate.json`:
 ```json
 {
   "extends": [
-    "github>kellervater/homeracker:renovate-dependencies"
+    "github>kellerlabs/homeracker:renovate-dependencies"
   ]
 }
 ```
@@ -188,4 +188,4 @@ MIT
 
 ## Contributing
 
-Issues and pull requests are welcome at [kellervater/homeracker](https://github.com/kellervater/homeracker).
+Issues and pull requests are welcome at [kellerlabs/homeracker](https://github.com/kellerlabs/homeracker).
