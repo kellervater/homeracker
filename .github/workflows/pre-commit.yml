@@ -1,6 +1,11 @@
 ---
 name: Pre-commit
 
+# Using both pull_request and pull_request_target triggers to support:
+# - pull_request: Regular contributors (may require approval based on repo settings)
+# - pull_request_target: Renovate bot (runs without requiring approval)
+# Security: Explicitly checks out PR head SHA to test actual PR code while
+# maintaining read-only permissions (no secrets usage).
 on:
   pull_request:
   pull_request_target:

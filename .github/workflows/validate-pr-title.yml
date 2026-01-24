@@ -1,6 +1,11 @@
 ---
 name: Validate PR Title
 
+# Using both pull_request and pull_request_target triggers to support:
+# - pull_request: Regular contributors (may require approval based on repo settings)
+# - pull_request_target: Renovate bot (runs without requiring approval)
+# This workflow only validates PR metadata and doesn't checkout code, so there's no
+# security risk with pull_request_target (no untrusted code is executed).
 on:
   pull_request:
     types: [opened, edited, synchronize, reopened]
