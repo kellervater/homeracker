@@ -1,15 +1,8 @@
 ---
 name: Validate PR Title
 
-# Using both pull_request and pull_request_target triggers to support:
-# - pull_request: Regular contributors (may require approval based on repo settings)
-# - pull_request_target: Renovate bot (runs without requiring approval)
-# This workflow only validates PR metadata and doesn't checkout code, so there's no
-# security risk with pull_request_target (no untrusted code is executed).
 on:
   pull_request:
-    types: [opened, edited, synchronize, reopened]
-  pull_request_target:
     types: [opened, edited, synchronize, reopened]
 
 permissions:
@@ -17,9 +10,6 @@ permissions:
 
 jobs:
   validate-title:
-    # Only run on PRs from the same repository or from Renovate bot to prevent
-    # potential issues from untrusted forks
-    if: github.event.pull_request.head.repo.full_name == github.repository || github.actor == 'renovate[bot]'
     runs-on: ubuntu-latest
     steps:
       - name: Validate PR title

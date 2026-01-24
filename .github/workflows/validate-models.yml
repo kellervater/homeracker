@@ -1,20 +1,8 @@
 ---
 name: Validate OpenSCAD Models
 
-# Using both pull_request and pull_request_target triggers to support:
-# - pull_request: Regular contributors (may require approval based on repo settings)
-# - pull_request_target: Renovate bot (runs without requiring approval)
-# Security: Explicitly checks out PR head SHA to test actual PR code while
-# maintaining read-only permissions (no secrets usage).
 on:
   pull_request:
-    paths:
-      - 'models/**/*.scad'
-      - '.github/workflows/validate-models.yml'
-      - 'cmd/scadm/**'
-      - 'scadm.json'
-      - 'cmd/test/openscad-render.sh'
-  pull_request_target:
     paths:
       - 'models/**/*.scad'
       - '.github/workflows/validate-models.yml'
@@ -24,9 +12,6 @@ on:
 
 jobs:
   validate:
-    # Only run on PRs from the same repository or from Renovate bot to prevent
-    # cache poisoning from untrusted forks
-    if: github.event.pull_request.head.repo.full_name == github.repository || github.actor == 'renovate[bot]'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -34,8 +19,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
-        with:
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Install system dependencies
         run: |
