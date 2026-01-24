@@ -5,8 +5,6 @@
     ":enablePreCommit",
     "local>kellerlabs/homeracker:renovate-dependencies.json"
   ],
-  // Ignore any repository config presets
-  "ignorePresets": [":all"],
   // Disable platform-native automerge, let Renovate handle merges directly
   "platformAutomerge": false,
   // Disable dependency dashboard approval requirement - PRs are created automatically when Renovate runs (per schedule)

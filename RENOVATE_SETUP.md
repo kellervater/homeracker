@@ -1,16 +1,27 @@
 # Renovate "needs-approval" Issue Resolution
 
-## Root Cause
+## Root Cause - ACTUAL ISSUE FOUND
 
-The "needs-approval" status in Renovate logs (`"prNo": null, "result": "needs-approval"`) indicates that **PRs have not been created yet** and are waiting for one of these conditions:
+**The `ignorePresets: [":all"]` setting was breaking Renovate's PR creation!**
 
-1. **Schedule approval** (most common in this repo) - Updates are queued until the configured schedule allows
-2. **Dashboard approval** - Manual checkbox approval required in Dependency Dashboard
-3. **Branch protection approval** - PRs created but blocked from merging by GitHub branch protection rules
+This setting tells Renovate to ignore **ALL** presets, including `config:recommended`. This means that even though the config extended `config:recommended`, none of its settings (including PR creation behavior) were being applied.
 
-## Understanding "needs-approval" vs "awaiting schedule"
+### Why This Caused "needs-approval"
 
-These terms are related but different:
+1. `ignorePresets: [":all"]` prevented `config:recommended` from applying its settings
+2. Without proper preset configuration, Renovate couldn't determine when/how to create PRs
+3. PRs remained in "needs-approval" state (`"prNo": null`) indefinitely
+4. The weekend schedule was working correctly, but PR creation logic was broken
+
+### The Fix
+
+**Removed `ignorePresets: [":all"]` from renovate.json5**
+
+This allows `config:recommended` preset to properly configure PR creation behavior. The original intent (per comment) was to ignore repository-level config presets, but `:all` was too broad and disabled everything.
+
+## Previous Misdiagnosis
+
+The initial analysis incorrectly attributed "needs-approval" to schedule restrictions. While the schedule does restrict PR creation to weekends, the actual blocker was the `ignorePresets` setting preventing PRs from being created at all.
 
 ### Status Terminology
 
