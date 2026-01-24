@@ -9,6 +9,13 @@ on:
       - 'cmd/scadm/**'
       - 'scadm.json'
       - 'cmd/test/openscad-render.sh'
+  pull_request_target:
+    paths:
+      - 'models/**/*.scad'
+      - '.github/workflows/validate-models.yml'
+      - 'cmd/scadm/**'
+      - 'scadm.json'
+      - 'cmd/test/openscad-render.sh'
 
 jobs:
   validate:
@@ -19,6 +26,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Install system dependencies
         run: |
