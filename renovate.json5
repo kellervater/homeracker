@@ -9,7 +9,7 @@
   "ignorePresets": [":all"],
   // Disable platform-native automerge, let Renovate handle merges directly
   "platformAutomerge": false,
-  // Disable dependency dashboard approval requirement - PRs should be created immediately
+  // Disable dependency dashboard approval requirement - PRs are created automatically when Renovate runs (per schedule)
   "dependencyDashboardApproval": false,
   "schedule": ["* * * * 0,6"],
   // Use "deps" as commit type instead of "chore(deps)"
